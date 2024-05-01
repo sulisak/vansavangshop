@@ -303,6 +303,8 @@ exit();
 }
 echo  $this->productlist_model->Get($data);
 
+// echo  $this->exchangerate_model->Get($data);
+
 // echo "hellllll";
 
 }
