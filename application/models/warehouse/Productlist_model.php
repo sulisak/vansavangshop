@@ -351,6 +351,8 @@ $querynum = $this->db->query('SELECT
     sp.supplier_name as supplier_name,
     wl.zone_id as zone_id,
 	wl.is_course as is_course,
+  wl.e_id as e_id,
+  e.title_name as title_name,
     z.zone_name as zone_name,
     wu.product_unit_id as product_unit_id,
     wu.product_unit_name as product_unit_name
@@ -360,6 +362,7 @@ $querynum = $this->db->query('SELECT
     LEFT JOIN supplier as sp on sp.supplier_id=wl.supplier_id
     LEFT JOIN zone as z on z.zone_id=wl.zone_id
 LEFT JOIN serial_number as sn on sn.product_id=wl.product_id
+LEFT JOIN exchangerate as e on e.e_id=wl.e_id
     WHERE
     wl.product_code LIKE "%'.$data['searchtext'].'%"
     OR wl.product_name LIKE "%'.$data['searchtext'].'%"
@@ -403,6 +406,8 @@ $query = $this->db->query('SELECT
     wl.product_unit_id as product_unit_id,
     IFNULL(wu.product_unit_name,"") as product_unit_name,
     wl.product_num_min as product_num_min,
+    wl.e_id as e_id,
+    e.title_name as title_name,
  (SELECT count(*) FROM wh_product_other_list as sd WHERE sd.product_id=wl.product_id) as product_num_other2,
   (SELECT count(*) FROM wh_product_relation_list as sd WHERE sd.product_id=wl.product_id) as product_num_other
     FROM wh_product_list  as wl
@@ -410,6 +415,7 @@ $query = $this->db->query('SELECT
     LEFT JOIN wh_product_unit as wu on wu.product_unit_id=wl.product_unit_id
     LEFT JOIN supplier as sp on sp.supplier_id=wl.supplier_id
     LEFT JOIN zone as z on z.zone_id=wl.zone_id
+    LEFT JOIN exchangerate as e on e.e_id=wl.e_id
 LEFT JOIN serial_number as sn on sn.product_id=wl.product_id
     WHERE  wl.product_code LIKE "%'.$data['searchtext'].'%"
     OR wl.product_name LIKE "%'.$data['searchtext'].'%"

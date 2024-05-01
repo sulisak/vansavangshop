@@ -99,6 +99,7 @@ if($_SESSION['user_type']==4 || $_SESSION['user_type']==3 ) // this one let admi
 			<th style="text-align: center;"><?=$lang_cost?></th>
 			<?php } ?>
 			
+			<th style="text-align: center;">ສະກຸນເງິນ</th>
 			<th style="text-align: center;"><?=$lang_score?></th>
 			<th style="text-align: center;"><?=$lang_wherestore?></th>
 			<th style="text-align: center;">Popup</th>
@@ -225,6 +226,7 @@ if($_SESSION['user_type']==4 || $_SESSION['user_type']==3 ) // this one let admi
 			
 			<?php } ?>
 			
+			<td align="right">{{x.title_name }}</td>
 			<td align="right">{{x.product_score | number}}</td>
 
 			<td align="right">{{x.zone_name}}</td>
