@@ -1415,8 +1415,8 @@ app.controller('Index', function($scope, $http, $location) {
                 });
             }
             // console.log($scope.list);
-            $scope.selectpage = page;
-            $scope.selectthispage = $scope.page;
+            // $scope.selectpage = page;
+            // $scope.selectthispage = $scope.page;
         });
     };
     $scope.getlist('', '1');
