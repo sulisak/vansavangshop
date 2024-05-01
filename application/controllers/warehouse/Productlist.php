@@ -293,8 +293,8 @@ $data3['product_category_id'] = $data['product_category_id'];
 
 
 
-    function Get()
-    {
+function Get()
+{
 
 
 $data = json_decode(file_get_contents("php://input"),true);
@@ -302,10 +302,6 @@ if(!isset($data)){
 exit();
 }
 echo  $this->productlist_model->Get($data);
-
-// echo  $this->exchangerate_model->Get($data);
-
-// echo "hellllll";
 
 }
 
