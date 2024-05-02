@@ -302,8 +302,28 @@ if(!isset($data)){
 exit();
 }
 echo  $this->productlist_model->Get($data);
+// echo  $this->exchangerate_model->get($data);
 
 }
+
+
+
+    function Getcurrency()
+    {
+
+
+$data = json_decode(file_get_contents("php://input"),true);
+if(!isset($data)){
+exit();
+}
+
+echo  $this->exchangerate_model->get($data);
+
+
+}
+
+
+
 
 
     function Updatenopic()
