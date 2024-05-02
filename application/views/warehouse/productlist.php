@@ -17,7 +17,7 @@ foreach ($Getpermission_rule as $value) {
 
 
             <div class="form-group" style="float: left;">
-                <button class="btn btn-primary" ng-click="Modaladd()"><?php echo $lang_pl_1;?> derrrr</button>
+                <button class="btn btn-primary" ng-click="Modaladd()"><?php echo $lang_pl_1;?> </button>
             </div>
 
 
