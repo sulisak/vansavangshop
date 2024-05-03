@@ -40,6 +40,7 @@ $data2['count_stock'] = $data['count_stock'];
 $data2['product_num_min'] = $data['product_num_min'];
 $data2['is_course'] = $data['is_course'];
 $data2['product_weight'] = $data['product_weight'];
+$data2['e_id'] = $data['e_id'];
 
 if(isset($data['product_stock_num'])){
 	$data2['product_stock_num'] = $data['product_stock_num'];
@@ -209,6 +210,7 @@ $data2['count_stock'] = $data['count_stock'];
 $data2['product_num_min'] = $data['product_num_min'];
 $data2['is_course'] = $data['is_course'];
 $data2['product_weight'] = $data['product_weight'];
+$data2['e_id'] = $data['e_id'];
 
 $where = array(
         'owner_id' => $_SESSION['owner_id'],

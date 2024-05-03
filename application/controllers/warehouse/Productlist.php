@@ -136,6 +136,7 @@ $data['count_stock'] = $_POST['count_stock'];
 $data['product_num_min'] = $_POST['product_num_min'];
 $data['is_course'] = $_POST['is_course'];
 $data['product_weight'] = $_POST['product_weight'];
+$data['e_id'] = $_POST['e_id'];
 
 		$success = $this->productlist_model->Add($data);
 
@@ -226,6 +227,7 @@ $data['count_stock'] = $_POST['count_stock'];
 $data['product_num_min'] = $_POST['product_num_min'];
 $data['is_course'] = $_POST['is_course'];
 $data['product_weight'] = $_POST['product_weight'];
+$data['e_id'] = $_POST['e_id'];
 
 		$success = $this->productlist_model->Update($data);
 

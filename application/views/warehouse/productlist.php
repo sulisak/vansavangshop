@@ -705,13 +705,6 @@ if($_SESSION['user_type']==4 || $_SESSION['user_type']==3 ) // this one update f
                                 </select>
                                 <p></p>
 
-                                Zone
-                                <select class="form-control" name="zone_id">
-                                    <option value="0"><?=$lang_select?></option>
-                                    <option ng-repeat="x in zonelist" value="{{x.zone_id}}">
-                                        {{x.zone_name}}
-                                    </option>
-                                </select>
 
 
 
@@ -972,7 +965,14 @@ if($_SESSION['user_type']==4 || $_SESSION['user_type']==3 ) // this one update f
 
                                 <br />
 
-
+                                ສະກຸນເງິນ
+                                <select class="form-control" name="e_id" id="e_id">
+                                    <option value="0"><?=$lang_select?></option>
+                                    <option ng-repeat="x in currencylist" value="{{x.e_id}}">
+                                        {{x.title_name}}
+                                    </option>
+                                </select>
+                                <br />
 
                                 <center>
 
