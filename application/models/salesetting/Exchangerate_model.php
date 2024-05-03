@@ -89,9 +89,13 @@ if ($this->db->update("owner", $data)){
         public function Get()
         {
 
-$query = $this->db->query('SELECT e_id,title_name,rate FROM exchangerate ORDER BY e_id ASC');
+$query = $this->db->query('SELECT * FROM exchangerate ORDER BY e_id ASC');
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
-return $encode_data;
+
+
+$json = '{"list": '.$encode_data.'}';
+
+return $json;
 
         }
         // ========= test =======================

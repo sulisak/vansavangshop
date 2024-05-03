@@ -536,12 +536,28 @@ public function Get($data)
 }
 // end new update solution performance slow ==============================================
 // add new ==========================
+        // public function Currencylist()
+        // {
+
+        //   $query = $this->db->query('SELECT title_name FROM exchangerate ORDER BY e_id ASC');
+        //   $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
+        //   return $encode_data;
+
+        // }
+
+
         public function Currencylist()
         {
 
-          $query = $this->db->query('SELECT title_name FROM exchangerate ORDER BY e_id ASC');
-          $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
-          return $encode_data;
+
+$query = $this->db->query('SELECT *
+     FROM exchangerate ORDER BY e_id ASC');
+
+$encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
+
+$json = '{"list": '.$encode_data.'}';
+
+return $json;
 
         }
 

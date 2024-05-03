@@ -697,13 +697,21 @@ if($_SESSION['user_type']==4 || $_SESSION['user_type']==3 ) // this one update f
                                 </select> -->
 
 								ສະກຸນເງິນ
-                                <!-- <select class="form-control" name="e_id">
+                                <select class="form-control" name="e_id">
                                     <option value="0"><?=$lang_select?></option>
-                                    <option ng-repeat="w in currencylist" value="{{w.e_id}}">
-                                        {{w.title_name}}
+                                    <option ng-repeat="x in currencylist" value="{{x.e_id}}">
+                                        {{x.title_name}}
                                     </option>
-                                </select> -->
+                                </select>
                                 <p></p>
+
+                                Zone
+                                <select class="form-control" name="zone_id">
+                                    <option value="0"><?=$lang_select?></option>
+                                    <option ng-repeat="x in zonelist" value="{{x.zone_id}}">
+                                        {{x.zone_name}}
+                                    </option>
+                                </select>
 
 
 
@@ -1357,22 +1365,24 @@ app.controller('Index', function($scope, $http, $location) {
         $http.get('Zone/getlist')
             .then(function(response) {
                 $scope.zonelist = response.data.list;
+                console.log($scope.zonelist);
 
             });
     };
     $scope.getzone();
+
 	// add new ====================
 
-// 	$scope.getcurrency = function() {
+ 	$scope.getcurrency = function() {
 
-// $http.get('Productlist/Getcurrency')
-// 	.then(function(response) {
-// 		$scope.currencylist = response.data.list;
-// 		console.log($scope.currencylist);
+ $http.get('Exchangerate/getlist')
+	.then(function(response) {
+	$scope.currencylist = response.data.list;
+		console.log($scope.currencylist);
 
-// 	});
-// };
-// $scope.getcurrency();
+	});
+ };
+$scope.getcurrency();
 
     // $scope.getcurrency = function() {
 

@@ -308,19 +308,13 @@ echo  $this->productlist_model->Get($data);
 
 
 
-    function Getcurrency()
-    {
+//     function Getcurrencylist()
+//     {
+
+// echo  $this->productlist_model->Currencylist($data);
 
 
-$data = json_decode(file_get_contents("php://input"),true);
-if(!isset($data)){
-exit();
-}
-
-echo  $this->exchangerate_model->get($data);
-
-
-}
+// }
 
 
 
