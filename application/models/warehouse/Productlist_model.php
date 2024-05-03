@@ -138,10 +138,6 @@ $this->db->insert("stock", $data3);
 
 		}
 		
-		
-		
-
-
 public function Addsizecolor($data)
         {
 
@@ -253,17 +249,6 @@ if ($this->db->update("wh_product_list", $data2)){
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
            public function Updatenopic($data)
         {
@@ -609,16 +594,6 @@ return true;
         }
 
 
-
-
-
-
-
-
-
-
-
-
         public function Searchpot($data)
      {
 
@@ -634,11 +609,6 @@ $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 return $encode_data;
 
      }
-
-
-
-
-
      public function Getpotlist($data)
    {
 
@@ -658,10 +628,6 @@ wrl.product_type_relation
    return $encode_data;
 
    }
-
-
-
-
    public function Getpotlistshowall($data)
  {
 
@@ -675,11 +641,6 @@ wrl.product_type_relation
  return $encode_data;
 
  }
-
-
-
-
-
 
    public function Addpot($data)
   {
@@ -758,19 +719,6 @@ return $encode_data;
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         public function Searchpot2($data)
      {
 
@@ -784,10 +732,6 @@ $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 return $encode_data;
 
      }
-
-
-
-
 
      public function Getpotlist2($data)
    {

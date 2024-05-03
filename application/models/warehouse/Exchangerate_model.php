@@ -98,7 +98,7 @@ return $json;
         {
 
 
-$query = $this->db->query('SELECT *
+$query = $this->db->query('SELECT e_id,title_name
      FROM exchangerate order by e_id ASC');
 
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
