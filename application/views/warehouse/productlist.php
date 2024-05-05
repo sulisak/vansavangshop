@@ -74,7 +74,7 @@ if($_SESSION['user_type']==4 || $_SESSION['user_type']==3 ) // this one let admi
                 <table ng-if="list" id="headerTable" class="table table-hover table-bordered" style="font-size: 14px;">
                     <thead>
                         <tr style="background-color: #eee;">
-                            <th style="width: 50px;"><?=$lang_rank?></th>
+                            <th style="width: 50px;"><?=$lang_rank?>hello</th>
                             <th style="text-align: center;"><?=$lang_barcode?></th>
                             <th style="text-align: center;"><?=$lang_picproduct?></th>
                             <th style="text-align: center;"><?=$lang_productname?></th>
@@ -100,6 +100,7 @@ if($_SESSION['user_type']==4 || $_SESSION['user_type']==3 ) // this one let admi
                             <?php } ?>
 
                             <th style="text-align: center;">ສະກຸນເງິນ</th>
+                            <th style="text-align: center;">ລາຄາເປັນເງິນ KIP</th>
                             <th style="text-align: center;"><?=$lang_score?></th>
                             <th style="text-align: center;"><?=$lang_wherestore?></th>
                             <th style="text-align: center;">Popup</th>
@@ -233,6 +234,7 @@ if($_SESSION['user_type']==4 || $_SESSION['user_type']==3 ) // this one let admi
                             <?php } ?>
 
                             <td align="right">{{x.title_name }}</td>
+                            <td align="right">{{ x.rate * x.product_price }}</td>
                             <td align="right">{{x.product_score | number}}</td>
 
                             <td align="right">{{x.zone_name}}</td>
@@ -965,13 +967,27 @@ if($_SESSION['user_type']==4 || $_SESSION['user_type']==3 ) // this one update f
 
                                 <br />
 
-                                ສະກຸນເງິນ
+                                <!-- ສະກຸນເງິນ
                                 <select class="form-control" name="e_id" id="e_id">
                                     <option value="0"><?=$lang_select?></option>
                                     <option ng-repeat="x in currencylist" value="{{x.e_id}}">
                                         {{x.title_name}}
                                     </option>
+                                </select> -->
+
+
+
+                                ສະກຸນເງິນ
+                                <select class="form-control" id="e_id" name="e_id">
+                                    <option value="0"><?=$lang_select?></option>
+                                    <option ng-repeat="x in currencylist" value="{{x.e_id}}">
+                                        {{x.title_name}}
+                                    </option>
                                 </select>
+                                <p></p>
+
+
+
                                 <br />
                                 <!-- compare ------------ -->
                                 <!-- Zone
@@ -1431,7 +1447,7 @@ app.controller('Index', function($scope, $http, $location) {
     $scope.searchtext = '';
     $scope.selectthispage = '1';
     $scope.perpage = '10';
-    $scope.getlist = function(searchtext, page, perpage) {
+    $scope.getlist = function(searchtext) {
         $scope.list = false;
         if (!searchtext) {
             searchtext = '';
@@ -1559,6 +1575,7 @@ app.controller('Index', function($scope, $http, $location) {
         $("#product_num_min").val(x.product_num_min);
         $("#is_course").val(x.is_course);
         $("#product_weight").val(x.product_weight);
+        $("#e_id").val(x.e_id);
 
         $scope.product_image = x.product_image;
 

@@ -59,7 +59,7 @@ return $encode_data;
 
 
 
-
+// query correct ==============
            public function Getproductlist()
         {
 
@@ -75,6 +75,9 @@ $query1 = $this->db->query('SELECT
 	wl.product_price3 as product_price3,
 	wl.product_price4 as product_price4,
 	wl.product_price5 as product_price5,
+  e.e_id as e_id,
+  e.title_name as title_name,
+  e.rate as rate,
     wl.product_price_discount as product_price_discount,
     IFNULL((SELECT s.product_stock_num FROM stock as s WHERE s.product_id=wl.product_id AND s.branch_id="'.$_SESSION['branch_id'].'" LIMIT 1), "0") as product_stock_num,
     wl.product_price_value as product_price_value,
@@ -83,10 +86,11 @@ $query1 = $this->db->query('SELECT
     wl.product_rank as product_rank
     FROM wh_product_list  as wl
     LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_category_id
+    LEFT JOIN exchangerate as e on e.e_id=wl.e_id
     WHERE wl.owner_id="'.$_SESSION['owner_id'].'" AND wl.product_rank !="0"
     ORDER BY wl.product_rank ASC');
 	
-	
+	// query correct ==============
 	
 	$query2 = $this->db->query('SELECT
     wl.product_id as product_id,
@@ -105,9 +109,13 @@ $query1 = $this->db->query('SELECT
     wl.product_price_value as product_price_value,
     wc.product_category_id as product_category_id,
     wc.product_category_name as product_category_name,
-    wl.product_rank as product_rank
+    wl.product_rank as product_rank,
+    wl.e_id as e_id,
+    e.title_name as title_name,
+    e.rate as rate
     FROM wh_product_list  as wl
     LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_category_id
+    LEFT JOIN exchangerate as e on e.e_id=wl.e_id
     WHERE wl.owner_id="'.$_SESSION['owner_id'].'"
     ORDER BY wl.product_id ASC LIMIT 17');
 	
@@ -121,7 +129,7 @@ $encode_data = json_encode($qq->result(),JSON_UNESCAPED_UNICODE );
 return $encode_data;
 
 }
-
+// query correct ===============
 
           public function Getproductlistcat($data)
         {
@@ -143,16 +151,20 @@ $query = $this->db->query('SELECT
     wl.product_price_value as product_price_value,
     wc.product_category_id as product_category_id,
     wc.product_category_name as product_category_name,
-    wl.product_rank as product_rank
+    wl.product_rank as product_rank,
+    wl.e_id as e_id,
+    e.title_name as title_name,
+    e.rate as rate
     FROM wh_product_list  as wl
     LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_category_id
+    LEFT JOIN exchangerate as e on e.e_id=wl.e_id
     WHERE wl.owner_id="'.$_SESSION['owner_id'].'" AND wc.product_category_id="'.$data['product_category_id'].'"
     ORDER BY wl.product_id ASC');
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 return $encode_data;
 
         }
-
+// correct =============
 
 public function Searchproductlist($data)
         {
@@ -174,9 +186,12 @@ $query = $this->db->query('SELECT
     wl.product_price_value as product_price_value,
     wc.product_category_id as product_category_id,
     wc.product_category_name as product_category_name,
-    wl.product_rank as product_rank
+    wl.product_rank as product_rank,
+    e.e_id as e_id,
+    e.title_name as title_name
     FROM wh_product_list  as wl
     LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_category_id
+    LEFT JOIN exchangerate as e on e.e_id=wl.e_id
     WHERE wl.owner_id="'.$_SESSION['owner_id'].'" AND wl.product_name LIKE "%'.$data['searchproduct'].'%" OR wl.owner_id="'.$_SESSION['owner_id'].'" AND wl.product_code LIKE "%'.$data['searchproduct'].'%"
     ORDER BY LENGTH(wl.product_code) ASC ,CONVERT( wl.product_name USING tis620 ) ASC');
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
@@ -184,7 +199,7 @@ return $encode_data;
 
         }
 
-
+// ok =======
 
         public function Findproduct($data)
         {
@@ -205,13 +220,6 @@ ORDER BY sn_id DESC LIMIT 1');
 $count_row_query_sn = $query_sn->num_rows();
 
 
-
-
-
-
-
-
-
 if($count_row_queryfirst == 0){
 
 if($count_row_query_sn==1){
@@ -225,11 +233,6 @@ $sn = $row->sn_code;
 }
 
 }
-
-
-
-
-
 
 if($count_row_queryfirst == 0 && $count_row_query_sn == 0){
 $querydws = $this->db->query('SELECT * FROM wh_product_dws');
@@ -329,10 +332,14 @@ $query = $this->db->query('SELECT
     wc.product_category_id as product_category_id,
     wc.product_category_name as product_category_name,
     wu.product_unit_name as product_unit_name,
-	wl.count_stock as count_stock
+	wl.count_stock as count_stock,
+  wl.e_id as e_id,
+  e.title_name as title_name,
+  e.rate as rate
     FROM wh_product_list  as wl
     LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_category_id
     LEFT JOIN wh_product_unit as wu on wu.product_unit_id=wl.product_unit_id
+    LEFT JOIN exchangerate  as e on e.e_id=wl.e_id
     WHERE wl.owner_id="'.$_SESSION['owner_id'].'" AND  wl.product_code="'.$data['product_code'].'"
     ORDER BY wl.product_id DESC');
 	
@@ -364,11 +371,15 @@ $query_p = $this->db->query('SELECT
     wc.product_category_id as product_category_id,
     wc.product_category_name as product_category_name,
 wu.product_unit_name as product_unit_name,
-	wl.count_stock as count_stock
+	wl.count_stock as count_stock,
+	wl.e_id as e_id,
+  e.title_name as title_name,
+  e.rate as rate
     FROM wh_product_list  as wl
     LEFT JOIN product_price_cus as pc on pc.product_id=wl.product_id
 LEFT JOIN wh_product_unit as wu on wu.product_unit_id=wl.product_unit_id    
 LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_category_id
+LEFT JOIN exchangerate as e on e.e_id=wl.e_id
     WHERE wl.owner_id="'.$_SESSION['owner_id'].'" AND  wl.product_code="'.$data['product_code'].'" AND pc.cus_id="'.$data['cus_id'].'"
     ORDER BY wl.product_id DESC');
 
@@ -394,12 +405,16 @@ LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_categor
         wc.product_category_id as product_category_id,
         wc.product_category_name as product_category_name,
 wu.product_unit_name as product_unit_name,
-		wl.count_stock as count_stock
+		wl.count_stock as count_stock,
+		wl.e_id as e_id,
+    e.title_name as title_name,
+    e.rate as rate
         FROM wh_product_list  as wl
         LEFT JOIN product_price_cus_group as pc on pc.product_id=wl.product_id
         LEFT JOIN customer_owner as co on co.customer_group_id=pc.customer_group_id
         LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_category_id
 LEFT JOIN wh_product_unit as wu on wu.product_unit_id=wl.product_unit_id
+LEFT JOIN exchangerate as e on e.e_id=wl.e_id
         WHERE wl.owner_id="'.$_SESSION['owner_id'].'" AND  wl.product_code="'.$data['product_code'].'" AND co.cus_id="'.$data['cus_id'].'"
         ORDER BY wl.product_id DESC');
 
@@ -447,13 +462,17 @@ $query_step = $this->db->query('SELECT
         wc.product_category_id as product_category_id,
         wc.product_category_name as product_category_name,
 wu.product_unit_name as product_unit_name,
-		wl.count_stock as count_stock
+		wl.count_stock as count_stock,
+    wl.e_id as e_id,
+    e.title_name as title_name,
+    e.rate as rate
         FROM wh_product_list  as wl
         LEFT JOIN product_price_cus_group as pc on pc.product_id=wl.product_id
         LEFT JOIN customer_owner as co on co.customer_group_id=pc.customer_group_id
         LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_category_id
 LEFT JOIN wh_product_unit as wu on wu.product_unit_id=wl.product_unit_id
 		LEFT JOIN product_price_step as ps on ps.product_code=wl.product_code
+		LEFT JOIN exchangerate as e on e.e_id=wl.e_id
         WHERE wl.owner_id="'.$_SESSION['owner_id'].'"
 		AND  wl.product_code="'.$data['product_code'].'"
 		AND ps.qty_more<="'.$num.'"
@@ -842,6 +861,7 @@ $data2['shift_id'] = $_SESSION['shift_id'];
 $data2['branch_id'] = $_SESSION['branch_id'];
 
 $data2['number_for_cus'] = $data['number_for_cus'];
+$data2['e_id'] = $data['e_id'];
 
 $this->db->insert("sale_list_header", $data2);
 
@@ -888,20 +908,7 @@ $this->db->query('UPDATE sale_list_header
 
 }
 
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
 
 public function Getproductformat($data)
         {
@@ -911,8 +918,6 @@ $query = $this->db->query('SELECT product_id_relation,product_num_relation FROM 
 return $query->result_array();
 
         }
-
-
 public function Productmaterialaddstock($product_id,$num)
                 {
 
@@ -922,9 +927,6 @@ public function Productmaterialaddstock($product_id,$num)
         return true;
 
                 }
-
-
-
 
 public function Cususepoint($data)
                 {
@@ -1410,40 +1412,35 @@ if($num_rows == 1){
 }
 
 
-          $query = $this->db->query('SELECT  sum(product_sale_num) as product_sale_num,
-          sc_ID,
-		  product_id,
-          product_name,
-		  sn_code,
-          product_unit_name,
-          product_des,
-          product_code,
-          product_price,
-		  product_pricebase,
-		  product_stock_num,
-          product_price_discount,
-          product_price_discount_percent,
-          product_score
-              FROM sale_list_cus2mer
-              WHERE user_id="'.$_SESSION['user_id'].'"
-              GROUP BY product_name
-            ORDER BY sc_ID ASC
+          $query = $this->db->query('SELECT  sum(sc.product_sale_num) as product_sale_num,
+          sc.sc_ID,
+          sc.product_id,
+          sc.product_name,
+          sc.sn_code,
+          sc.product_unit_name,
+          sc.product_des,
+          sc.product_code,
+          sc.product_price,
+          sc.product_pricebase,
+          sc.product_stock_num,
+          sc.product_price_discount,
+          sc.product_price_discount_percent,
+          sc.product_score,
+          e.e_id as e_id,
+          e.title_name as title_name,
+          e.rate as rate
+
+              FROM sale_list_cus2mer as sc 
+              LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+              WHERE sc.user_id="'.$_SESSION['user_id'].'"
+              GROUP BY sc.product_name
+            ORDER BY sc.sc_ID ASC
             ');
 
           $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
           return $encode_data;
 
-
-
-
-
-
           }
-
-
-
-
-
 
 
           public function Updateproductnumber($data)
@@ -1504,24 +1501,32 @@ $cansale = '1';
 }
 
 
-            $query = $this->db->query('SELECT  sum(product_sale_num) as product_sale_num,
-            sc_ID,
-          product_id,
-            product_name,
-			sn_code,
-            product_unit_name,
-            product_des,
-            product_code,
-            product_price,
-			product_pricebase,
-            product_price_discount,
-            product_price_discount_percent,
-            product_score
-                FROM sale_list_cus2mer
-                WHERE user_id="'.$_SESSION['user_id'].'"
-                GROUP BY product_name
-              ORDER BY sc_ID ASC
+            $query = $this->db->query('SELECT  sum(sc.product_sale_num) as product_sale_num,
+            sc.sc_ID,
+            sc.product_id,
+            sc.product_name,
+            sc.sn_code,
+            sc.product_unit_name,
+            sc.product_des,
+            sc.product_code,
+            sc.product_price,
+            sc.product_pricebase,
+            sc.product_stock_num,
+            sc.product_price_discount,
+            sc.product_price_discount_percent,
+            sc.product_score,
+            e.e_id as e_id,
+            e.title_name as title_name,
+            e.rate as rate
+  
+                FROM sale_list_cus2mer as sc 
+                LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+                WHERE sc.user_id="'.$_SESSION['user_id'].'"
+                GROUP BY sc.product_name
+              ORDER BY sc.sc_ID ASC
               ');
+
+              
 
             $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 			
@@ -1538,7 +1543,43 @@ return $encode_data2;
 			
 			
 			
-			
+			// original ==============================
+
+			//       public function Updateproductprice($data)
+      //             {
+
+      //     $this->db->query('UPDATE sale_list_cus2mer
+      //     SET product_price="'.$data['product_price'].'"
+		  // WHERE user_id="'.$_SESSION['user_id'].'" AND product_name="'.$data['product_name'].'"');
+
+
+      //       $query = $this->db->query('SELECT  sum(product_sale_num) as product_sale_num,
+      //       sc_ID,
+      //     product_id,
+      //       product_name,
+			// sn_code,
+      //       product_unit_name,
+      //       product_des,
+      //       product_code,
+      //       product_price,
+			// product_pricebase,
+      //       product_price_discount,
+      //       product_price_discount_percent,
+      //       product_score
+      //           FROM sale_list_cus2mer
+      //           WHERE user_id="'.$_SESSION['user_id'].'"
+      //           GROUP BY product_name
+      //         ORDER BY sc_ID ASC
+      //         ');
+
+      //       $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
+      //       return $encode_data;
+
+
+      //       }
+
+      // end original ==============================
+      // update new refer to exchange rate ===========================================
 			      public function Updateproductprice($data)
                   {
 
@@ -1547,23 +1588,27 @@ return $encode_data2;
 		  WHERE user_id="'.$_SESSION['user_id'].'" AND product_name="'.$data['product_name'].'"');
 
 
-            $query = $this->db->query('SELECT  sum(product_sale_num) as product_sale_num,
-            sc_ID,
-          product_id,
-            product_name,
-			sn_code,
-            product_unit_name,
-            product_des,
-            product_code,
-            product_price,
-			product_pricebase,
-            product_price_discount,
-            product_price_discount_percent,
-            product_score
-                FROM sale_list_cus2mer
-                WHERE user_id="'.$_SESSION['user_id'].'"
-                GROUP BY product_name
-              ORDER BY sc_ID ASC
+            $query = $this->db->query('SELECT  sum(sc.product_sale_num) as product_sale_num,
+            sc.sc_ID,
+            sc.product_id,
+            sc.product_name,
+            sc.sn_code,
+            sc.product_unit_name,
+            sc.product_des,
+            sc.product_code,
+            sc.product_price,
+            sc.product_pricebase,
+            sc.product_price_discount,
+            sc.product_price_discount_percent,
+            sc.product_score,
+            e.e_id e_id,
+            e.title_name,
+            e.rate rate
+                FROM sale_list_cus2mer as sc
+                LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+                WHERE sc.user_id="'.$_SESSION['sc.user_id'].'"
+                GROUP BY sc.product_name
+              ORDER BY sc.sc_ID ASC
               ');
 
             $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
@@ -1572,7 +1617,7 @@ return $encode_data2;
 
             }
 			
-			
+			  // update new refer to exchange rate ===========================================
 
 
 
@@ -1595,45 +1640,36 @@ return $encode_data2;
 
 
 
-              $query = $this->db->query('SELECT  sum(product_sale_num) as product_sale_num,
-              sc_ID,
-            product_id,
-              product_name,
-			  sn_code,
-              product_unit_name,
-              product_des,
-              product_code,
-              product_price,
-			  product_pricebase,
-              product_price_discount,
-              product_price_discount_percent,
-              product_score
-                  FROM sale_list_cus2mer
-                  WHERE user_id="'.$_SESSION['user_id'].'"
-                  GROUP BY product_name
-                ORDER BY sc_ID ASC
+              $query = $this->db->query('SELECT  sum(sc.product_sale_num) as product_sale_num,
+              sc.sc_ID,
+              sc.product_id,
+              sc.product_name,
+              sc.sn_code,
+              sc.product_unit_name,
+              sc.product_des,
+              sc.product_code,
+              sc.product_price,
+              sc.product_pricebase,
+              sc.product_stock_num,
+              sc.product_price_discount,
+              sc.product_price_discount_percent,
+              sc.product_score,
+              e.e_id as e_id,
+              e.title_name as title_name,
+              e.rate as rate
+    
+                  FROM sale_list_cus2mer as sc 
+                  LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+                  WHERE sc.user_id="'.$_SESSION['user_id'].'"
+                  GROUP BY sc.product_name
+                ORDER BY sc.sc_ID ASC
                 ');
 
               $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
               return $encode_data;
 
 
-
-
-
-
               }
-
-
-
-
-
-
-
-
-
-
-
 
  public function Savepopup_num($data)
                     {
@@ -1663,14 +1699,11 @@ return $encode_data2;
           public function Delshowcus($data)
                   {
 
-
-
-
 if($data['product_name']==''){
 $this->db->query('INSERT INTO log_delete_order(sc_ID,product_id,product_name,product_image,product_unit_name,product_des,product_code,
 	product_price,product_pricebase,product_stock_num,product_sale_num,
 	product_price_discount,product_price_discount_percent,product_score,adddate,
-	owner_id,user_id,store_id,sn_code,delname,deltime,name,shift_id
+	owner_id,user_id,store_id,sn_code,delname,deltime,name,shift_id,e_id
 	)
 SELECT *,"'.$_SESSION['name'].'","'.time().'","'.$_SESSION['name'].'","'.$_SESSION['shift_id'].'"
 FROM sale_list_cus2mer
@@ -1681,7 +1714,7 @@ $this->db->query('DELETE FROM sale_list_cus2mer  WHERE user_id="'.$_SESSION['use
 $this->db->query('INSERT INTO log_delete_order(sc_ID,product_id,product_name,product_image,product_unit_name,product_des,product_code,
 	product_price,product_pricebase,product_stock_num,product_sale_num,
 	product_price_discount,product_price_discount_percent,product_score,adddate,
-	owner_id,user_id,store_id,sn_code,delname,deltime,name,shift_id
+	owner_id,user_id,store_id,sn_code,delname,deltime,name,shift_id,e_id
 	)
 SELECT *,"'.$_SESSION['name'].'","'.time().'","'.$_SESSION['name'].'","'.$_SESSION['shift_id'].'"
 FROM sale_list_cus2mer
@@ -1693,22 +1726,29 @@ $this->db->query('DELETE FROM sale_list_cus2mer  WHERE product_name="'.$data['pr
 	
 	
 	
-$query = $this->db->query('SELECT  sum(product_sale_num) as product_sale_num,
-sc_ID,
-product_id,
-product_name,
-sn_code,
-product_des,
-product_code,
-product_price,
-product_pricebase,
-product_price_discount,
-product_price_discount_percent,
-product_score
-    FROM sale_list_cus2mer
-    WHERE user_id="'.$_SESSION['user_id'].'"
-    GROUP BY product_name
-  ORDER BY sc_ID ASC
+$query = $this->db->query('SELECT  sum(sc.product_sale_num) as product_sale_num,
+sc.sc_ID,
+sc.product_id,
+sc.product_name,
+sc.sn_code,
+sc.product_unit_name,
+sc.product_des,
+sc.product_code,
+sc.product_price,
+sc.product_pricebase,
+sc.product_stock_num,
+sc.product_price_discount,
+sc.product_price_discount_percent,
+sc.product_score,
+e.e_id as e_id,
+e.title_name as title_name,
+e.rate as rate
+
+    FROM sale_list_cus2mer as sc 
+    LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+    WHERE sc.user_id="'.$_SESSION['user_id'].'"
+    GROUP BY sc.product_name
+  ORDER BY sc.sc_ID ASC
   ');
 
             $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
@@ -1754,7 +1794,7 @@ if($data['product_name']==''){
 	$this->db->query('INSERT INTO log_delete_order(sc_ID,product_id,product_name,
 	product_image,product_unit_name,product_des,product_code,product_price,product_pricebase,product_stock_num,
 	product_sale_num,product_price_discount,product_price_discount_percent,product_score,adddate,owner_id,user_id,
-	store_id,sn_code,delname,deltime,name,shift_id
+	store_id,sn_code,delname,deltime,name,shift_id,e_id
 	)
 SELECT *,"'.$arr_name.'","'.time().'","'.$_SESSION['name'].'","'.$_SESSION['shift_id'].'"
 FROM sale_list_cus2mer
@@ -1764,7 +1804,7 @@ $this->db->query('DELETE FROM sale_list_cus2mer  WHERE user_id="'.$_SESSION['use
 $this->db->query('INSERT INTO log_delete_order(sc_ID,product_id,product_name,
 	product_image,product_unit_name,product_des,product_code,product_price,product_pricebase,product_stock_num,
 	product_sale_num,product_price_discount,product_price_discount_percent,product_score,adddate,owner_id,user_id,
-	store_id,sn_code,delname,deltime,name,shift_id
+	store_id,sn_code,delname,deltime,name,shift_id,e_id
 	)
 SELECT *,"'.$arr_name.'","'.time().'","'.$_SESSION['name'].'","'.$_SESSION['shift_id'].'"
 FROM sale_list_cus2mer
@@ -1785,22 +1825,29 @@ $this->db->query('DELETE FROM sale_list_cus2mer  WHERE product_name="'.$data['pr
 
 
 
-$query = $this->db->query('SELECT  sum(product_sale_num) as product_sale_num,
-sc_ID,
-product_id,
-product_name,
-sn_code,
-product_des,
-product_code,
-product_price,
-product_pricebase,
-product_price_discount,
-product_price_discount_percent,
-product_score
-    FROM sale_list_cus2mer
-    WHERE user_id="'.$_SESSION['user_id'].'"
-    GROUP BY product_name
-  ORDER BY sc_ID ASC
+$query = $this->db->query('SELECT  sum(sc.product_sale_num) as product_sale_num,
+sc.sc_ID,
+sc.product_id,
+sc.product_name,
+sc.sn_code,
+sc.product_unit_name,
+sc.product_des,
+sc.product_code,
+sc.product_price,
+sc.product_pricebase,
+sc.product_stock_num,
+sc.product_price_discount,
+sc.product_price_discount_percent,
+sc.product_score,
+e.e_id as e_id,
+e.title_name as title_name,
+e.rate as rate
+
+    FROM sale_list_cus2mer as sc 
+    LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+    WHERE sc.user_id="'.$_SESSION['user_id'].'"
+    GROUP BY sc.product_name
+  ORDER BY sc.sc_ID ASC
   ');
 
             $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
@@ -1817,24 +1864,29 @@ product_score
             public function Showlistorder($data)
                     {
 
-              $query = $this->db->query('SELECT  sum(product_sale_num) as product_sale_num,
-			  sc_ID,
-              product_id,
-              product_name,
-			  sn_code,
-              product_image,
-              product_unit_name,
-              product_des,
-              product_code,
-              product_price,
-			  product_pricebase,
-              product_price_discount,
-              product_price_discount_percent,
-              product_score
-                  FROM sale_list_cus2mer
-                  WHERE user_id="'.$_SESSION['user_id'].'"
-                  GROUP BY product_name
-                ORDER BY sc_ID ASC
+              $query = $this->db->query('SELECT  sum(sc.product_sale_num) as product_sale_num,
+              sc.sc_ID,
+              sc.product_id,
+              sc.product_name,
+              sc.sn_code,
+              sc.product_unit_name,
+              sc.product_des,
+              sc.product_code,
+              sc.product_price,
+              sc.product_pricebase,
+              sc.product_stock_num,
+              sc.product_price_discount,
+              sc.product_price_discount_percent,
+              sc.product_score,
+              e.e_id as e_id,
+              e.title_name as title_name,
+              e.rate as rate
+    
+                  FROM sale_list_cus2mer as sc 
+                  LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+                  WHERE sc.user_id="'.$_SESSION['user_id'].'"
+                  GROUP BY sc.product_name
+                ORDER BY sc.sc_ID ASC
                 ');
 
               $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
@@ -1858,22 +1910,29 @@ $data['adddate'] = time();
 if ($this->db->insert("sale_list_cus2mer", $data)){
 
 
-  $query = $this->db->query('SELECT  product_sale_num,
-  sc_ID,
-product_id,
-  product_name,
-  sn_code,
-  product_unit_name,
-  product_des,
-  product_code,
-  product_price,
-  product_pricebase,
-  product_price_discount,
-  product_price_discount_percent,
-  product_score
-      FROM sale_list_cus2mer
-      WHERE user_id="'.$_SESSION['user_id'].'"
-    ORDER BY sc_ID ASC
+  $query = $this->db->query('SELECT  sc.product_sale_num as product_sale_num,
+  sc.sc_ID,
+  sc.product_id,
+  sc.product_name,
+  sc.sn_code,
+  sc.product_unit_name,
+  sc.product_des,
+  sc.product_code,
+  sc.product_price,
+  sc.product_pricebase,
+  sc.product_stock_num,
+  sc.product_price_discount,
+  sc.product_price_discount_percent,
+  sc.product_score,
+  e.e_id as e_id,
+  e.title_name as title_name,
+  e.rate as rate
+
+      FROM sale_list_cus2mer as sc 
+      LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+      WHERE sc.user_id="'.$_SESSION['user_id'].'"
+      GROUP BY sc.product_name
+    ORDER BY sc.sc_ID ASC
     ');
 
   $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
@@ -1902,20 +1961,29 @@ product_id,
 
 $query = $this->db->query('DELETE FROM sale_list_cus2mer  WHERE sc_ID="'.$data['sc_ID'].'"');
 
-$query = $this->db->query('SELECT  product_sale_num,
-sc_ID,
-product_id,
-product_name,
-product_des,
-product_code,
-product_price,
-product_pricebase,
-product_price_discount,
-product_price_discount_percent,
-product_score
-FROM sale_list_cus2mer
-WHERE user_id="'.$_SESSION['user_id'].'"
-ORDER BY sc_ID ASC
+$query = $this->db->query('SELECT  sc.product_sale_num as product_sale_num,
+sc.sc_ID,
+sc.product_id,
+sc.product_name,
+sc.sn_code,
+sc.product_unit_name,
+sc.product_des,
+sc.product_code,
+sc.product_price,
+sc.product_pricebase,
+sc.product_stock_num,
+sc.product_price_discount,
+sc.product_price_discount_percent,
+sc.product_score,
+e.e_id as e_id,
+e.title_name as title_name,
+e.rate as rate
+
+    FROM sale_list_cus2mer as sc 
+    LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+    WHERE sc.user_id="'.$_SESSION['user_id'].'"
+    GROUP BY sc.product_name
+  ORDER BY sc.sc_ID ASC
 ');
 
     $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
@@ -1932,20 +2000,29 @@ ORDER BY sc_ID ASC
     public function Showlistordernotsum($data)
             {
 
-      $query = $this->db->query('SELECT  product_sale_num,
-sc_ID,
-      product_id,
-      product_name,
-      product_des,
-      product_code,
-      product_price,
-	  product_pricebase,
-      product_price_discount,
-      product_price_discount_percent,
-      product_score
-          FROM sale_list_cus2mer
-          WHERE user_id="'.$_SESSION['user_id'].'"
-        ORDER BY sc_ID ASC
+      $query = $this->db->query('SELECT sc.product_sale_num as product_sale_num,
+      sc.sc_ID,
+      sc.product_id,
+      sc.product_name,
+      sc.sn_code,
+      sc.product_unit_name,
+      sc.product_des,
+      sc.product_code,
+      sc.product_price,
+      sc.product_pricebase,
+      sc.product_stock_num,
+      sc.product_price_discount,
+      sc.product_price_discount_percent,
+      sc.product_score,
+      e.e_id as e_id,
+      e.title_name as title_name,
+      e.rate as rate
+
+          FROM sale_list_cus2mer as sc 
+          LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+          WHERE sc.user_id="'.$_SESSION['user_id'].'"
+          GROUP BY sc.product_name
+        ORDER BY sc.sc_ID ASC
         ');
 
       $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
@@ -1971,24 +2048,29 @@ sc_ID,
 
 
 
-        $query = $this->db->query('SELECT SUM(product_sale_num) as product_sale_num,
-			  sc_ID,
-              product_id,
-              product_name,
-			  sn_code,
-              product_image,
-              product_unit_name,
-              product_des,
-              product_code,
-              product_price,
-			  product_pricebase,
-              product_price_discount,
-              product_price_discount_percent,
-              product_score
-                  FROM sale_list_cus2mer
-                  WHERE user_id="'.$_SESSION['user_id'].'"
-				  GROUP BY product_name
-                ORDER BY sc_ID ASC
+        $query = $this->db->query('SELECT sum(sc.product_sale_num) as product_sale_num,
+        sc.sc_ID,
+        sc.product_id,
+        sc.product_name,
+        sc.sn_code,
+        sc.product_unit_name,
+        sc.product_des,
+        sc.product_code,
+        sc.product_price,
+        sc.product_pricebase,
+        sc.product_stock_num,
+        sc.product_price_discount,
+        sc.product_price_discount_percent,
+        sc.product_score,
+        e.e_id as e_id,
+        e.title_name as title_name,
+        e.rate as rate
+
+            FROM sale_list_cus2mer as sc 
+            LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+            WHERE sc.user_id="'.$_SESSION['user_id'].'"
+            GROUP BY sc.product_name
+          ORDER BY sc.sc_ID ASC
                 ');
 
         $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
@@ -2105,12 +2187,6 @@ $this->db->insert("stock", $data2);
 
             }
 
-
-
-
-
-
-
 public function Addshiftmoneystart($data)
                {
 
@@ -2132,16 +2208,8 @@ $newdatashift = array(
 
 $this->session->set_userdata($newdatashift);
 
-
-
        return true;
 
                }
-
-
-
-
-
-
 
     }

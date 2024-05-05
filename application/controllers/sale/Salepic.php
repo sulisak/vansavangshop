@@ -139,6 +139,8 @@ $this->session->set_userdata($newdata);
           $data = json_decode(file_get_contents("php://input"),true);
           echo  $this->salepage_model->Updateproductprice($data);
 
+          
+
             }
 			
 			
