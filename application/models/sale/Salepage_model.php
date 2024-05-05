@@ -308,13 +308,12 @@ $query_p_cus = $this->db->query('SELECT *
 
 
 
-
+// ok ==========
 
 $query = $this->db->query('SELECT
     wl.product_id as product_id,
     wl.product_code as product_code,
     wl.product_name as product_name,
-
 	wl.product_pricebase as product_pricebase,
     wl.popup_pricenum as popup_pricenum,
     wl.product_image as product_image,
@@ -344,12 +343,12 @@ $query = $this->db->query('SELECT
     ORDER BY wl.product_id DESC');
 	
 	
-	
+	// ok =========
 
 
 
 
-
+// ok ==========
 
 $query_p = $this->db->query('SELECT
     wl.product_id as product_id,
@@ -383,7 +382,7 @@ LEFT JOIN exchangerate as e on e.e_id=wl.e_id
     WHERE wl.owner_id="'.$_SESSION['owner_id'].'" AND  wl.product_code="'.$data['product_code'].'" AND pc.cus_id="'.$data['cus_id'].'"
     ORDER BY wl.product_id DESC');
 
-
+// ok =======
 
     $query_g = $this->db->query('SELECT
         wl.product_id as product_id,
@@ -418,7 +417,7 @@ LEFT JOIN exchangerate as e on e.e_id=wl.e_id
         WHERE wl.owner_id="'.$_SESSION['owner_id'].'" AND  wl.product_code="'.$data['product_code'].'" AND co.cus_id="'.$data['cus_id'].'"
         ORDER BY wl.product_id DESC');
 
-
+// ok ===
 
 $query_s_step = $this->db->query('SELECT *
         FROM product_price_step
@@ -441,7 +440,7 @@ $num = 1;
 }
 
 
-
+// ok =======
 $query_step = $this->db->query('SELECT
         wl.product_id as product_id,
         wl.product_code as product_code,
@@ -479,7 +478,7 @@ LEFT JOIN wh_product_unit as wu on wu.product_unit_id=wl.product_unit_id
 		AND ps.qty_less>="'.$num.'"
         ORDER BY wl.product_id DESC');
 
-
+// ok =========
 
 
 
@@ -507,8 +506,14 @@ if($query_p_cus_num_rows > 0){
 
 
 
+// original
+// $queryproduct = $this->db->query('SELECT * FROM wh_product_list WHERE product_code="'.$data['product_code'].'"');
 
-$queryproduct = $this->db->query('SELECT * FROM wh_product_list WHERE product_code="'.$data['product_code'].'"');
+// update ========
+$queryproduct = $this->db->query('SELECT wh.*,e.e_id,e.title_name,e.rate FROM wh_product_list as wh 
+LEFT JOIN exchangerate as e on e.e_id=wh.e_id WHERE product_code="'.$data['product_code'].'"');
+
+
 
 foreach ($queryproduct->result() as $row)
 {	
@@ -780,9 +785,7 @@ $query = $this->db->query('SELECT have_vat
            WHERE product_id="'.$data['product_id'].'" LIMIT 1');
 		   
 		   
-$querystock = $this->db->query('SELECT 
-*
-           FROM stock
+$querystock = $this->db->query('SELECT * FROM stock
            WHERE product_id="'.$data['product_id'].'" AND branch_id="'.$_SESSION['branch_id'].'" LIMIT 1');
 		   
 
@@ -808,14 +811,12 @@ $price_vat = 0;
 }
 
 $data['price_vat'] = $price_vat;
-
-
-
 $data['owner_id'] = $_SESSION['owner_id'];
 $data['user_id'] = $_SESSION['user_id'];
 $data['store_id'] = $_SESSION['store_id'];
 $data['shift_id'] = $_SESSION['shift_id'];
 $data['branch_id'] = $_SESSION['branch_id'];
+// $data['e_id'] = ['e_id'];
 
 
 $this->db->insert("sale_list_datail", $data);
@@ -861,7 +862,7 @@ $data2['shift_id'] = $_SESSION['shift_id'];
 $data2['branch_id'] = $_SESSION['branch_id'];
 
 $data2['number_for_cus'] = $data['number_for_cus'];
-$data2['e_id'] = $data['e_id'];
+// $data2['e_id'] = $data['e_id'];
 
 $this->db->insert("sale_list_header", $data2);
 
@@ -1907,6 +1908,8 @@ $data['owner_id'] = $_SESSION['owner_id'];
 $data['user_id'] = $_SESSION['user_id'];
 $data['store_id'] = $_SESSION['store_id'];
 $data['adddate'] = time();
+// add
+// $data['e_id'] = ['e_id'];
 if ($this->db->insert("sale_list_cus2mer", $data)){
 
 

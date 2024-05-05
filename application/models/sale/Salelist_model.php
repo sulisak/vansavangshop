@@ -173,8 +173,8 @@ $this->db->query('DELETE FROM sale_list_cus2mer
 			
 if(!isset($data['show'])){
 $this->db->query('INSERT INTO sale_list_cus2mer
-     (product_id,product_name,product_image,product_unit_name,product_des,product_code,product_price,product_sale_num,product_price_discount,product_price_discount_percent,product_score,adddate,owner_id,user_id,store_id,sn_code)
-    select product_id,product_name,product_image,product_unit_name,product_des,product_code,product_price,product_sale_num,product_price_discount,product_price_discount_percent,product_score,adddate,owner_id,"'.$_SESSION['user_id'].'",store_id,sn_code
+     (product_id,product_name,product_image,product_unit_name,product_des,product_code,product_price,product_sale_num,product_price_discount,product_price_discount_percent,product_score,adddate,owner_id,user_id,store_id,sn_code,e_id)
+    select product_id,product_name,product_image,product_unit_name,product_des,product_code,product_price,product_sale_num,product_price_discount,product_price_discount_percent,product_score,adddate,owner_id,"'.$_SESSION['user_id'].'",store_id,sn_code,e_id
     from quotation_list_datail
 where owner_id = "'.$_SESSION['owner_id'].'" AND sale_runno="'.$data['sale_runno'].'"
     ');
@@ -321,7 +321,8 @@ user_id,
 store_id,
 sc_ID,
 branch_id,
-shift_id)
+shift_id,
+e_id)
 SELECT ID,sale_runno,
 product_id,
 product_name,
@@ -340,7 +341,8 @@ user_id,
 store_id,
 sc_ID,
 branch_id,
-shift_id
+shift_id,
+e_id
 FROM sale_list_datail
 WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'].'"');
 
