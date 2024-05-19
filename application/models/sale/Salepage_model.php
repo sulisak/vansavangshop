@@ -1402,70 +1402,19 @@ WHERE product_id="'.$data['product_id'].'" LIMIT 1),"0") as product_stock_num');
 // $querysalelistcus = $this->db->query('SELECT sum(product_sale_num) as product_sale_num FROM sale_list_cus2mer 
 // WHERE product_id="'.$data['product_id'].'"');
 
-
 // update ==============================================================================================
-// $querysalelistcus = $this->db->query('SELECT wh.*,sum(sc.product_sale_num) 
-// as product_sale_num,
-// sum(sc.product_price *sc.product_sale_num) as sumsaleprice_thb,
-// e.title_name,e.rate
-// FROM wh_product_list AS wh
-// LEFT JOIN sale_list_cus2mer as sc on sc.product_id=wh.product_id
-// LEFT JOIN exchangerate as e on e.e_id=wh.e_id
-// WHERE wh.product_code="'.$data['product_code'].'"');
-
-// $querysalelistcus = $this->db->query('SELECT sc.*,sum(sc.product_sale_num) 
-// as product_sale_num,
-// sum(sc.product_price *sc.product_sale_num) as sumsaleprice_thb,
-// e.title_name,e.rate
-// FROM sale_list_cus2mer AS sc
-// LEFT JOIN wh_product_list as wh on wh.product_id=sc.product_id
-// LEFT JOIN exchangerate as e on e.e_id=wh.e_id
-// WHERE sc.product_code="'.$data['product_code'].'"');
-
-
 $querysalelistcus = $this->db->query('SELECT sc.sc_ID, sc.product_id, sc.product_name, sc.product_image, 
 sc.product_unit_name, sc.product_des, sc.product_code, sc.product_price, sc.product_pricebase, 
 sc.product_stock_num, sc.product_sale_num, sc.product_price_discount, sc.product_price_discount_percent, sc.product_score,
- sc.adddate, sc.owner_id, sc.user_id, sc.store_id, sc.sn_code, sc.e_id, sc.product_sale_num, e.title_name, e.rate
+ sc.adddate, sc.owner_id, sc.user_id, sc.store_id, sc.sn_code, sc.product_sale_num, e.title_name, e.rate
 ,sum(sc.product_sale_num) 
 as product_sale_num,
 sum(sc.product_price *sc.product_sale_num) as sumsaleprice_thb FROM sale_list_cus2mer AS sc
 LEFT JOIN wh_product_list as wh on wh.product_code=sc.product_code
-LEFT JOIN exchangerate as e on e.e_id=sc.e_id
+LEFT JOIN exchangerate as e on e.e_id=wh.e_id
 WHERE sc.product_code="'.$data['product_code'].'"');
 
 
-// $sumsalethb = $this->db->query('SELECT sum(sc.product_price *sc.product_sale_num) as sumsaleprice_thb
-// FROM wh_product_list AS wh
-// LEFT JOIN sale_list_cus2mer as sc on sc.product_id=wh.product_id
-// LEFT JOIN exchangerate as e on e.e_id=wh.e_id
-// WHERE wh.product_code="'.$data['product_code'].'" and e.title_name="THB"');
-
-// update =================================================================================================================
-
-// ===========
-
-// {
-
-
-//   $query = $this->db->query('SELECT sum(sc.`product_price`*sc.product_sale_num) as sumsaleprice_thb  FROM `sale_list_cus2mer` as sc
-
-//   LEFT JOIN wh_product_list as wh on sc.product_id=wh.product_id
-//   LEFT JOIN exchangerate as e on e.e_id=wh.e_id
-  
-//   WHERE e.title_name="THB"');
-//   $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
-//   return $encode_data;
-
-//           }
-// ==============================================
-
-
-
-// $querysalelistcus = $this->db->query('SELECT sc.*,sum(sc.product_sale_num) as product_sale_num,e.title_name,e.rate,wh.product_name FROM sale_list_cus2mer as sc 
-// LEFT JOIN exchangerate as e on e.e_id=sc.e_id 
-// LEFT JOIN wh_product_list as wh on wh.e_id=e.e_id 
-// WHERE sc.product_id="'.$data['product_id'].'" and wh.product_id=sc.product_id');
 // update ===================
 
 $retstock = $querystock->row();
