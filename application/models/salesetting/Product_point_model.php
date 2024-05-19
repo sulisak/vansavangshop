@@ -50,8 +50,16 @@ if ($this->db->update("customer_point_gift_list", $data2)){
 
            public function Get()
         {
+// origin =============
+// $query = $this->db->query('SELECT * FROM customer_point_gift_list ORDER BY gift_id DESC');
+// update =======================
+$query = $this->db->query('SELECT cg.*,e.title_name FROM customer_point_gift_list as cg join wh_product_list as wh on 
+wh.product_id=cg.product_id
+join exchangerate as e on e.e_id=wh.e_id
 
-$query = $this->db->query('SELECT * FROM customer_point_gift_list ORDER BY gift_id DESC');
+ORDER BY cg.gift_id DESC');
+// update ===================
+
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 return $encode_data;
 

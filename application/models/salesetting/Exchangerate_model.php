@@ -74,26 +74,30 @@ if ($this->db->update("owner", $data)){
 
 //  original =======================
 
-//            public function Get()
-//         {
-
-// $query = $this->db->query('SELECT * FROM exchangerate ORDER BY e_id ASC');
-// $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
-// return $encode_data;
-
-//         }
-// end original =======================
-
-        // ========= test =======================
-
-        public function Get()
+           public function Get()
         {
 
-$query = $this->db->query('SELECT e_id,title_name,rate FROM exchangerate ORDER BY e_id ASC');
+$query = $this->db->query('SELECT * FROM exchangerate ORDER BY e_id ASC');
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 return $encode_data;
 
         }
+// end original =======================
+
+        // ========= test =======================
+
+//         public function Get()
+//         {
+
+// $query = $this->db->query('SELECT * FROM exchangerate ORDER BY e_id ASC');
+// $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
+
+
+// $json = '{"list": '.$encode_data.'}';
+
+// return $json;
+
+//         }
         // ========= test =======================
 
 

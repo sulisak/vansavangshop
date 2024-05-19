@@ -55,9 +55,10 @@ public	function Findproduct()
 
 $data = json_decode(file_get_contents("php://input"),true);
 $data['product_code'] = $this->C2mpos_barcode_th_to_en($data['product_code']);
-echo  $this->salepage_model->Findproduct($data);
+$result = $this->salepage_model->Findproduct($data);
 
-	}
+echo $result;
+}
 
 
 
@@ -105,7 +106,15 @@ $data = json_decode(file_get_contents("php://input"),true);
 echo  $this->salepage_model->Getquotation($data);
 
 	}
+    // add new =================
+function Getthb()
+    {
 
+$data = json_decode(file_get_contents("php://input"),true);
+echo  $this->salepage_model->Getthb($data);
+
+	}
+   // add new =================
 
 
 
@@ -173,43 +182,41 @@ $this->salepage_model->Updatemoneychange();
 function Savesale()
     {
 
-	$data = json_decode(file_get_contents("php://input"),true);
-if(!isset($data)){
-exit();
-}
-
-unset($_SESSION['discount_last']);
-
-$numforcuslast = $this->salepage_model->Getnumforcuslast();
-$numforcusnow = $numforcuslast[0]['number_for_cus'];
-
-$numforcusplus = $numforcusnow + 1;
-
-
-$runnolast = $this->salepage_model->Getrunnolast();
-
-
-$runnonow = $runnolast[0]['sale_runno'];
-
-//$runnonow2 = substr($runnonow,-$_SESSION['runno_digit']);
-//$runnoplus = $runnonow2 + 1;
-//$header_code = $_SESSION['befor_runno'].str_pad($runnoplus, $_SESSION['runno_digit'], "0", STR_PAD_LEFT);
-$runnoplus = (int)$runnonow + 1;
-$header_code = str_pad($runnoplus, $_SESSION['runno_digit'], "0", STR_PAD_LEFT);
+        $data = json_decode(file_get_contents("php://input"),true);
+        if(!isset($data)){
+        exit();
+        }
+        
+        unset($_SESSION['discount_last']);
+        
+        $numforcuslast = $this->salepage_model->Getnumforcuslast();
+        $numforcusnow = $numforcuslast[0]['number_for_cus'];
+        
+        $numforcusplus = $numforcusnow + 1;
+        
+        
+        $runnolast = $this->salepage_model->Getrunnolast();
+        
+        
+        $runnonow = $runnolast[0]['sale_runno'];
+        
+        //$runnonow2 = substr($runnonow,-$_SESSION['runno_digit']);
+        //$runnoplus = $runnonow2 + 1;
+        //$header_code = $_SESSION['befor_runno'].str_pad($runnoplus, $_SESSION['runno_digit'], "0", STR_PAD_LEFT);
+        $runnoplus = (int)$runnonow + 1;
+        $header_code = str_pad($runnoplus, $_SESSION['runno_digit'], "0", STR_PAD_LEFT);
 
 
 //Line notify
  
-if($_SESSION['line_allbill']=='1'){
-$saleallprice = $data['sumsale_price']-$data['discount_last'];
-$text = $_SESSION['owner_name']."\nຍອດຂາຍ: ".number_format($saleallprice)."\nເລກບິນ: ".$header_code."\nໂດຍ: ".$_SESSION['name']."\nເວລາ " .date('H:i',time());
-$this->Line_notify($text);
- }
+// if($_SESSION['line_allbill']=='1'){
+// $saleallprice = $data['sumsale_price']-$data['discount_last'];
+// $text = $_SESSION['owner_name']."\nຍອດຂາຍ: ".number_format($saleallprice)."\nເລກບິນ: ".$header_code."\nໂດຍ: ".$_SESSION['name']."\nເວລາ " .date('H:i',time());
+// $this->Line_notify($text);
+//  }
   
 
 //Line notify
-
-
 
 $datampt['user_id'] = $_SESSION['user_id'];
 $datampt['name'] = $_SESSION['name'];
@@ -261,25 +268,16 @@ $data['sale_runno'] = $header_code;
 $data['adddate'] = $adddate;
 $data['savedate'] = $savedate;
 
-
-
 $this->salepage_model->Addheader($data,$morepaynum);
 $price_value = $data['sumsale_price']-$data['discount_last'];
 $this->salepage_model->Addmoneychange($data['money_changeto_customer'],$data['money_from_customer'],$price_value);
 
-
-
-
-
 for($i=1;$i<=count($data['listsale']) ;$i++){
-
-
 
 	if($data['listsale'][$i-1]['product_id']!='' && $data['listsale'][$i-1]['product_sale_num']!='0'){
 $data['listsale'][$i-1]['sale_runno'] = $header_code;
 $data['listsale'][$i-1]['adddate'] = $adddate;
 $data['listsale'][$i-1]['savedate'] = $savedate;
-
 $data['listsale'][$i-1]['ID'] = null;
 
 $this->salepage_model->Adddetail($data['listsale'][$i-1]);
@@ -293,40 +291,18 @@ $this->salepage_model->Updateproductdeletestock($data['listsale'][$i-1]);
   $this->salepage_model->Updateproductdeletestock_relation($header_code,$value['product_id_relation'],$value['product_name_relation'],($value['product_num_relation']*$data['listsale'][$i-1]['product_sale_num']),$data['listsale'][$i-1]['product_id'],$value['product_type_relation']);
 
   }
-
-
-
-
-
-
-
-
-
 }
 
 }
 
-
-
-
-
-
-
-
+// ================= End save list detail =========================================== ==========================
 $newdata = array(
         'cus_name_show' => '',
 		'customer_score_show' => ''
 );
 $this->session->set_userdata($newdata); 
 
-
-
-	}
-
-
-
-
-
+}
 
 function Line_stocknoti()
       {
@@ -359,36 +335,11 @@ $stock_less = $this->salepage_model->Line_stocknoti($data['listsale'][$i-1]);
 
   }
 
-
-
-
-
-
-
-
-
 }
 
 }
-
-	
-		  
-	  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	  
+}
 
 
   function Savequotation()
