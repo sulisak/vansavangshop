@@ -91,10 +91,6 @@ return $json;
 
         }
 		
-		
-		
-		
-
  public function Get_detail($data)
         {
 
@@ -110,20 +106,12 @@ AND "'.$dayto.'"
 ORDER BY sh.ID ASC ');
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 
-
-
-
 $json = '{"list": '.$encode_data.'}';
 
 return $json;
 
 
         }
-
-
-
-
-
 public function Seemorepay($data)
         {
 
@@ -139,12 +127,6 @@ return $encode_data;
 
         }
 		
-		
-		
-
-
-
-
 public function Getone($data)
         {
 
@@ -153,7 +135,7 @@ wl.product_weight*sd.product_sale_num as product_weight
     FROM sale_list_datail as sd
 	LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
 
-    WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.sale_runno="'.$data['sale_runno'].'"
+    WHERE sd.owner_id="'.$data['owner_id'].'" AND sd.sale_runno="'.$data['sale_runno'].'"
     ORDER BY sd.ID ASC');
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 return $encode_data;
@@ -169,12 +151,11 @@ return $encode_data;
 
 $this->db->query('DELETE FROM sale_list_cus2mer
         WHERE user_id="'.$_SESSION['user_id'].'"');
-			
-			
+		
 if(!isset($data['show'])){
 $this->db->query('INSERT INTO sale_list_cus2mer
-     (product_id,product_name,product_image,product_unit_name,product_des,product_code,product_price,product_sale_num,product_price_discount,product_price_discount_percent,product_score,adddate,owner_id,user_id,store_id,sn_code,e_id)
-    select product_id,product_name,product_image,product_unit_name,product_des,product_code,product_price,product_sale_num,product_price_discount,product_price_discount_percent,product_score,adddate,owner_id,"'.$_SESSION['user_id'].'",store_id,sn_code,e_id
+     (product_id,product_name,product_image,product_unit_name,product_des,product_code,product_price,product_sale_num,product_price_discount,product_price_discount_percent,product_score,adddate,owner_id,user_id,store_id,sn_code)
+    select product_id,product_name,product_image,product_unit_name,product_des,product_code,product_price,product_sale_num,product_price_discount,product_price_discount_percent,product_score,adddate,owner_id,"'.$_SESSION['user_id'].'",store_id,sn_code
     from quotation_list_datail
 where owner_id = "'.$_SESSION['owner_id'].'" AND sale_runno="'.$data['sale_runno'].'"
     ');
@@ -321,8 +302,7 @@ user_id,
 store_id,
 sc_ID,
 branch_id,
-shift_id,
-e_id)
+shift_id)
 SELECT ID,sale_runno,
 product_id,
 product_name,
@@ -341,8 +321,7 @@ user_id,
 store_id,
 sc_ID,
 branch_id,
-shift_id,
-e_id
+shift_id
 FROM sale_list_datail
 WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'].'"');
 
@@ -462,11 +441,5 @@ $query = $this->db->query('UPDATE stock
 return true;
 
         }
-
-
-
-
-
-
 
   }

@@ -49,6 +49,10 @@ exit();
 }
 echo  $this->salepage_model->Getproduct($data);
 
+// echo  'getproduct...';
+
+// console.log(Getproduct($data));
+
 }
 
 
@@ -60,10 +64,6 @@ $data = json_decode(file_get_contents("php://input"),true);
 echo  $this->salepage_model->Getproductlist($data);
 
 	}
-
-
-
-
 
     function Showmoneychange()
         {
@@ -89,16 +89,13 @@ $data = array(
     	}
 		
 		
-
-
-
-
         function Saveshowcus()
             {
 
         $data = json_decode(file_get_contents("php://input"),true);
         echo  $this->salepage_model->Saveshowcus($data);
-//echo  $this->salepage_model->Saveshowcusnotsum($data);
+
+// echo  $this->salepage_model->Saveshowcusnotsum($data);
         	}
 
 
@@ -130,9 +127,6 @@ $this->session->set_userdata($newdata);
             }
 			
 			
-			
-			
-			
 			          function Updateproductprice()
               {
 
@@ -143,8 +137,6 @@ $this->session->set_userdata($newdata);
 
             }
 			
-			
-			
 			          function Updateproductpricediscount()
               {
 
@@ -153,12 +145,6 @@ $this->session->set_userdata($newdata);
 
             }
 			
-			
-			
-			
-			
-
-
             function Price_discount_percent()
                 {
 
@@ -166,9 +152,6 @@ $this->session->set_userdata($newdata);
             echo  $this->salepage_model->Price_discount_percent($data);
 
               }
-
-
-
 
     function Delshowcus()
         {
@@ -445,12 +428,34 @@ $data['adddate'] = $header_code;
 $data['listsale'][$i-1]['sale_runno'] = $header_code;
 $data['listsale'][$i-1]['adddate'] = $header_code;
 
+// add new to debug data insert ==========================
+
+// echo '<pre>';
+// echo 'Debug Data: ';
+// print_r($data['listsale'][$i - 1]);
+// echo 'product_sale_num: ' . $data['listsale'][$i - 1]['product_sale_num'] . "\n";
+// echo 'sale_runno: ' . $data['listsale'][$i - 1]['sale_runno'] . "\n";
+// echo 'product_id: ' . $data['listsale'][$i - 1]['product_id'] . "\n";
+// echo 'product_name: ' . $data['listsale'][$i - 1]['product_name'] . "\n";
+// echo 'product_code: ' . $data['listsale'][$i - 1]['product_code'] . "\n";
+// echo 'product_price: ' . $data['listsale'][$i - 1]['product_price'] . "\n";
+// echo 'product_sale_num: ' . $data['listsale'][$i - 1]['product_sale_num'] . "\n";
+// echo 'sc_ID: ' . $data['listsale'][$i - 1]['sc_ID'] . "\n";
+// echo '</pre>';
+
+ // Function to retrieve and set the debug data
+// Query data from sale_list_cus2mer
+// $qcus2merselproduct = $this->salepage_model->Getcus2merselproduct(
+//     $_SESSION['owner_id'],
+//     $_SESSION['user_id'],
+//     $_SESSION['store_id'],
+//     $data['listsale'][$i - 1]['product_id']
+// );
+// add new to debug data insert ==========================
+
 if($this->salepage_model->Adddetail($data['listsale'][$i-1])){
-	$this->salepage_model->Updateproductdeletestock($data['listsale'][$i-1]);
+$this->salepage_model->Updateproductdeletestock($data['listsale'][$i-1]);
 }
-
-
-
 
 if($i==1){
 $this->salepage_model->Addheader($data);
@@ -461,9 +466,7 @@ $this->salepage_model->Addheader($data);
 
 }
 
-
-
-	}
+}
 
 
 
@@ -474,25 +477,23 @@ $this->salepage_model->Addheader($data);
 
 
 function Addshiftmoneystart()
-        {
+{
 
 if(!isset($_POST['addshiftmoneystart'])){
-	die();
+die();
 }
 
-    $data['addshiftmoneystart'] = $_POST['addshiftmoneystart'];
-    $this->salepage_model->Addshiftmoneystart($data);
-	
-	echo '<script>
-	alert("เพิ่มเงินเริ่มต้นในกะเรียบร้อย รวมเป็น '.$_SESSION['shift_money_start'].'");
-	window.location="'.$_SERVER['HTTP_REFERER'].'";
-	</script>';
-	
-	//header( "location: ".$_SERVER['HTTP_REFERER']."" );
+$data['addshiftmoneystart'] = $_POST['addshiftmoneystart'];
+$this->salepage_model->Addshiftmoneystart($data);
 
-    	}
+echo '<script>
+alert("เพิ่มเงินเริ่มต้นในกะเรียบร้อย รวมเป็น '.$_SESSION['shift_money_start'].'");
+window.location = "'.$_SERVER['HTTP_REFERER'].'";
+</script>';
 
+//header( "location: ".$_SERVER['HTTP_REFERER']."" );
 
+}
 
 
 
@@ -501,4 +502,6 @@ if(!isset($_POST['addshiftmoneystart'])){
 
 
 
-	}
+
+
+}
