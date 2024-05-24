@@ -126,6 +126,7 @@ $query1 = $this->db->query('SELECT
 	}
 	
 $encode_data = json_encode($qq->result(),JSON_UNESCAPED_UNICODE );
+
 return $encode_data;
 
 }
@@ -211,7 +212,6 @@ $cansale = '0';
 // $queryfirst = $this->db->query('SELECT * FROM wh_product_list WHERE product_code="'.$data['product_code'].'"');
 // update ======
 
-
 // $queryfirst = $this->db->query('SELECT wh.*, e.e_id, e.title_name, e.rate
 // FROM wh_product_list AS wh
 // LEFT JOIN exchangerate AS e ON e.e_id = wh.e_id WHERE wh.product_code="'.$data['product_code'].'"');
@@ -279,7 +279,8 @@ foreach ($querydws->result() as $row)
 // $queryfirst2 = $this->db->query('SELECT * FROM wh_product_list WHERE product_code="'.$barcode_dws.'"');
 // ---------------------
 // update --------------------
-$queryfirst2 = $this->db->query('SELECT w.*,e.title_name FROM wh_product_list as w join exchangerate as e on e.e_id=w.e_id WHERE w.product_code="'.$barcode_dws.'"');
+$queryfirst2 = $this->db->query('SELECT w.*,e.title_name FROM wh_product_list as w join exchangerate as e 
+on e.e_id=w.e_id WHERE w.product_code="'.$barcode_dws.'"');
 // update --------------------
 $count_row_queryfirst2 = $queryfirst2->num_rows();	
 
@@ -319,7 +320,9 @@ foreach ($queryfirst2->result() as $row)
 // ---- origin -----------------
 // update -----------------------
 
-$query_p_cus = $this->db->query('SELECT pc.*,e.title_name FROM product_price_cus as pc join wh_product_list as w on pc.product_code=w.product_code 
+$query_p_cus = $this->db->query('SELECT pc.*,e.title_name FROM product_price_cus as pc 
+left join wh_product_list as w
+ on pc.product_code=w.product_code 
 
 join exchangerate as e on e.e_id=w.e_id
     WHERE pc.owner_id="'.$_SESSION['owner_id'].'" AND pc.cus_id="'.$data['cus_id'].'" AND pc.product_code="'.$data['product_code'].'"
@@ -1359,19 +1362,19 @@ return $json;
 
                 }
                 // add new ===========
-        public function Getthb($data)
-                {
+        // public function Getthb($data)
+        //         {
 
 
-        $query = $this->db->query('SELECT sum(sc.product_price *sc.product_sale_num) as sumsaleprice_thb  FROM `sale_list_cus2mer` as sc
+        // $query = $this->db->query('SELECT sum(sc.product_price *sc.product_sale_num) as sumsaleprice_thb  FROM `sale_list_cus2mer` as sc
 
-        LEFT JOIN wh_product_list as wh on sc.product_id=wh.product_id
-        LEFT JOIN exchangerate as e on e.e_id=wh.e_id WHERE e.title_name="THB" limit 1');
-        $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
-        // console.log($encode_data);
-        return $encode_data;
+        // LEFT JOIN wh_product_list as wh on sc.product_id=wh.product_id
+        // LEFT JOIN exchangerate as e on e.e_id=wh.e_id WHERE e.title_name="THB" limit 1');
+        // $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
+        // // console.log($encode_data);
+        // return $encode_data;
 
-                }
+        //         }
 
   // add new ===========
 
@@ -2247,14 +2250,14 @@ $this->db->insert("stock", $data2);
 }
 
 	$data['sale_runno'] = $sale_runno;
-		$data['product_id'] = $product_id;
-		$data['product_name'] = $product_name;
-		$data['product_stock_num'] = $numnow;
-		$data['product_id_relation'] = $product_id_relation;
-		  $data['user_id'] = $_SESSION['user_id'];
-          $data['shift_id'] = $_SESSION['shift_id'];
-		  $data['branch_id'] = $_SESSION['branch_id'];
-          $data['adddate'] = time();
+  $data['product_id'] = $product_id;
+  $data['product_name'] = $product_name;
+  $data['product_stock_num'] = $numnow;
+  $data['product_id_relation'] = $product_id_relation;
+  $data['user_id'] = $_SESSION['user_id'];
+  $data['shift_id'] = $_SESSION['shift_id'];
+  $data['branch_id'] = $_SESSION['branch_id'];
+  $data['adddate'] = time();
 
          $this->db->insert("log_from_relation_when_sale", $data);
 

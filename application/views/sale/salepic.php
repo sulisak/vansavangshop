@@ -10,6 +10,10 @@ foreach ($Getpermission_rule as $value) {
 
 }
 
+.text-right {
+    text-align: right;
+}
+
 * {
     font-family: "Phetsarath OT !important";
 }
@@ -30,15 +34,33 @@ else {
     $slipwidth='250px';
 }
 
-?>
+?>@media print {
+    @page {
+        size: 80mm;
+        margin: 0;
+    }
+
+    .table {
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+        text-align: center;
+        padding: 5px;
+        border: 1px solid black;
+    }
+}
 </style>
 
 <head>
     <!-- cdnjs -->
     <!-- <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script> -->
-    <script src="<?=$base_url?>/js/jquery.lazy.min.js"></script>
-    <script src="<?=$base_url?>/js/jquery.lazy.plugins.min.js"></script>
+    <!-- <script src="<?=$base_url?>/js/jquery.lazy.min.js"></script>
+    <script src="<?=$base_url?>/js/jquery.lazy.plugins.min.js"></script> -->
 
 </head>
 
@@ -180,7 +202,7 @@ else {
                         class="col-xs-3 col-sm-3 col-md-3 panel panel-default product_box product_box_button"
                         <?php }else{ ?>
                         class="col-xs-2 col-sm-2 col-md-2 panel panel-default product_box product_box_button" <?php } ?>
-                        ng-repeat="x in productlist" title="{{x.product_name}} {{x.product_des}}"
+                        ng-repeat="x in productlist" title="{{x.product_name}}{{x.product_des}}"
                         style="height: 240px;width:180px;cursor: pointer;padding-left: 0px;padding-right: 0px;"
                         ng-click="Addpushproductcode(x.product_code)">
                         <center style="font-size: 14px;">
@@ -193,7 +215,7 @@ else {
                             <center>
                                 <!-- image process zone -->
                                 <img ng-if="x.product_image !== ''" src="<?php echo $base_url; ?>/{{x.product_image}}"
-                                    class="img img-responsive lazy" style="height: 145px;" {{ x.product_name }}
+                                    class="img img-responsive" style="height: 145px;" {{ x.product_name }}
                                     {{ x.product_des }}>
 
                                 <div ng-if="x.product_image === ''"
@@ -273,12 +295,9 @@ else {
                             <span style="color: blue;font-weight: bold;">
                                 Rate: {{x.rate}}
                             </span> -->
-                                <span style="color: blue;font-weight: bold;">
-                                    rate id: {{x.e_id}}
 
-                                </span>
                                 <span style="color: blue;font-weight: bold;">
-                                    /{{x.title_name}}
+                                    ({{x.title_name}})
 
                                 </span>
 
@@ -356,9 +375,9 @@ else {
                             <tr>
 
                                 <td>
+                                    <!-- close function close shift as temporater -->
 
-
-                                    <div class="form-group" style="float: right;">
+                                    <!-- <div class="form-group" style="float: right;">
 
                                         <?php if(!isset($arr) || $arr[29]->status==true){?>
                                         <button ng-click="Opencashnow()" class="btn btn-lg btn-default"
@@ -371,9 +390,9 @@ else {
                                             style="font-weight:bold"><?=$lang_closeshif?>
                                             (<?php if(isset($_SESSION['shift_id'])){echo number_format($_SESSION['shift_id']);} ?>)</button>
                                         <?php } ?>
-                                    </div>
+                                    </div> -->
 
-
+                                    <!-- close function close shift as temporater -->
 
 
                                     <form class="form-inline">
@@ -473,24 +492,29 @@ else {
 
 
 
-                            <div id="salebox"
-                                style="height: 300px;overflow: auto;border:1px;border-style:solid;border-color:blue">
+                            <div id="salebox" style="height: 350px;overflow: auto;border: 1px solid black;">
                                 <div ng-if="listsale==''" style="height:100px;text-align:center;"><br /><br />
                                     ຍັງບໍ່ມີລາຍການ</div>
                                 <table class="table table-hover">
-                                    <thead style="border:2px">
+                                    <thead style="border: 1px solid black;font-family:Phetsarath OT;">
                                         <tr>
-                                            <th style="text-align:center;"><?=$lang_num?></th>
+                                            <th style="text-align:center;font-family:Phetsarath OT;"><?=$lang_num?></th>
                                             <!-- <th style="text-align:left;"><?=$lang_productunit?></th> -->
 
                                             <!-- <th style="text-align:center;">ສິນຄ້າເສີມ</th> -->
-                                            <th style="text-align:left;"><?=$lang_product?></th>
-                                            <th style="text-align:left;">ສະກຸນເງິນ</th>
-                                            <th style="text-align:left;">ເປັນກິບ</th>
+                                            <th style="text-align:left;font-family:Phetsarath OT;"><?=$lang_product?>
+                                            </th>
+                                            <th style="text-align:left;font-family:Phetsarath OT;">ສະກຸນເງິນ</th>
+                                            <th align="left" style="font-family:Phetsarath OT;">ລວມ</th>
+                                            <th style="text-align:left;font-family:Phetsarath OT;">ເປັນກິບ</th>
                                             <!-- <th style="text-align:left;"><?=$lang_price?></th> -->
 
-                                            <th class="text-right"><?=$lang_sum?></th>
-                                            <th><?=$lang_delete?></th>
+
+                                            <th align="right"
+                                                style="font-family:Phetsarath OT;width: 150px;white-space: nowrap;">
+                                                ລວມທຽບກິບ
+                                            </th>
+                                            <th style="font-family:Phetsarath OT;"><?=$lang_delete?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -531,7 +555,7 @@ else {
                                                 <?php if(!isset($arr) || $arr[22]->status==true){?>
                                                 (<input type="text" onkeypress="validate(event)"
                                                     ng-model="x.product_price" ng-change="Updateproductprice(x)"
-                                                    style="width:150px;height: 20px;font-size: 14px;">)
+                                                    style="width:80px;height: 20px;font-size: 14px;">)
                                                 <?php } ?>
 
                                                 <?php if(isset($arr) && $arr[22]->status==false){?>
@@ -543,12 +567,17 @@ else {
 
                                             </td>
 
-
+                                            <?php {?>
                                             <td align="left">
                                                 {{x.title_name}}
 
                                             </td>
+                                            <?php }?>
 
+                                            <td align="left">
+                                                {{(x.product_price - x.product_price_discount) * x.product_sale_num | number:0 }}
+
+                                            </td>
 
                                             <?php {?>
 
@@ -559,8 +588,9 @@ else {
 
 
 
-                                            <td align="right">
-                                                {{(x.product_price - x.product_price_discount) * x.product_sale_num | number:0 }}
+
+                                            <td align="left">
+                                                {{(x.product_price - x.product_price_discount) * x.product_sale_num * x.rate| number:0 }}
 
                                             </td>
 
@@ -588,20 +618,19 @@ else {
                                             <!-- <td colspan="1" align="right">ລວມ</td>  -->
 
                                             <!-- <td style="font-weight: bold;">{{Sumsalenum() | number }}</td> -->
-                                            <td colspan="3" align="right">ລວມທັງໝົດກິບ:</td>
-                                            <td colspan="2" style="font-weight: bold;color:blue">
+                                            <td colspan="5" align="right" style="font-family:Phetsarath OT;">
+                                                ລວມທັງໝົດກິບ:</td>
+                                            <td colspan="2" align="left" style="font-weight: bold;color:blue">
                                                 {{Totalconvert_to_kip() | number }}
                                             </td>
 
-                                            <!-- <td colspan="4" align="right" style="font-weight: bold;">
-                                            {{Sumsaleprice() | number }}</td>
-                                        <td></td> -->
                                         </tr>
 
                                         <tr style="font-size:20px;">
 
-                                            <td colspan="3" align="right">ລວມບາດ:</td>
-                                            <td colspan="2" style="font-weight: bold;color:red">
+                                            <td colspan="5" align="right" style="font-family:Phetsarath OT;">ລວມບາດ:
+                                            </td>
+                                            <td colspan="2" align="left" style="font-weight: bold;color:red">
                                                 {{Sumsalethb() | number }}
                                             </td>
 
@@ -694,7 +723,8 @@ else {
                                                     style="font-size: 20px;text-align: right;height: 47px;background-color:#dff0d8;">
                                                 <span ng-if="discount_last_percent!='0'"
                                                     style="font-weight: normal;">{{(Sumsaleprice() + (Sumsaleprice() * vatnumber/100))*(discount_last_percent/100) | number }}
-                                                    <?=$lang_currency?></span>
+                                                    <?=$lang_currency?>
+                                                </span>
                                             </div>
 
                                         </td>
@@ -723,11 +753,14 @@ else {
 
                                         <td
                                             style="font-weight: bold;font-size: 70px;color: red;text-align: center;vertical-align:middle;">
+                                            <span
+                                                style="font-weight: bold;font-size: 30px;font-family:Phetsarath OT;color:blue;">ລວມຕ້ອງຈ່າຍ:</span>
                                             <span ng-show="discount_percent=='0'">
                                                 {{Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100) - discount_last | number }}
                                             </span>
 
                                             <span ng-show="discount_percent=='1'">
+
                                                 {{Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100) - ((Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100))*(discount_last_percent/100)) | number }}
                                             </span>
 
@@ -1306,6 +1339,16 @@ else {
                                             <table class="table table-hover" width="100%">
                                                 <tbody>
 
+                                                    <tr style="font-size: 20px;">
+                                                        <td>Grand_totalkip() </td>
+                                                        <input type="text" id="Grand_totalkip" class="form-control"
+                                                            ng-model="grandTotalkip"
+                                                            style="font-size: 20px;text-align: right;height: 47px;background-color:#dff0d8;">
+                                                    </tr>
+
+
+
+
 
                                                     <tr style="font-size: 20px;">
                                                         <td width="25%" align="right"><?=$lang_getmoney?>:</td>
@@ -1361,7 +1404,7 @@ else {
 
 
                                             <!-- ===================== debug data ======================= -->
-                                            <pre>money input: {{ money_from_customer | json }}</pre>
+                                            <!-- <pre>money input: {{ money_from_customer | json }}</pre>
                                             <pre>pay_type:{{ pay_type | json }}</pre>
                                             <pre>gty:</pre>
                                             <pre ng-repeat="item in product_sale_num">{{ item | json }}</pre>
@@ -1374,7 +1417,7 @@ else {
                                             <pre>product_code:</pre>
                                             <pre ng-repeat="item in product_code">{{ item | json }}</pre>
                                             <pre>product_price:</pre>
-                                            <pre ng-repeat="item in product_price">{{ item | json }}</pre>
+                                            <pre ng-repeat="item in product_price">{{ item | json }}</pre> -->
                                             <!-- ============================================ -->
 
 
@@ -1656,7 +1699,7 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal"
                                         aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title"><?=$lang_productlist?></h4>
+                                    <h4 class="modal-title"><?=$lang_productlist?>product</h4>
                                 </div>
                                 <div class="modal-body">
                                     <input type="text" ng-model="searchproduct" placeholder="<?=$lang_barcode?>"
@@ -1916,8 +1959,8 @@ if($_SESSION['owner_vat_status']=='2'){
 
 
                                             <?php
-if($_SESSION['open_vat_on_slip']=='1'){
-?>
+                                            if($_SESSION['open_vat_on_slip']=='1'){
+                                            ?>
                                             <tr>
                                                 <td align="right" colspan="7">VAT</td>
                                                 <td style="font-weight: bold;" align="right">
@@ -3370,215 +3413,214 @@ if($_SESSION['owner_tax_number'] !=''){
 
 
                                         ___________________________
-                                        <br />
+                                        <!-- <br /> -->
 
 
 
+                                        <!----------------------------- ------------------------------------------------------------ -->
+                                        <table class="table" style="width: 100%; font-size: 12px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>ສິນຄ້າ</th>
+                                                    <th align="center">
+                                                        ລາຄາ
+                                                    </th>
 
-                                        <?=$lang_productservice?>
+                                                    <th>ຈຳນວນ</th>
+                                                    <th align="right">
+                                                        ທຽບ KIP
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody style="height: 10px;">
+                                                <tr ng-repeat="x in listone">
+                                                    <!-- product_name -->
+                                                    <td align="left">{{x.product_name}}</td>
 
-                                    </center>
-                                    <!-- bill -->
-                                    <table class="table" style="width: 100%;font-size:14px;">
-                                        <thead>
-                                            <tr>
-                                                <th><?php echo $lang_productlist;?></th>
-                                                <th class="text-center"><?php echo $lang_price;?></th>
-                                                <th class="text-center"><?php echo $lang_qty;?></th>
-                                                <th class="text-right"><?php echo $lang_all;?></th>
+                                                    <!-- product_price/currency -->
+                                                    <td align="left" width="40px">
+                                                        ({{x.product_price | number:0}}/{{x.title_name}})
+
+                                                    </td>
+
+                                                    <!-- qty -->
+                                                    <td>x{{x.product_sale_num | number}}</td>
+
+                                                    <!-- total in kip -->
+                                                    <td align="left">
+
+                                                        {{ ((x.product_price - x.product_price_discount) * x.product_sale_num * x.rate) | number: <?php echo $_SESSION['decimal_print']; ?> }}
+                                                    </td>
+
+                                                </tr>
+                                                <!-- --------------------------------------------------------- -->
+                                                <!-- <tr>
+                                                    <td colspan="3" style="font-weight: bold;">ລວມທັງໝົດກີບ (KIP)</td>
+                                                    <td style="font-weight: bold; color: blue">
+                                                        {{ Grand_totalkip() | number }}
+                                                    </td>
+                                                </tr> -->
+
+                                                <!-- update ------------- -->
+                                                <tr>
+                                                    <td colspan="3" style="font-weight: bold;">ລວມທັງໝົດກີບ (KIP)</td>
+                                                    <td style="font-weight: bold; color: blue">
+                                                        <!-- {{ sumsalevat | number  }} -->
+                                                        <!-- {{parseFloat((x.product_price - x.product_price_discount) * x.product_sale_num * x.rate) | number}} -->
+
+                                                        {{ sumsale_price}}
+                                                    </td>
+                                                </tr>
+                                                <!-- update ------------- -->
+
+
+
+                                                <tr ng-if="discount_last2!='0.00'">
+                                                    <td colspan="3"><?php echo $lang_sp_93;?></td>
+                                                    <td align="right">
+                                                        -{{discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                    </td>
+                                                </tr>
+                                                <tr ng-if="discount_last2!='0.00'">
+                                                    <td colspan="3"><?=$lang_sumall?></td>
+                                                    <td align="right" style="font-weight: bold;">
+                                                        {{sumsalevat-discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3"><?=$lang_getmoney?></td>
+                                                    <td align="right">
+                                                        {{money_from_customer3 | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <span ng-if="pay_type=='4'" style="font-weight: bold;">
+                                                            ຄ້າງຊຳລະ
+                                                        </span>
+                                                        <span ng-if="pay_type!='4'" style="font-weight: bold;">
+                                                            <?=$lang_moneychange?>
+                                                        </span>
+                                                    </td>
+                                                    <td align="right">
+                                                        {{money_from_customer3-(money_from_customer3 -(sumsalevat-discount_last2)) | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <!-- ------------------------------------------------------ -->
+
+                                        <!-- ------------------------------------------------------ -->
+                                        <!----------------------------- ------------------------------------------------------------ -->
+
+                                        <?php
+                                                        if($_SESSION['exchangerateonslip']=='1'){
+                                                        ?>
+                                        <center>
+                                            ___________________________
+                                        </center>
+                                        <table width="100%">
+
+                                            <tr ng-repeat="x in exchangeratelist">
+                                                <td>{{x.title_name}}</td>
+                                                <td style="font-weight: bold;" align="right">
+                                                    {{(sumsalevat-discount_last2)/x.rate | number}}</td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="x in listone">
 
-
-                                                <td>
-
-                                                    {{x.product_name}}
-
-                                                </td>
-
-                                                <td align="right" width="30px">{{x.product_price | number:0}}</td>
-
-
-                                                <td width="30px" class="text-center">
-
-                                                    {{x.product_sale_num | number}}&nbsp;&nbsp;
-                                                </td>
-
-
-                                                <td align="right" width="30px">
-                                                    {{(x.product_price - x.product_price_discount) * x.product_sale_num | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                </td>
-                                            </tr>
-                                            <!-- footer total -->
-                                            <tr>
-
-                                                <td colspan="3"><?=$lang_summary?></td>
-
-
-                                                <td align="right">
-                                                    {{sumsale_price | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                </td>
-                                            </tr>
-
-                                            <!-- end footer total -->
-
-
-
-
-
-
-                                            <tr ng-if="discount_last2!='0.00'">
-
-                                                <td colspan="3"><?php echo $lang_sp_93;?>
-                                                </td>
-                                                <td align="right">
-                                                    -{{discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                </td>
-                                            </tr>
-
-                                            <tr ng-if="discount_last2!='0.00'">
-
-                                                <td colspan="3"><?=$lang_sumall?></td>
-                                                <td align="right" style="font-weight: bold;">
-                                                    {{sumsalevat-discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-
-                                                <td colspan="3"><?=$lang_getmoney?></td>
-                                                <td align="right">
-                                                    {{money_from_customer3 | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-
-                                                <td colspan="3">
-                                                    <span ng-if="pay_type=='4'" style="font-weight: bold;">
-                                                        <?php echo $lang_sp_94;?></span>
-                                                    <span ng-if="pay_type!='4'"
-                                                        style="font-weight: bold;"><?=$lang_moneychange?></span>
-
-                                                </td>
-                                                <td align="right">
-                                                    {{money_from_customer3 -(sumsalevat-discount_last2) | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                </td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-
-
-                                    <?php
-if($_SESSION['exchangerateonslip']=='1'){
-?>
-                                    <center>
-                                        ___________________________
-                                    </center>
-                                    <table width="100%">
-
-                                        <tr ng-repeat="x in exchangeratelist">
-                                            <td>{{x.title_name}}</td>
-                                            <td style="font-weight: bold;" align="right">
-                                                {{(sumsalevat-discount_last2)/x.rate | number}}</td>
-                                        </tr>
-
-                                    </table>
-                                    <?php } ?>
-
-
-
-                                    <?php
-if($_SESSION['open_vat_on_slip']=='1'){
-?>
-                                    <center>
-                                        ___________________________
-                                    </center>
-                                    <table width="100%">
-
-                                        <tr>
-                                            <td>VAT</td>
-                                            <td style="font-weight: bold;" align="right">
-                                                {{price_vat_all | number}}</td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td>befor VAT</td>
-                                            <td align="right">
-                                                {{sumsalevat-price_vat_all-discount_last2 | number}}</td>
-                                        </tr>
-
-                                    </table>
-                                    <?php } ?>
-
-
-
-
-
-                                    <center>
-                                        ___________________________
-                                    </center>
-                                    <table width="100%">
-                                        <tr ng-repeat="y in getonepaylist">
-                                            <td>{{y.pay_type_name}}</td>
-                                            <td align="right">
-                                                {{y.money | number:<?php echo $_SESSION['decimal_print']; ?>}}</td>
-
-                                        </tr>
-
-
-
-                                    </table>
-
-
-                                    <center>
-                                        ___________________________
-                                        <br />
-                                        <?php if($_SESSION['showsalesname']=='1'){ ?>
-
-                                        <?=$lang_sales?>: <?php echo $_SESSION['name']; ?>
-                                        <br />
+                                        </table>
                                         <?php } ?>
 
 
 
-                                        <?php if($_SESSION['showadddate']=='1'){ ?>
-                                        <?=$lang_day?>: {{adddate}}
-                                        <!-- <br />
-<img src="<?php echo $base_url;?>/warehouse/barcode/png?barcode={{sale_runno}}" style="height: 70px;width: 160px;"> -->
-                                        <br />
+                                        <?php
+                                    if($_SESSION['open_vat_on_slip']=='1'){
+                                    ?>
+                                        <center>
+                                            ___________________________
+                                        </center>
+                                        <table width="100%">
 
+                                            <tr>
+                                                <td>VAT</td>
+                                                <td style="font-weight: bold;" align="right">
+                                                    {{price_vat_all | number}}</td>
+                                            </tr>
+
+
+                                            <tr>
+                                                <td>befor VAT</td>
+                                                <td align="right">
+                                                    {{sumsalevat-price_vat_all-discount_last2 | number}}</td>
+                                            </tr>
+
+                                        </table>
                                         <?php } ?>
 
-
-
-
-                                        <?=$_SESSION['footer_slip']?>
-
-                                        <br />
-                                        ___________________________
-
-                                        <br />
-
-
-                                        <?php if($_SESSION['picunderslip']!=''){?>
-                                        <img src="<?php echo $base_url.'/'.$_SESSION['picunderslip'];?>">
-                                        <?php } ?>
 
 
 
 
                                         <center>
+                                            ___________________________
+                                        </center>
+                                        <table width="100%">
+                                            <tr ng-repeat="y in getonepaylist">
+                                                <td>{{y.pay_type_name}}</td>
+                                                <td align="right">
+                                                    {{y.money | number:<?php echo $_SESSION['decimal_print']; ?>}}</td>
+
+                                            </tr>
 
 
-                                            <span ng-show="showremarkonslip=='1'">
-                                                <br />
-                                                {{saleremark}}
-                                            </span>
+
+                                        </table>
+
+
+                                        <center>
+                                            ___________________________
+                                            <br />
+                                            <?php if($_SESSION['showsalesname']=='1'){ ?>
+
+                                            <?=$lang_sales?>: <?php echo $_SESSION['name']; ?>
+                                            <br />
+                                            <?php } ?>
+
+
+
+                                            <?php if($_SESSION['showadddate']=='1'){ ?>
+                                            <?=$lang_day?>: {{adddate}}
+                                            <!-- <br />
+<img src="<?php echo $base_url;?>/warehouse/barcode/png?barcode={{sale_runno}}" style="height: 70px;width: 160px;"> -->
+                                            <br />
+
+                                            <?php } ?>
+
+
+
+
+                                            <?=$_SESSION['footer_slip']?>
+
+                                            <br />
+                                            ___________________________
+
+                                            <br />
+
+
+                                            <?php if($_SESSION['picunderslip']!=''){?>
+                                            <img src="<?php echo $base_url.'/'.$_SESSION['picunderslip'];?>">
+                                            <?php } ?>
+
+
+
+
+                                            <center>
+
+
+                                                <span ng-show="showremarkonslip=='1'">
+                                                    <br />
+                                                    {{saleremark}}
+                                                </span>
 
 
 
@@ -3751,14 +3793,14 @@ if($_SESSION['open_number_for_cus']=='1'){
 
 
                                 <!-- ===================== debug data ======================= -->
-                                <pre>money input{{ money_from_customer | json }}</pre>
+                                <!-- <pre>money input{{ money_from_customer | json }}</pre>
                                 <pre>{{ pay_type |json}}</pre>
                                 <pre>gty{{ product_sale_num|json }}</pre>
                                 <pre>sale_runno{{ sale_runno |json}}</pre>
                                 <pre>product_id{{ product_id |json}}</pre>
                                 <pre>product_name{{ product_name|json }}</pre>
                                 <pre>product_code{{ product_code|json }}</pre>
-                                <pre>product_price{{ product_price |json}}</pre>
+                                <pre>product_price{{ product_price |json}}</pre> -->
                                 <!-- ============================================ -->
 
                                 <center>
@@ -3771,6 +3813,38 @@ if($_SESSION['open_number_for_cus']=='1'){
                                             </option>
                                         </select>
                                     </div>
+
+                                    <!-- <tr style="font-size: 20px;" ng-repeat="item in listsale">
+                                        <td>Grand_totalkip() </td>
+                                        <input type="text" id="Grand_totalkip{{$index}}" class="form-control"
+                                            ng-model="item.grandTotalkip"
+                                            style="font-size: 20px;text-align: right;height: 47px;background-color:#dff0d8;">
+                                    </tr> -->
+
+                                    <!-- <input type="text" id="Grand_totalkip" class="form-control"
+                                        ng-init="Grand_totalkip = calculateGrandTotalkip()" ng-model="Grand_totalkip"
+                                        placeholder="Grand_totalkip" onkeypress="validate(event)" autocomplete="off"
+                                        style="text-align: right;height: 70px;background-color:#dff0d8;font-size: 40px;font-weight:bold;"
+                                        autofocus> -->
+                                    <!-- 
+                                    <tr>
+
+                                        <td
+                                            style="font-weight: bold;font-size: 70px;color: red;text-align: center;vertical-align:middle;">
+                                            <span
+                                                style="font-weight: bold;font-size: 30px;font-family:Phetsarath OT;color:blue;">ລວມຕ້ອງຈ່າຍ:</span>
+                                            <span ng-show="discount_percent=='0'">
+                                                {{Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100) - discount_last | number }}
+                                            </span>
+
+                                            <span ng-show="discount_percent=='1'">
+
+                                                {{Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100) - ((Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100))*(discount_last_percent/100)) | number }}
+                                            </span>
+
+                                        </td>
+                                    </tr> -->
+
 
                                     <input type="text" id="money_from_customer_id" class="form-control"
                                         ng-model="money_from_customer" placeholder="<?=$lang_getmoneyfromcus?>"
@@ -4684,7 +4758,7 @@ if($_SESSION['user_type']=='4'){
                                                     <td ng-show="selectpage!='1'" class="text-center">
                                                         {{($index+1)+(perpage*(selectpage-1))}}</td>
 
-
+                                                    <!-- button slip bill in sale list -->
                                                     <td>
 
                                                         <?php
@@ -4707,6 +4781,7 @@ if($_SESSION['user_type']=='4'){
                                                             ?>
 
                                                     </td>
+                                                    <!-- button slip bill in sale list -->
 
 
 
@@ -4997,9 +5072,9 @@ app.controller('Index', function($scope, $http, $location) {
 
                 setTimeout(function() {
                     if ($scope.printer_ul == '0') {
-                        //$scope.printDivmini();
+                        $scope.printDivmini();
                     } else {
-                        //$scope.printDivminiip();
+                        $scope.printDivminiip();
                     }
                 }, 1000);
             }
@@ -5707,12 +5782,12 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     };
 
     $scope.printDivfull = function() {
-        //$('#Openone').modal('show');
+        $('#Openone').modal('show');
         $('#Openonemini').modal('hide');
         $scope.Getone($scope.list[0]);
-        // setTimeout(function(){
-        // $scope.printDiv();
-        //  }, 1000);
+        setTimeout(function() {
+            $scope.printDiv();
+        }, 1000);
     };
 
 
@@ -5913,7 +5988,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
     $scope.printDiv2ip = function(x) {
         window.scrollTo(0, 0);
-        //window.print();
+        window.print();
         toastr.info('<?=$lang_printing?>');
         //alert($scope.cus_id_one);
 
@@ -6245,6 +6320,9 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             product_price_discount: '0',
             product_price_discount_percent: '0'
         });
+
+        // Log $scope.listsale to the console
+        $console.log('Addpushproduct..', $scope.listsale);
     };
 
 
@@ -6300,70 +6378,78 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         }).success(function(data) {
 
 
-            console.log('Findproduct data here...');
-            console.log('list:');
-            console.log(data.list);
-            console.log('0:');
-            console.log(data.list[0]);
-            console.log('count_stock:');
-            console.log(data.list[0].count_stock);
-            console.log('e_id:');
-            console.log(data.list[0].e_id);
-            console.log('popup_pricenum:');
-            console.log(data.list[0].popup_pricenum);
-            console.log('product_category_id:');
-            console.log(data.list[0].product_category_id);
-            console.log('product_category_name:');
-            console.log(data.list[0].product_category_name);
-            console.log('product_code:');
-            console.log(data.list[0].product_code);
-            console.log('product_des:');
-            console.log(data.list[0].product_des);
-            console.log('product_id:');
-            console.log(data.list[0].product_id);
-            console.log('product_image:');
-            console.log(data.list[0].product_image);
-            console.log('product_name:');
-            console.log(data.list[0].product_name);
-            console.log('product_num_min:');
-            console.log(data.list[0].product_num_min);
-            console.log('product_price:');
-            console.log(data.list[0].product_price);
-            console.log('product_price3:');
-            console.log(data.list[0].product_price3);
-            console.log('product_price4:');
-            console.log(data.list[0].product_price4);
-            console.log('product_price5:');
-            console.log(data.list[0].product_price5);
-            console.log('product_price_discount:');
-            console.log(data.list[0].product_price_discount);
-            console.log('product_price_value:');
-            console.log(data.list[0].product_price_value);
-            console.log('product_pricebase:');
-            console.log(data.list[0].product_pricebase);
-            console.log('product_score:');
-            console.log(data.list[0].product_score);
-            console.log('product_stock_num:');
-            console.log(data.list[0].product_stock_num);
-            console.log('product_unit_name:');
-            console.log(data.list[0].product_unit_name);
-            console.log('product_wholesale_price:');
-            console.log(data.list[0].product_wholesale_price);
-            console.log('rate:');
-            console.log(data.list[0].rate);
-            console.log('title_name:');
+            // console.log('Findproduct data here...');
+            // console.log('list:');
+            // console.log(data.list);
+            // console.log('0:');
+            // console.log(data.list[0]);
+            // console.log('count_stock:');
+            // console.log(data.list[0].count_stock);
+            // console.log('e_id:');
+            // console.log(data.list[0].e_id);
+            // console.log('popup_pricenum:');
+            // console.log(data.list[0].popup_pricenum);
+            // console.log('product_category_id:');
+            // console.log(data.list[0].product_category_id);
+            // console.log('product_category_name:');
+            // console.log(data.list[0].product_category_name);
+            // console.log('product_code:');
+            // console.log(data.list[0].product_code);
+            // console.log('product_des:');
+            // console.log(data.list[0].product_des);
+            // console.log('product_id:');
+            // console.log(data.list[0].product_id);
+            // console.log('product_image:');
+            // console.log(data.list[0].product_image);
+            // console.log('product_name:');
+
+            // console.log('product_num_min:');
+            // console.log(data.list[0].product_num_min);
+            // console.log('product_price:');
+            // console.log(data.list[0].product_price);
+            // console.log('product_price3:');
+            // console.log(data.list[0].product_price3);
+            // console.log('product_price4:');
+            // console.log(data.list[0].product_price4);
+            // console.log('product_price5:');
+            // console.log(data.list[0].product_price5);
+            // console.log('product_price_discount:');
+            // console.log(data.list[0].product_price_discount);
+            // console.log('product_price_value:');
+            // console.log(data.list[0].product_price_value);
+            // console.log('product_pricebase:');
+            // console.log(data.list[0].product_pricebase);
+            // console.log('product_score:');
+            // console.log(data.list[0].product_score);
+            // console.log('product_stock_num:');
+            // console.log(data.list[0].product_stock_num);
+            // console.log('product_unit_name:');
+            // console.log(data.list[0].product_unit_name);
+            // console.log('product_wholesale_price:');
+            // console.log(data.list[0].product_wholesale_price);
+            // console.log('rate:');
+            // console.log(data.list[0].rate);
+            // console.log('title_name:');
+            console.log('product name:', data.list[0].product_name);
             console.log(data.list[0].title_name);
+            // alert(data.list[0].title_name);
 
 
             $scope.yingbarcode = false;
             $scope.cansale = data.cansale;
-            // console.log(data.cansale, 'data can sale..');
+
+            console.log('title_name...', data.list[0].title_name);
+            // console.log('data can sale..', data.cansale);
+
+
+            // alert((data.cansale, 'data can sale..');)
+
 
 
             if (data.list != '' && data.list[0].popup_pricenum ==
                 '1' || data.list != '' && data.list[0]
                 .popup_pricenum == '3') {
-                //แสดง popup ให้ใส่จำนวนเอง
+                //show popup input qty yourself
                 $('#popup_nummodal').modal('show');
                 $scope.product_name_popupnum = data.list[0]
                     .product_name;
@@ -6380,7 +6466,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
             if (data.list != '' && data.list[0].popup_pricenum ==
                 '2') {
-                //แสดง popup ให้ใส่ราคาเอง
+                // popup input price by yourself
                 $('#popup_pricemodal').modal('show');
                 $scope.product_name_popupnum = data.list[0]
                     .product_name;
@@ -6393,7 +6479,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
             $scope.www = data.w;
 
-            console.log(data.w);
+            console.log('data.w....', data.w);
             if (data.w != 0) {
                 $scope.w_dws = data.w;
             } else {
@@ -6413,8 +6499,12 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             $scope.Findproductone = data.list;
             data = data.list;
 
+            console.log('Findproductone = data.list......', data);
+
             if (data == '') {
                 $scope.cannotfindproduct = true;
+
+                console.log('cannotfindproduct......', data.list);
 
                 if (product_code != '') {
                     $scope.cannotfindproduct_barcode = product_code;
@@ -6554,8 +6644,10 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                                 .product_price_discount_percent
                         }).success(function(data) {
 
-                            // console.log(data.list[0].product_code);
+
                             console.log(data, 'data save show cus...');
+                            console.log('product_id:', data[0].product_id);
+                            console.log('product_code:', data[0].product_code);
                             // alert(data: data[0]
                             //     .product_code);
 
@@ -6677,6 +6769,9 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             rate: x.rate
 
         }).success(function(data) {
+            console.log('updateproductprice..', data[0].product_name)
+
+            // alert(data.title_name);
 
             $scope.Discount_lastfunc();
             $scope.Discount_lastfunc2();
@@ -6934,16 +7029,41 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         return total;
     };
 
-    // add new 
-    $scope.Totalconvert_to_kip = function() {
-        var totalkip = 0;
 
-        angular.forEach($scope.listsale, function(item) {
-            totalkip += parseFloat(item.product_price * item.rate * item
-                .product_sale_num);
-        });
-        return totalkip;
-    };
+    //     $scope.Grand_totalkip = function() {
+    //         var grand_totalkip = 0;
+
+    //         angular.forEach($scope.listsale, function(item) {
+    //                 grand_totalkip += parseFloat(item.product_price - item.product_price_discount) * item
+    //                     .product_sale_num * item.rate);
+    //         });
+    //         return grand_totalkip;
+    //     //   product_price - x.product_price_discount) * x.product_sale_num * x.rate
+
+
+    // };
+
+    //    $scope.Grand_totalkip = function() {
+    //     var grand_totalkip = 0;
+
+    //     angular.forEach($scope.listsale, function(item) {
+    //         console.log('item.product_price:', item.product_price);
+    //         console.log('item.product_price_discount:', item.product_price_discount);
+    //         console.log('item.product_sale_num:', item.product_sale_num);
+    //         console.log('item.rate:', item.rate);
+
+    //         grand_totalkip += parseFloat((item.product_price - item.product_price_discount) *
+    //             item
+    //             .product_sale_num * item.rate);
+    //     });
+
+    //     console.log('grand_totalkip:', grand_totalkip);
+
+    //     return grand_totalkip;
+    // }; 
+
+
+
     // add new 
 
     $scope.Sumsalepricevat = function() {
@@ -6959,21 +7079,74 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
     };
 
+    // this one is not working ---------------------------------------------
+    // $scope.Sumsalethb = function(x) {
+    //     var totalthb = 0;
 
-    $scope.Sumsalethb = function() {
+    //     angular.forEach($scope.listsale, function(item) {
+    //         if (item.title_name = "THB") {
+    //             totalthb += parseFloat(item.product_price * item
+    //                 .product_sale_num);
+    //         }
+
+    //     });
+    //     console.log('total thb...', totalthb)
+    //     alert(item.title_name); // Display the title_name of each item
+
+    //     // return totalthb;
+    // };
+
+    // ----- this is working --------------------------------------------------
+    $scope.Sumsalethb = function(x) {
         var totalthb = 0;
 
         angular.forEach($scope.listsale, function(item) {
-            if (item.title_name = "THB") {
-                totalthb += parseFloat(item.product_price * item
-                    .product_sale_num);
+            if (item.title_name === "THB") {
+                totalthb += parseFloat(item.product_price * item.product_sale_num);
+                // alert(item.title_name); // Display the title_name of each item with title_name equal to "THB"
             }
-
         });
+
+        console.log('total thb...', totalthb);
 
         return totalthb;
     };
+    // add new 
+    $scope.Totalconvert_to_kip = function() {
+        var totalkip = 0;
 
+        angular.forEach($scope.listsale, function(item) {
+            totalkip += parseFloat(item.product_price * item.rate * item
+                .product_sale_num);
+        });
+        return totalkip;
+    };
+    $scope.Grandtotal_convert_lak = function() {
+        var totalkip = 0;
+        var totalthb = 0;
+        var merge_totalkip_totalthb = 0;
+
+        angular.forEach($scope.listsale, function(item) {
+
+            if (item.title_name === "THB") {
+                totalthb += parseFloat(item.product_price * item.rate * item
+                    .product_sale_num);
+
+                return totalthb;
+                // alert(item.title_name); // Display the title_name of each item with title_name equal to "THB"
+            }
+            if (item.title_name === "KIP") {
+                totalkip += parseFloat(item.product_price * item.product_sale_num);
+
+                return totalkip;
+            }
+
+            merge_totalkip_totalthb == (totalkip + totalthb);
+        });
+        console.log('Grandtotal_convert_lak...', merge_totalkip_totalthb);
+        return merge_totalkip_totalthb;
+    };
+    // ----- this is working --------------------------------------------------
 
     // ============================
     // $scope.getproductlist = function() {
@@ -7336,7 +7509,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     // update ---------------------------------------------------------------------------------
     $scope.saleremark = '';
     $scope.showremarkonslip = '0';
-    $scope.Savesale = function(changemoney, sumsalepricevat, discount_last) {
+    $scope.Savesale = function(changemoney, sumsalepricevat,
+        discount_last) {
 
         if ($scope.morepaykey == '1') {
             $scope.money_from_customer = $scope.Summorepaymoney();
@@ -7390,14 +7564,11 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             $('#money_from_customer2').prop('disabled', true);
             // ============
 
-            // console.log("Data to be sent:", {
-            //     listsale: $scope.listsale,
-            //     cus_name: $scope.customer_name,
-            //     cus_id: $scope.customer_id
-            // });
-
-            // console.log('data savesale...', $scope.Savesale);
-
+            console.log("Data to be sent:", {
+                listsale: $scope.listsale,
+                cus_name: $scope.customer_name,
+                cus_id: $scope.customer_id
+            });
 
 
             // ================
@@ -7486,11 +7657,12 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 $('#money_from_customer').prop('disabled', false);
                 $('#money_from_customer2').prop('disabled', false);
                 // console.log($scope.listsale);
-                $scope.Refresh();
+                // $scope.Refresh();
                 // console.log($scope.Refresh);
 
                 if ($scope.print_preview == 0) {
                     $scope.getlist();
+
                     $scope.getproductlist();
                 } else {
                     $scope.getlist('', '', '', 'printmini');
@@ -7846,46 +8018,57 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     $scope.getlist('', '1');
 
 
+    // origin ----------------------------------------------------------------
+    // $scope.Getone = function(x) {
+    //     $('#Openone').modal('show');
+    //     $http.post("Salelist/Getone", {
+    //         sale_runno: x.sale_runno
+    //         // owner_id: x.owner_id
+    //     }).success(function(response) {
 
-    $scope.Getone = function(x) {
-        $('#Openone').modal('show');
-        $http.post("Salelist/Getone", {
-            sale_runno: x.sale_runno,
-            owner_id: x.owner_id
-        }).success(function(response) {
-            $scope.listone = response;
-            $scope.cus_name = x.cus_name;
-            $scope.cus_address_all = x.cus_address_all;
-            $scope.sale_runno = x.sale_runno;
-            $scope.sumsale_discount = x.sumsale_discount;
-            $scope.sumsale_num = x.sumsale_num;
-            $scope.sumsale_price = x.sumsale_price;
-            $scope.money_from_customer3 = x.money_from_customer;
-            $scope.vat3 = x.vat;
-            $scope.price_vat_all = x.price_vat_all;
-            $scope.sumsalevat = (parseFloat(x.sumsale_price) * (
-                parseFloat(x.vat) / 100)) + parseFloat(x
-                .sumsale_price);
-            $scope.money_changeto_customer = x
-                .money_changeto_customer;
-            $scope.adddate = x.adddate;
-            $scope.discount_last2 = x.discount_last;
-            $scope.pay_type = x.pay_type;
-            $scope.number_for_cus = x.number_for_cus;
-            $scope.saleremark = x.saleremark;
-            $scope.showremarkonslip = x.showremarkonslip;
-            $scope.taxnumber = x.taxnumber;
-        });
+    //         $scope.listone = response;
 
-        setTimeout(function() {
-            //$scope.printDiv();
-        }, 1000);
 
-        setTimeout(function() {
-            //$('#Openone').modal('hide');
-        }, 1000);
+    //         // alert($scope.listone);
+    //         $scope.cus_name = x.cus_name;
+    //         $scope.cus_address_all = x.cus_address_all;
+    //         $scope.sale_runno = x.sale_runno;
+    //         $scope.sumsale_discount = x.sumsale_discount;
+    //         $scope.sumsale_num = x.sumsale_num;
+    //         $scope.sumsale_price = x.sumsale_price;
+    //         $scope.money_from_customer3 = x.money_from_customer;
+    //         $scope.vat3 = x.vat;
+    //         $scope.price_vat_all = x.price_vat_all;
+    //         $scope.sumsalevat = (parseFloat(x.sumsale_price) * (
+    //             parseFloat(x.vat) / 100)) + parseFloat(x
+    //             .sumsale_price);
+    //         $scope.money_changeto_customer = x
+    //             .money_changeto_customer;
+    //         $scope.adddate = x.adddate;
+    //         $scope.discount_last2 = x.discount_last;
+    //         $scope.pay_type = x.pay_type;
+    //         $scope.number_for_cus = x.number_for_cus;
+    //         $scope.saleremark = x.saleremark;
+    //         $scope.showremarkonslip = x.showremarkonslip;
+    //         $scope.taxnumber = x.taxnumber;
 
-    };
+    //         $scope.product_weight = x.product_weight;
+    //         console.log('product_weight...', $scope.product_weight);
+
+    //     });
+
+
+    //     setTimeout(function() {
+    //         // $scope.printDiv();
+    //     }, 1000);
+
+    //     setTimeout(function() {
+    //         // $('#Openone').modal('hide');
+    //     }, 1000);
+
+    // };
+    // ------- origin -------------------------------------
+
     //start ค้นหาสินค้าทั้งหมด
     $scope.searchtextarray = [];
     $scope.searchtextarray2 = [];
@@ -7908,20 +8091,21 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     //start ค้นหาลูกค้า
     $scope.csearchtextarray = [];
     $scope.csearchtextarray2 = [];
-    $scope.pregetlistcus = function() {
-        $scope.csearchtextarray.push($scope.search_customer_name);
-        setTimeout(function() {
-            $scope.csearchtextarray2.push($scope
-                .search_customer_name);
-            if ($scope.csearchtextarray2[0] == $scope
-                .csearchtextarray[$scope.csearchtextarray.length -
-                    1]) {
-                $scope.Searchcustomer();
-            }
-            $scope.csearchtextarray = [];
-            $scope.csearchtextarray2 = [];
-        }, 1000);
-    }
+    $scope.pregetlistcus =
+        function() {
+            $scope.csearchtextarray.push($scope.search_customer_name);
+            setTimeout(function() {
+                $scope.csearchtextarray2.push($scope
+                    .search_customer_name);
+                if ($scope.csearchtextarray2[0] == $scope
+                    .csearchtextarray[$scope.csearchtextarray.length -
+                        1]) {
+                    $scope.Searchcustomer();
+                }
+                $scope.csearchtextarray = [];
+                $scope.csearchtextarray2 = [];
+            }, 1000);
+        }
     //end ค้นหาลูกค้า
 
     $scope.Getonemini = function(x) {
@@ -7937,20 +8121,26 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             sale_runno: x.sale_runno,
             owner_id: x.owner_id
         }).success(function(response) {
-            console.log(response);
-            $scope.listone = [];
+            // console.log('Getone respone data...', response);
+            // $scope.listone = [];
 
             $scope.listone = response;
+            console.log('Getone respone data ...', $scope.listone);
             $scope.cus_name = x.cus_name;
             $scope.cus_score = x.cus_score;
             $scope.cus_address_all = x.cus_address_all;
             $scope.sale_runno = x.sale_runno;
+            // column from sale_list_header
             $scope.sumsale_discount = x.sumsale_discount;
             $scope.sumsale_num = x.sumsale_num;
             $scope.sumsale_price = x.sumsale_price;
+            // column from sale_list_header
             $scope.money_from_customer3 = x.money_from_customer;
             $scope.vat3 = x.vat;
+            console.log(' $scope.vat3...', $scope.vat3)
             $scope.price_vat_all = x.price_vat_all;
+            $scope.rate = x.rate;
+            console.log('rate...', $scope.rate);
             $scope.sumsalevat = (parseFloat(x.sumsale_price) * (
                 parseFloat(x.vat) / 100)) + parseFloat(x
                 .sumsale_price);
@@ -7964,6 +8154,14 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             $scope.showremarkonslip = x.showremarkonslip;
             $scope.product_score_all = x.product_score_all;
             $scope.taxnumber = x.taxnumber;
+            // 
+            // $scope.product_price = x.product_price;
+            // $scope.rate = x.rate;
+            // console.log('$scope.rate...', $scope.rate)
+            // 
+            // $scope.gettotal_kip = $scope.sumsale_price;
+            // $scope.gettotal_kip = $scope.rate;
+            // console.log('get total kip', $scope.gettotal_kip);
 
             setTimeout(function() {
 
@@ -8119,11 +8317,11 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         });
 
         setTimeout(function() {
-            //$scope.printDiv();
+            $scope.printDiv();
         }, 1000);
 
         setTimeout(function() {
-            //$('#Openonequotation').modal('hide');
+            $('#Openonequotation').modal('hide');
         }, 1000);
 
 
@@ -8255,6 +8453,25 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         return total;
 
     };
+
+    // add new ---------------
+
+    $scope.calculateItemTotal = function(x) {
+        var itemTotal = (x.product_price - x.product_price_discount) * x.product_sale_num * x.rate;
+        // console.log('Item Total:', itemTotal);
+        return itemTotal;
+    };
+
+    $scope.calculateTotal = function() {
+        var grandTotal = 0;
+        angular.forEach($scope.listsale, function(item) {
+            grandTotal += $scope.calculateItemTotal(item);
+        });
+
+        // console.log('Grand Total:', grandTotal);
+        return grandTotal;
+    };
+    // add new ---------------
 
 
 

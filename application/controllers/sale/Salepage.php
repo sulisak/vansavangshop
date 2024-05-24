@@ -209,11 +209,11 @@ function Savesale()
 
 //Line notify
  
-// if($_SESSION['line_allbill']=='1'){
-// $saleallprice = $data['sumsale_price']-$data['discount_last'];
-// $text = $_SESSION['owner_name']."\nຍອດຂາຍ: ".number_format($saleallprice)."\nເລກບິນ: ".$header_code."\nໂດຍ: ".$_SESSION['name']."\nເວລາ " .date('H:i',time());
-// $this->Line_notify($text);
-//  }
+if($_SESSION['line_allbill']=='1'){
+$saleallprice = $data['sumsale_price']-$data['discount_last'];
+$text = $_SESSION['owner_name']."\nຍອດຂາຍ: ".number_format($saleallprice)."\nເລກບິນ: ".$header_code."\nໂດຍ: ".$_SESSION['name']."\nເວລາ " .date('H:i',time());
+$this->Line_notify($text);
+ }
   
 
 //Line notify
@@ -316,14 +316,14 @@ for($i=1;$i<=count($data['listsale']) ;$i++){
 
 $stock_less = $this->salepage_model->Line_stocknoti($data['listsale'][$i-1]);
 //Line notify
-//if($stock_less !=''){
-//if($_SESSION['line_stocknoti']=='1'){
-//	if($stock_less > 0){ $omgtext = 'ສະຕັອກເຫຼືອນ້ອຍ';}else{$omgtext = 'ສະຕັອກໝົດ';}
-//$text = $_SESSION['owner_name']."\n++".$omgtext."++\n".$data['listsale'][$i-1]['product_name']."\nເຫຼືອ: ".$stock_less."\nເວລາ " .date('H:i',time());
-//$this->Line_notify($text);
-//}
+if($stock_less !=''){
+if($_SESSION['line_stocknoti']=='1'){
+	if($stock_less > 0){ $omgtext = 'ສະຕັອກເຫຼືອນ້ອຍ';}else{$omgtext = 'ສະຕັອກໝົດ';}
+$text = $_SESSION['owner_name']."\n++".$omgtext."++\n".$data['listsale'][$i-1]['product_name']."\nເຫຼືອ: ".$stock_less."\nເວລາ " .date('H:i',time());
+$this->Line_notify($text);
+}
 
-//}
+}
 //Line notify
 
 
