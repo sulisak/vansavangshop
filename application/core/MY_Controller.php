@@ -802,9 +802,9 @@ return $new_code;
 				'content' => $linedata
 			)
 		);
-		$linecontext = stream_context_create($lineheader);
-		$lineresult = file_get_contents(LINE_API,FALSE,$linecontext);
-		return json_decode($lineresult);
+		// $linecontext = stream_context_create($lineheader);
+		// $lineresult = file_get_contents(LINE_API,FALSE,$linecontext);
+		// return json_decode($lineresult);
 
 	 
 	 

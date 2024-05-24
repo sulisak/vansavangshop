@@ -127,20 +127,62 @@ return $encode_data;
 
         }
 		
+// public function Getone($data)
+//         {
+
+// $query = $this->db->query('SELECT sd.*, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
+// wl.product_weight*sd.product_sale_num as product_weight,e.title_name,e.rate
+//     FROM sale_list_datail as sd
+// 	LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
+// 	LEFT JOIN exchangerate as e on e.e_id=wl.e_id 
+
+//     WHERE  sd.sale_runno="'.$data['sale_runno'].'"
+//     ORDER BY sd.ID ASC');
+// $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
+// return $encode_data;
+
+//         }
+
+
 public function Getone($data)
         {
 
 $query = $this->db->query('SELECT sd.*, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
-wl.product_weight*sd.product_sale_num as product_weight
+wl.product_weight*sd.product_sale_num as product_weight,e.title_name,e.rate
     FROM sale_list_datail as sd
 	LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
+	LEFT JOIN exchangerate as e on e.e_id=wl.e_id and wl.e_id=e.e_id
 
-    WHERE sd.owner_id="'.$data['owner_id'].'" AND sd.sale_runno="'.$data['sale_runno'].'"
+    WHERE  sd.sale_runno="'.$data['sale_runno'].'"
     ORDER BY sd.ID ASC');
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 return $encode_data;
 
         }
+
+// public function Getone($data)
+// {
+//     $query1 = $this->db->query('SELECT SUM(product_price * product_sale_num) AS total_price FROM sale_list_datail WHERE sale_runno="'.$data['sale_runno'].'"');
+//     $total_price = $query1->row()->total_price; // Get the total_price value
+
+//     $query2 = $this->db->query('SELECT sd.*, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
+//     wl.product_weight*sd.product_sale_num as product_weight,e.title_name,e.rate
+//     FROM sale_list_datail as sd
+//     LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
+//     LEFT JOIN exchangerate as e on e.e_id=wl.e_id
+//     WHERE sd.sale_runno="'.$data['sale_runno'].'"
+//     ORDER BY sd.ID ASC');
+
+//     $result = $query2->result(); // Get the result set
+
+//     $combined_data = array(
+//         'total_price' => $total_price,
+//         'data' => $result
+//     );
+
+//     $encode_data = json_encode($combined_data, JSON_UNESCAPED_UNICODE);
+//     return $encode_data;
+// }
 
 
 
