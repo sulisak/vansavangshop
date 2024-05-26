@@ -61,7 +61,7 @@ SUM(sld.product_sale_num) as product_sale_num,
 SUM((sld.product_price-sld.product_price_discount)*sld.product_sale_num) as priceall,
 IFNULL(s.product_stock_num,"0") AS stock_now,
 IFNULL(wpu.product_unit_name,"") AS product_unit_name
-FROM sale_list_datail as sld
+FROM sale_list_detail as sld
 LEFT JOIN wh_product_list as wpl on sld.product_id=wpl.product_id
 LEFT JOIN wh_product_unit as wpu on wpl.product_unit_id=wpu.product_unit_id
 LEFT JOIN stock as s on s.product_id=wpl.product_id
@@ -97,7 +97,7 @@ $query = $this->db->query('SELECT
 	sd.product_sale_num as "จำนวนที่ซื้อ",
 	(sd.product_price*sd.product_sale_num)-(sd.product_sale_num*sd.product_price_discount) as "รายรับ",
 	from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as "วันที่"
-FROM sale_list_datail as sd
+FROM sale_list_detail as sd
 LEFT JOIN sale_list_header as sh on sh.sale_runno=sd.sale_runno
 WHERE sh.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'"
 order by sd.ID DESC 

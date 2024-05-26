@@ -3454,25 +3454,12 @@ if($_SESSION['owner_tax_number'] !=''){
 
                                                 </tr>
                                                 <!-- --------------------------------------------------------- -->
-                                                <!-- <tr>
-                                                    <td colspan="3" style="font-weight: bold;">ລວມທັງໝົດກີບ (KIP)</td>
-                                                    <td style="font-weight: bold; color: blue">
-                                                        {{ Grand_totalkip() | number }}
-                                                    </td>
-                                                </tr> -->
-
-                                                <!-- update ------------- -->
                                                 <tr>
-                                                    <td colspan="3" style="font-weight: bold;">ລວມທັງໝົດກີບ (KIP)</td>
+                                                    <td colspan="3" style="font-weight: bold;">ລວມ ທັງໝົດກີບ (KIP)</td>
                                                     <td style="font-weight: bold; color: blue">
-                                                        <!-- {{ sumsalevat | number  }} -->
-                                                        <!-- {{parseFloat((x.product_price - x.product_price_discount) * x.product_sale_num * x.rate) | number}} -->
-
-                                                        {{ sumsale_price}}
+                                                        {{ sumsale_price_kip }}
                                                     </td>
                                                 </tr>
-                                                <!-- update ------------- -->
-
 
 
                                                 <tr ng-if="discount_last2!='0.00'">
@@ -6377,68 +6364,10 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             product_code: product_code
         }).success(function(data) {
 
-
-            // console.log('Findproduct data here...');
-            // console.log('list:');
-            // console.log(data.list);
-            // console.log('0:');
-            // console.log(data.list[0]);
-            // console.log('count_stock:');
-            // console.log(data.list[0].count_stock);
-            // console.log('e_id:');
-            // console.log(data.list[0].e_id);
-            // console.log('popup_pricenum:');
-            // console.log(data.list[0].popup_pricenum);
-            // console.log('product_category_id:');
-            // console.log(data.list[0].product_category_id);
-            // console.log('product_category_name:');
-            // console.log(data.list[0].product_category_name);
-            // console.log('product_code:');
-            // console.log(data.list[0].product_code);
-            // console.log('product_des:');
-            // console.log(data.list[0].product_des);
-            // console.log('product_id:');
-            // console.log(data.list[0].product_id);
-            // console.log('product_image:');
-            // console.log(data.list[0].product_image);
-            // console.log('product_name:');
-
-            // console.log('product_num_min:');
-            // console.log(data.list[0].product_num_min);
-            // console.log('product_price:');
-            // console.log(data.list[0].product_price);
-            // console.log('product_price3:');
-            // console.log(data.list[0].product_price3);
-            // console.log('product_price4:');
-            // console.log(data.list[0].product_price4);
-            // console.log('product_price5:');
-            // console.log(data.list[0].product_price5);
-            // console.log('product_price_discount:');
-            // console.log(data.list[0].product_price_discount);
-            // console.log('product_price_value:');
-            // console.log(data.list[0].product_price_value);
-            // console.log('product_pricebase:');
-            // console.log(data.list[0].product_pricebase);
-            // console.log('product_score:');
-            // console.log(data.list[0].product_score);
-            // console.log('product_stock_num:');
-            // console.log(data.list[0].product_stock_num);
-            // console.log('product_unit_name:');
-            // console.log(data.list[0].product_unit_name);
-            // console.log('product_wholesale_price:');
-            // console.log(data.list[0].product_wholesale_price);
-            // console.log('rate:');
-            // console.log(data.list[0].rate);
-            // console.log('title_name:');
-            console.log('product name:', data.list[0].product_name);
-            console.log(data.list[0].title_name);
-            // alert(data.list[0].title_name);
-
-
             $scope.yingbarcode = false;
             $scope.cansale = data.cansale;
 
-            console.log('title_name...', data.list[0].title_name);
+            // console.log('title_name...', data.list[0].title_name);
             // console.log('data can sale..', data.cansale);
 
 
@@ -6479,7 +6408,6 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
             $scope.www = data.w;
 
-            console.log('data.w....', data.w);
             if (data.w != 0) {
                 $scope.w_dws = data.w;
             } else {
@@ -6499,12 +6427,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             $scope.Findproductone = data.list;
             data = data.list;
 
-            console.log('Findproductone = data.list......', data);
-
             if (data == '') {
                 $scope.cannotfindproduct = true;
-
-                console.log('cannotfindproduct......', data.list);
 
                 if (product_code != '') {
                     $scope.cannotfindproduct_barcode = product_code;
@@ -6632,6 +6556,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                             product_score: data[0]
                                 .product_score,
                             product_price: product_price,
+                            e_id: data[0].e_id,
+                            // product_price_kip: product_price_kip,
                             product_pricebase: data[0]
                                 .product_pricebase,
                             product_stock_num: data[0]
@@ -6645,9 +6571,9 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                         }).success(function(data) {
 
 
-                            console.log(data, 'data save show cus...');
-                            console.log('product_id:', data[0].product_id);
-                            console.log('product_code:', data[0].product_code);
+                            // console.log(data, 'data save show cus...');
+                            // console.log('product_id:', data[0].product_id);
+                            // console.log('product_code:', data[0].product_code);
                             // alert(data: data[0]
                             //     .product_code);
 
@@ -7107,7 +7033,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             }
         });
 
-        console.log('total thb...', totalthb);
+        // console.log('total thb...', totalthb);
 
         return totalthb;
     };
@@ -7574,6 +7500,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             // ================
             $http.post("Salepage/Savesale", {
                 listsale: $scope.listsale,
+
                 cus_name: $scope.customer_name,
                 cus_id: $scope.customer_id,
                 cus_address_all: $scope.cus_address_all,
@@ -7582,6 +7509,12 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 vat: $scope.vatnumber,
                 product_score_all: $scope.Sumproduct_score(),
                 sumsale_price: $scope.Sumsaleprice(),
+                // rate: $scope.rate,
+                // add new -------------------------------
+                // sumsale_price_kip: $scope.product_price_kip * $scope.product_sale_num,
+                // sumsale_price_kip: $scope.Sumsaleprice() * $scope.rate * $scope.product_sale_num,
+
+                // add new -------------------------------
                 money_from_customer: $scope.money_from_customer,
                 money_changeto_customer: $scope
                     .money_from_customer - ($scope
@@ -7600,8 +7533,9 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 shift_id: '<?php if (isset($_SESSION['shift_id'])) {echo $_SESSION['shift_id'];
                 } ?>'
             }).success(function(data) {
+                // console.log('check data listsale...', $scope.listsale);
                 //toastr.success('<?= $lang_success ?>');
-
+                // console.log('console log sumsale_price_kip..', sumsale_price_kip);
 
                 //Line notify
                 <?php if ($_SESSION['line_stocknoti'] == '1') { ?>
@@ -7656,7 +7590,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 $('#savesale2').prop('disabled', false);
                 $('#money_from_customer').prop('disabled', false);
                 $('#money_from_customer2').prop('disabled', false);
-                // console.log($scope.listsale);
+                console.log('check data listsale...', $scope.listsale);
                 // $scope.Refresh();
                 // console.log($scope.Refresh);
 
@@ -7674,8 +7608,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 $scope.is_enter = true;
 
             }).catch(function(error) {
-                console.error('An error occurred:', error, $scope
-                    .listsale);
+
                 // Handle the error here
                 // loop save sale details ===================================
                 //Line notify
@@ -8139,8 +8072,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             $scope.vat3 = x.vat;
             console.log(' $scope.vat3...', $scope.vat3)
             $scope.price_vat_all = x.price_vat_all;
-            $scope.rate = x.rate;
-            console.log('rate...', $scope.rate);
+            // $scope.rate = x.rate;
+            // console.log('rate...', $scope.rate);
             $scope.sumsalevat = (parseFloat(x.sumsale_price) * (
                 parseFloat(x.vat) / 100)) + parseFloat(x
                 .sumsale_price);

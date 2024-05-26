@@ -104,7 +104,7 @@ return $json;
           SUM(sd.product_price*sd.product_sale_num) as price,
           SUM(sd.product_price_discount*sd.product_sale_num) as price_discount,
           SUM((sd.product_price*sd.product_sale_num)-(sd.product_price_discount*sd.product_sale_num)) as sumprice
-            FROM sale_list_datail as sd
+            FROM sale_list_detail as sd
             LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
             LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_category_id
             WHERE sd.shift_id="'.$data['shift_id'].'"
@@ -135,7 +135,7 @@ return $json;
                      sum(sd.product_sale_num*(sd.product_price-sd.product_price_discount)) as product_price2,
                      sum(sd.product_sale_num) as product_sale_num2,
                      sum(sd.product_price_discount) as product_price_discount2
-                     FROM sale_list_datail  as sd
+                     FROM sale_list_detail  as sd
                      LEFT JOIN wh_product_list as wl on sd.product_id=wl.product_id
 
                       WHERE sd.shift_id="'.$data['shift_id'].'"
@@ -166,7 +166,7 @@ return $json;
               sum(sd.product_price_discount) as product_price_discount2
               FROM wh_product_category  as wc
               LEFT JOIN wh_product_list as wl on wl.product_category_id=wc.product_category_id
-              LEFT JOIN sale_list_datail as sd on sd.product_id=wl.product_id
+              LEFT JOIN sale_list_detail as sd on sd.product_id=wl.product_id
 
                WHERE sd.shift_id="'.$data['shift_id'].'"
                GROUP BY wc.product_category_name

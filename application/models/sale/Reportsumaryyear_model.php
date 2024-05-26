@@ -45,7 +45,7 @@ public function Daylist2()
 $query = $this->db->query('SELECT
 FROM_UNIXTIME(sd.adddate, "%Y") as sd_year,
 sum(sd.product_sale_num*wl.product_pricebase) as sd_pricebaseall 
-FROM sale_list_datail as sd 
+FROM sale_list_detail as sd 
 LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id 
 GROUP BY sd_year ORDER BY sd_year ASC
 

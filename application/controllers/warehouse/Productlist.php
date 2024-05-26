@@ -120,6 +120,7 @@ $data['product_date_end'] = $_POST['product_date_end'];
 $data['product_date_end2'] = strtotime($_POST['product_date_end']);
 $data['product_des'] = $_POST['product_des'];
 $data['product_price'] = $_POST['product_price'];
+$data['product_price_kip'] = $_POST['product_price_kip'];
 $data['product_wholesale_price'] = $_POST['product_wholesale_price'];
 $data['product_price3'] = $_POST['product_price3'];
 $data['product_price4'] = $_POST['product_price4'];
@@ -137,7 +138,7 @@ $data['product_num_min'] = $_POST['product_num_min'];
 $data['is_course'] = $_POST['is_course'];
 $data['product_weight'] = $_POST['product_weight'];
 $data['e_id'] = $_POST['e_id'];
-$data['e_id'] = $_POST['e_id'];
+// $data['e_id'] = $_POST['e_id'];
 
 
 		$success = $this->productlist_model->Add($data);
