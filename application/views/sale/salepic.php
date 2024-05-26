@@ -3457,7 +3457,8 @@ if($_SESSION['owner_tax_number'] !=''){
                                                 <tr>
                                                     <td colspan="3" style="font-weight: bold;">ລວມ ທັງໝົດກີບ (KIP)</td>
                                                     <td style="font-weight: bold; color: blue">
-                                                        {{ sumsale_price_kip }}
+                                                        <!-- {{ Totalsumsale_price_to_kip() | number}} -->
+                                                        {{Totalconvert_to_kip() | number }}
                                                     </td>
                                                 </tr>
 
@@ -3988,7 +3989,7 @@ if($_SESSION['open_number_for_cus']=='1'){
                                     <button type="submit" class="col-xs-12 col-sm-12 col-md-12 btn btn-success"
                                         style="font-size:40px;font-weight:bold;height: 70px;" id="savesale"
                                         ng-click="Savesale(money_from_customer,Sumsalepricevat(),discount_last )">
-                                        ຢຶນຢັນ(Enter)
+                                        ຢຶນຢັນ_test(Enter)
                                     </button>
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -7042,11 +7043,34 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         var totalkip = 0;
 
         angular.forEach($scope.listsale, function(item) {
-            totalkip += parseFloat(item.product_price * item.rate * item
-                .product_sale_num);
+            totalkip += parseFloat(item.product_price_kip * item.product_sale_num);
         });
+
         return totalkip;
     };
+    // --------------------------------------------------------------
+    // $scope.Totalsumsale_price_to_kip = function() {
+    //     var totalsumsale_price_to_kip = 0;
+
+    //     angular.forEach($scope.listsale, function(item) {
+    //         totalsumsale_price_to_kip += parseFloat(item.sumsale_price_kip);
+    //     });
+
+    //     return totalsumsale_price_to_kip;
+    // };
+
+    $scope.Totalsumsale_price_to_kip = function() {
+        var totalsumsale_price_to_kip = 0;
+
+        angular.forEach($scope.listsale, function(item) {
+            totalsumsale_price_to_kip += parseFloat(item.sumsale_price_kip);
+        });
+
+        console.log('totalsumsale_price_to_kip...', totalsumsale_price_to_kip);
+
+        return totalsumsale_price_to_kip;
+    };
+
     $scope.Grandtotal_convert_lak = function() {
         var totalkip = 0;
         var totalthb = 0;
@@ -7500,6 +7524,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             // ================
             $http.post("Salepage/Savesale", {
                 listsale: $scope.listsale,
+                // sumsale_price_kip: $scope.product_price_kip * $scope.product_sale_num,
+                sumsale_price_kip: $scope.Totalsumsale_price_to_kip(), // assign the value here
 
                 cus_name: $scope.customer_name,
                 cus_id: $scope.customer_id,
@@ -7511,8 +7537,6 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 sumsale_price: $scope.Sumsaleprice(),
                 // rate: $scope.rate,
                 // add new -------------------------------
-                // sumsale_price_kip: $scope.product_price_kip * $scope.product_sale_num,
-                // sumsale_price_kip: $scope.Sumsaleprice() * $scope.rate * $scope.product_sale_num,
 
                 // add new -------------------------------
                 money_from_customer: $scope.money_from_customer,
@@ -7533,6 +7557,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 shift_id: '<?php if (isset($_SESSION['shift_id'])) {echo $_SESSION['shift_id'];
                 } ?>'
             }).success(function(data) {
+
+                // console.log('sumsale_price_kip.....', sumsale_price_kip)
                 // console.log('check data listsale...', $scope.listsale);
                 //toastr.success('<?= $lang_success ?>');
                 // console.log('console log sumsale_price_kip..', sumsale_price_kip);

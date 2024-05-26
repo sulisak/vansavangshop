@@ -778,12 +778,11 @@ return $encode_data;
 
 
 
+
+// ---------- original --------------------------------------------------------------
 // public function Adddetail($data)
-//         {
-
-// // $customerData = $this->Getcus2merselproduct($_SESSION['owner_id'], $_SESSION['user_id'], $_SESSION['store_id'], $data['product_id']);
-
-// $query = $this->db->query('SELECT have_vat
+// {
+//     $query = $this->db->query('SELECT have_vat
 //         FROM wh_product_list
 //         WHERE product_id = "'.$data['product_id'].'" LIMIT 1');
 
@@ -813,16 +812,19 @@ return $encode_data;
 //     $data['store_id'] = $_SESSION['store_id'];
 //     $data['shift_id'] = $_SESSION['shift_id'];
 //     $data['branch_id'] = $_SESSION['branch_id'];
-    
-   
-//               $this->db->insert("sale_list_detail", $data);
-      
+//     unset($data['title_name']); // Remove the 'title_name' column from data
+//     unset($data['rate']); // Remove the 'title_name' column from data
+//     // $data['sumsale_price_kip']=$data['product_price_kip']*$data['product_sale_num'];
+//     $this->db->insert('sale_list_detail', $data);
+
+
 //     $this->db->query('UPDATE sale_list_header
 //         SET price_vat_all = price_vat_all + '.$price_vat.'
 //         WHERE sale_runno = "'.$data['sale_runno'].'"');
 // }
+// ---------- original --------------------------------------------------------------
+// ------------------ update ------------------------------------------------------
 
-// ------------------------------------------------------------------------
 public function Adddetail($data)
 {
     $query = $this->db->query('SELECT have_vat
@@ -849,6 +851,10 @@ public function Adddetail($data)
         $price_vat = 0;
     }
 
+    // ----------- try add new ------------------------------
+    
+    $data['sumsale_price_kip'] = $data['product_price_kip']*$data['product_sale_num']; // Assign the value to 'sumsale_price_kip'
+
     $data['price_vat'] = $price_vat;
     $data['owner_id'] = $_SESSION['owner_id'];
     $data['user_id'] = $_SESSION['user_id'];
@@ -857,9 +863,12 @@ public function Adddetail($data)
     $data['branch_id'] = $_SESSION['branch_id'];
     unset($data['title_name']); // Remove the 'title_name' column from data
     unset($data['rate']); // Remove the 'title_name' column from data
-    // $data['sumsale_price_kip']=$data['product_price_kip']*$data['product_sale_num'];
-    $this->db->insert('sale_list_detail', $data);
 
+    
+       // ------------- zone add new --------------------------------------------------------
+    
+$this->db->insert('sale_list_detail', $data);
+    // $this->db->insert('sale_list_detail', $data);
 
     $this->db->query('UPDATE sale_list_header
         SET price_vat_all = price_vat_all + '.$price_vat.'
@@ -1426,22 +1435,35 @@ $cansale = '0';
         $data['adddate'] = time();
 
 // update ============
-$query1 = $this->db->query('SELECT sc.*,e.rate, e.title_name FROM sale_list_cus2mer as sc 
+$query1 = $this->db->query('SELECT sc.*,e.e_id,e.rate, e.title_name FROM sale_list_cus2mer as sc 
 JOIN wh_product_list as w ON w.product_id = sc.product_id
 JOIN exchangerate as e ON e.e_id = w.e_id
 WHERE sc.product_name = "'.$data['product_name'].'" AND sc.user_id = "'.$_SESSION['user_id'].'"');
 $num_rows = $query1->num_rows();
+// $rate = $query1->rate; 
+// $product_sale_num = $query1->product_sale_num; 
+// $product_price_kip = $query1->product_price_kip; 
+
 
 if ($cansale == '1') {
     if ($num_rows == 1) {
-      $this->db->query('UPDATE sale_list_cus2mer
-      SET product_sale_num = product_sale_num + '.$product_sale_num.', 
-      product_price = "'.$data['product_price'].'",
-      product_price_kip = product_price * '.$rate.', 
-      sumsale_price_kip = product_price_kip * '.$product_sale_num.'
+
+
+ $this->db->query('UPDATE sale_list_cus2mer
+      
+
+        SET product_sale_num=product_sale_num+"'.$data['product_sale_num'].'",
+    product_price = "'.$data['product_price'].'",
+    product_price_kip = product_price * '.$rate.', 
+    sumsale_price_kip = product_price * '.$rate.' * product_sale_num
       WHERE product_name = "'.$data['product_name'].'" AND product_code = "'.$data['product_code'].'" 
       AND product_id = "'.$data['product_id'].'" AND user_id = "'.$_SESSION['user_id'].'"');
-    } else {
+// -----------------------
+
+    }
+    
+    
+    else {
         if (isset($data['e_id'])) {
             $selectedExchangeRateId = $data['e_id'];
             $queryRate = $this->db->query('SELECT rate FROM exchangerate WHERE e_id = '.$data['e_id']);
