@@ -107,14 +107,10 @@ $whereupdate = array(
 $this->db->update("wh_product_list", $dataupdate);
 ///
 
-
-
 }else{
 
 
   if ($this->db->insert("wh_product_list", $data2)){
-
-
 
 $query2 =  $this->db->get_where('wh_product_list' , array('product_code' => $data['product_code']));
   foreach ($query2->result() as $row)
@@ -127,16 +123,35 @@ $data3['branch_id'] = $_SESSION['branch_id'];
 $data3['product_stock_num'] = $data2['product_stock_num'];
 $this->db->insert("stock", $data3);
 
-
-
-
-          return true;
-      }
-
+      return true;
+  }
 
 }
+// add new for rate ======================
+// Calculate and update product_price_lak
+$selectedExchangeRateId = $data['e_id'];
 
-		}
+$selectExchangeRate = "SELECT rate FROM exchangerate WHERE e_id = ?";
+$exchangeRateQuery = $this->db->query($selectExchangeRate, array($selectedExchangeRateId));
+$exchangeRateRow = $exchangeRateQuery->row();
+
+if ($exchangeRateRow) {
+    $exchangeRate = $exchangeRateRow->rate;
+    $productPriceLak = $data['product_price'] * $exchangeRate;
+
+    $dataUpdatePriceLak = array(
+        'product_price_lak' => $productPriceLak
+    );
+
+    $this->db->where($whereupdate);
+    $this->db->update("wh_product_list", $dataUpdatePriceLak);
+} else {
+  echo "no rate";
+    // Handle the case when the selected exchange rate ID is not found
+    // You can display an error message or take appropriate action based on your application's requirements
+}
+}
+		
 		
 public function Addsizecolor($data)
         {
@@ -192,6 +207,7 @@ $data2['product_date_end2'] = $data['product_date_end2'];
 $data2['product_des'] = $data['product_des'];
 $data2['product_image'] = $data['product_image'];
 $data2['product_price'] = $data['product_price'];
+$data2['product_price_kip'] = $data['product_price_kip'];
 $data2['product_wholesale_price'] = $data['product_wholesale_price'];
 // $data2['product_price3'] = $data['product_price3'];
 // $data2['product_price4'] = $data['product_price4'];

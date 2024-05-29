@@ -21,7 +21,7 @@ $dayfrom = strtotime($data['dayfrom']);
 $dayto = strtotime($data['dayto'])+86400;
 
 $query = $this->db->query('SELECT *,
-IFNULL((SELECT SUM(sd.product_sale_num) FROM sale_list_datail as sd  WHERE sd.product_id=wl.product_id AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'" LIMIT 1),"0") as salenum
+IFNULL((SELECT SUM(sd.product_sale_num) FROM sale_list_detail as sd  WHERE sd.product_id=wl.product_id AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'" LIMIT 1),"0") as salenum
     FROM wh_product_list as wl
 	LEFT JOIN stock as s on s.product_id=wl.product_id
 	LEFT JOIN wh_product_unit as wu on wu.product_unit_id=wl.product_unit_id

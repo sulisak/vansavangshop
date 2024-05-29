@@ -26,13 +26,13 @@ $query = $this->db->query('SELECT
     wpl.product_id as product_id,
     wpl.product_code as product_code,
     wpl.product_name as product_name,
-    (SELECT sum(sd.product_sale_num) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id WHERE sd.product_id=sld.product_id AND wl.supplier_id="'.$_SESSION['supplier_id'].'"  AND sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'") as product_numall,
-    (SELECT sum(sd.product_price * sd.product_sale_num) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id WHERE sd.product_id=sld.product_id AND wl.supplier_id="'.$_SESSION['supplier_id'].'"   AND sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'") as product_pricesaleall,
-    (SELECT sum(sd.product_price_discount*sd.product_sale_num) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id WHERE sd.product_id=sld.product_id AND wl.supplier_id="'.$_SESSION['supplier_id'].'"   AND sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'") as product_pricediscountall,
-    (SELECT sum((sd.product_price - sd.product_price_discount) * sd.product_sale_num) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id WHERE sd.product_id=sld.product_id AND wl.supplier_id="'.$_SESSION['supplier_id'].'"  AND sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'") as product_priceall,
+    (SELECT sum(sd.product_sale_num) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id WHERE sd.product_id=sld.product_id AND wl.supplier_id="'.$_SESSION['supplier_id'].'"  AND sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'") as product_numall,
+    (SELECT sum(sd.product_price * sd.product_sale_num) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id WHERE sd.product_id=sld.product_id AND wl.supplier_id="'.$_SESSION['supplier_id'].'"   AND sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'") as product_pricesaleall,
+    (SELECT sum(sd.product_price_discount*sd.product_sale_num) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id WHERE sd.product_id=sld.product_id AND wl.supplier_id="'.$_SESSION['supplier_id'].'"   AND sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'") as product_pricediscountall,
+    (SELECT sum((sd.product_price - sd.product_price_discount) * sd.product_sale_num) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id WHERE sd.product_id=sld.product_id AND wl.supplier_id="'.$_SESSION['supplier_id'].'"  AND sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'") as product_priceall,
     (SELECT wid.product_pricebase FROM wh_product_list as wid WHERE wid.product_id=sld.product_id AND wid.supplier_id="'.$_SESSION['supplier_id'].'" AND wid.owner_id="'.$_SESSION['owner_id'].'") as product_pricebaseall
 
-FROM sale_list_datail as sld
+FROM sale_list_detail as sld
 LEFT JOIN wh_product_list as wpl on wpl.product_id=sld.product_id
 WHERE sld.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -57,7 +57,7 @@ $dayto = strtotime($data['dayto'])+86400;
 
 
 $query = $this->db->query('SELECT *, from_unixtime(sld.adddate,"%d-%m-%Y %H:%i:%s") as adddate
-FROM sale_list_datail as sld
+FROM sale_list_detail as sld
 LEFT JOIN wh_product_list as wpl on wpl.product_id=sld.product_id
 WHERE sld.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -82,7 +82,7 @@ $dayto = strtotime($data['dayto'])+86400;
 
 $query = $this->db->query('SELECT *, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
 sh.cus_name
-FROM sale_list_datail as sd
+FROM sale_list_detail as sd
 LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
 LEFT JOIN sale_list_header as sh on sh.sale_runno=sd.sale_runno
 WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
@@ -159,7 +159,7 @@ $query = $this->db->query('SELECT
 	sd.product_sale_num as "จำนวนที่ซื้อ",
 	(sd.product_price*sd.product_sale_num)-(sd.product_sale_num*sd.product_price_discount) as "รายรับ",
 	from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as "วันที่"
-FROM sale_list_datail as sd
+FROM sale_list_detail as sd
 LEFT JOIN sale_list_header as sh on sh.sale_runno=sd.sale_runno
 WHERE sh.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'"
 order by sd.ID DESC

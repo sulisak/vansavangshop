@@ -89,7 +89,7 @@ $aa = $this->db->query('SELECT * FROM product_return_datail2');
 foreach ($aa->result() as $row)
 {
 
-$this->db->query('UPDATE sale_list_datail 
+$this->db->query('UPDATE sale_list_detail 
     SET product_sale_num=product_sale_num + '.$row->product_sale_num.'
     WHERE product_name="'.$row->product_name.'" AND sale_runno="'.$row->sale_runno.'"');
 	
@@ -170,7 +170,7 @@ WHERE adddate
 BETWEEN "'.$dayfrom.'"
 AND "'.$dayto.'"');
 
-$this->db->query('DELETE FROM sale_list_datail
+$this->db->query('DELETE FROM sale_list_detail
 WHERE adddate
 BETWEEN "'.$dayfrom.'"
 AND "'.$dayto.'"');
@@ -195,9 +195,9 @@ $this->db->insert("log_c2mhelper", $datalog);
 
 
 $this->db->query('TRUNCATE TABLE sale_list_header');
-$this->db->query('TRUNCATE TABLE sale_list_datail');
+$this->db->query('TRUNCATE TABLE sale_list_detail');
 $this->db->query('TRUNCATE TABLE sale_list_header_bak');
-$this->db->query('TRUNCATE TABLE sale_list_datail_bak');
+$this->db->query('TRUNCATE TABLE sale_list_detail_bak');
 $this->db->query('TRUNCATE TABLE shift');
 $this->db->query('TRUNCATE TABLE accounting_taxinvoice_list');
 $this->db->query('TRUNCATE TABLE product_return_header2');

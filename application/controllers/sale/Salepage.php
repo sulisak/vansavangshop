@@ -279,6 +279,8 @@ $data['listsale'][$i-1]['sale_runno'] = $header_code;
 $data['listsale'][$i-1]['adddate'] = $adddate;
 $data['listsale'][$i-1]['savedate'] = $savedate;
 $data['listsale'][$i-1]['ID'] = null;
+// $data['listsale'][$i-1]['e_id'] = $e_id;
+unset($data['title_name']);
 
 $this->salepage_model->Adddetail($data['listsale'][$i-1]);
 

@@ -21,7 +21,7 @@ class Reportsumarymonth_model extends CI_Model {
 $year = $data['year'];
 
 ////////// 1
-$query1 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query1 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -43,7 +43,7 @@ foreach ($qer1->result() as $rowx)
 /////////
 
 ////////// 2
-$query2 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query2 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -66,7 +66,7 @@ foreach ($qer2->result() as $rowx)
 
 
 ////////// 3
-$query3 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query3 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -88,7 +88,7 @@ foreach ($qer3->result() as $rowx)
 /////////
 
 ////////// 4
-$query4 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query4 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -110,7 +110,7 @@ foreach ($qer4->result() as $rowx)
 /////////
 
 ////////// 5
-$query5 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query5 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -133,7 +133,7 @@ foreach ($qer5->result() as $rowx)
 
 
 ////////// 6
-$query6 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query6 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -155,7 +155,7 @@ foreach ($qer6->result() as $rowx)
 /////////
 
 ////////// 7
-$query7 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query7 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -177,7 +177,7 @@ foreach ($qer7->result() as $rowx)
 /////////
 
 ////////// 8
-$query8 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query8 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -199,7 +199,7 @@ foreach ($qer8->result() as $rowx)
 /////////
 
 ////////// 9
-$query9 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query9 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -221,7 +221,7 @@ foreach ($qer9->result() as $rowx)
 /////////
 
 ////////// 10
-$query10 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query10 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -243,7 +243,7 @@ foreach ($qer10->result() as $rowx)
 /////////
 
 ////////// 11
-$query11 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query11 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -265,7 +265,7 @@ foreach ($qer11->result() as $rowx)
 /////////
 
 ////////// 12
-$query12 = $this->db->query('SELECT * FROM sale_list_datail as sd
+$query12 = $this->db->query('SELECT * FROM sale_list_detail as sd
   LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'"
 AND wpl.supplier_id="'.$_SESSION['supplier_id'].'"
@@ -289,18 +289,18 @@ foreach ($qer12->result() as $rowx)
 
 $query = $this->db->query('SELECT
 
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="01") as m1,
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="02") as m2,
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="03") as m3,
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="04") as m4,
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="05") as m5,
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="06") as m6,
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="07") as m7,
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="08") as m8,
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="09") as m9,
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="10") as m10,
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="11") as m11,
-    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_datail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="12") as m12,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="01") as m1,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="02") as m2,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="03") as m3,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="04") as m4,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="05") as m5,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="06") as m6,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="07") as m7,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="08") as m8,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="09") as m9,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="10") as m10,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="11") as m11,
+    (SELECT sum((sd.product_sale_num*sd.product_price)-(sd.product_sale_num*sd.product_price_discount)) FROM sale_list_detail as sd LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND wpl.supplier_id="'.$_SESSION['supplier_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="12") as m12,
 
 
     (SELECT sum(sd.discount_last) FROM sale_list_header as sd WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND FROM_UNIXTIME(sd.adddate, "%Y")="'.$year.'" AND FROM_UNIXTIME(sd.adddate, "%m")="01") as mm1,

@@ -139,7 +139,7 @@ $query = $this->db->query('SELECT
 sum(sd.product_sale_num) as product_numall
 
     FROM wh_product_list as wpl 
-	LEFT JOIN sale_list_datail as sd on sd.product_id=wpl.product_id
+	LEFT JOIN sale_list_detail as sd on sd.product_id=wpl.product_id
 	WHERE wpl.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'" 
 	GROUP BY wpl.product_id ORDER BY product_numall DESC LIMIT 6');
 

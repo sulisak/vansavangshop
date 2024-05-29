@@ -10,12 +10,25 @@ foreach ($Getpermission_rule as $value) {
 
 }
 
+.div td,
+.div tr,
+.div table,
+.div th,
+.div tbody,
+.div thead {
+    font-family: "Phetsarath OT" !important;
+}
+
+.panel-body {
+    font-family: "Phetsarath OT" !important;
+}
+
 .text-right {
     text-align: right;
 }
 
 * {
-    font-family: "Phetsarath OT !important";
+    font-family: "Phetsarath OT" !important;
 }
 
 <?php if($_SESSION['printer_type']=='1') {
@@ -665,25 +678,41 @@ else {
                             </div>
 
                             <br />
-                            <center>
+
+                            <!--  remove button save and show quotation as temperarity -->
+                            <!-- <center> -->
 
 
-                                <div>
-                                    <button style="font-color:blue" ng-if="listsale != ''" id="savequotation"
+                            <!-- <div> -->
+                            <!-- <button style="font-color:blue" ng-if="listsale != ''" id="savequotation"
                                         class="btn btn-warning btn-sm" ng-click="Savequotation()">
-                                        <?php echo $lang_sp_14;?></button>
-                                    <button ng-if="listsale == ''" ng-click="Showquotationlist()"
+                                        <?php 
+                                        // echo $lang_sp_14;
+                                        
+                                        ?>
+                                    </button> -->
+                            <!-- <button ng-if="listsale == ''" ng-click="Showquotationlist()"
                                         class="btn btn-warning btn-sm">
-                                        <?php echo $lang_sp_15;?></button>
+                                        <?php 
+                                        // echo $lang_sp_15;
+                                        ?>
+                                    </button> -->
 
-                                    <!-- <span style="float:right;" ng-if="listsale!=''">
+                            <!-- <span style="float:right;" ng-if="listsale!=''">
 
-                                        <?php if(!isset($arr) || $arr[32]->status==true){?>
+                                        <?php 
+                                        // if(!isset($arr) || $arr[32]->status==true)
+                                        
+                                        {?>
                                         <button class="btn btn-danger btn-xs" ng-click="Deletepush('all')">
                                             ລຶບທັງໝົດ</button>
                                         <?php } ?>
 
-                                        <?php if(isset($arr) && $arr[32]->status==false){?>
+                                        <?php
+                                        
+                                        // if(isset($arr) && $arr[32]->status==false)
+                                        
+                                        {?>
                                         <button class="btn btn-danger btn-xs" ng-click="Deletepush_pass('all')">
                                             ລຶບທັງໝົດ
                                         </button>
@@ -691,9 +720,10 @@ else {
 
                                         <span> -->
 
-                                </div>
+                            <!-- </div> -->
 
-                            </center>
+                            <!-- </center> -->
+                            <!--  remove button save and show quotation as temperarity -->
                             <br />
                             <table class="table">
                                 <tbody>
@@ -1398,7 +1428,8 @@ else {
                                         </div>
                                         <div class="modal-body text-center">
                                             <h1 style="color: red;font-weight: bold;font-size: 100px;">
-                                                {{changemoney | number}}
+                                                <!-- {{changemoney | number}} -->
+                                                {{money_from_customer3-money_from_customer3 | number:<?php echo $_SESSION['decimal_print']; ?>}}
                                             </h1>
                                             <br />
 
@@ -1474,28 +1505,12 @@ else {
                             </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
                             <hr />
 
 
 
                         </div>
                     </div>
-
-
-
-
-
 
                     <div class="modal fade" id="Opencustomer">
                         <div class="modal-dialog modal-lg">
@@ -1514,12 +1529,13 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                                 style="height: 45px;width: 300px;font-size: 20px;">
                                         </div>
 
-                                        <!--
-<div class="form-group">
-<input type="submit" ng-click="Searchcustomer()" class="btn btn-success btn-lg" value="ค้นหา">
-</div>
 
--->
+                                        <div class="form-group">
+                                            <input type="submit" ng-click="Searchcustomer()"
+                                                class="btn btn-success btn-lg" value="ค้นหา">
+                                        </div>
+
+
                                     </div>
 
                                     <!-- <center>
@@ -1602,17 +1618,6 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
                     <div class="modal fade" id="Allcuscourse">
@@ -1742,14 +1747,14 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
 
 
 
-
+                    <!-- A4 bill ------------------------------------- -->
                     <div class="modal fade" id="Openone">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
 
                                 <div class="modal-header">
 
-                                    <button class="btn btn-primary" onClick="Openprintdiv1()"><?=$lang_print?></button>
+                                    <button class="btn btn-primary" onClick="Openprintdiv1()">ພິມ_print</button>
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
 
@@ -1771,8 +1776,8 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                         <br />
 
                                         <?php
-if($_SESSION['logoonslip']=='0'){
-?>
+                                                    if($_SESSION['logoonslip']=='0'){
+                                                    ?>
                                         <img src="<?=$base_url?>/<?=$_SESSION['owner_logo']?>" width="100px">
                                         <br />
                                         <?php } ?>
@@ -1815,13 +1820,22 @@ if($_SESSION['logoonslip']=='0'){
                                                 <th style="width:300px;"><?=$lang_detail?></th>
 
                                                 <th><?=$lang_saleprice?></th>
-                                                <th><?=$lang_discountperunit?></th>
+                                                <th>ສະກຸນເງິນ</th>
                                                 <th><?=$lang_qty?></th>
+                                                <th>ເຫຼດ</th>
+                                                <th><?=$lang_discountperunit?></th>
                                                 <th><?=$lang_unit?></th>
-                                                <th><?=$lang_priceall?></th>
+
+
+
+                                                <!-- <th>ລາຄາລວມ KIP</th> -->
+                                                <th>ລາຄາລວມຕາມສະກຸນເງິນ</th>
+                                                <th>ລາຄາລວມ THB</th>
+                                                <th>ຍອດລາຄາລວມທຽບ KIP</th>
+
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody style="font-family:Phetsarath OT;">
                                             <tr ng-repeat="x in listone">
                                                 <td align="center" style="width:10px;">{{$index+1}}</td>
 
@@ -1833,43 +1847,91 @@ if($_SESSION['logoonslip']=='0'){
                                                 <td align="right" style="width:50px;">
                                                     {{x.product_price | number:<?php echo $_SESSION['decimal_print']; ?>}}
                                                 </td>
+
+                                                <!--  -->
                                                 <td align="right" style="width:50px;">
-                                                    {{x.product_price_discount | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                    {{x.title_name }}
                                                 </td>
                                                 <td align="right" style="width:5px;">{{x.product_sale_num | number}}
                                                 </td>
+                                                <!--  -->
+
+                                                <td align="right">{{x.rate}}</td>
+                                                <td align="right" style="width:50px;">
+                                                    {{x.product_price_discount | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                </td>
+
                                                 <td align="right">{{x.product_unit_name}}</td>
+
+                                                <!-- thb -->
+
+                                                <!-- <td align="right">
+                                                    {{x.product_sale_num * x.product_price}}
+                                                </td> -->
+
+
+                                                <!-- thb -->
+
                                                 <td align="right" style="width:50px;">
                                                     {{(x.product_price - x.product_price_discount) * x.product_sale_num | number:<?php echo $_SESSION['decimal_print']; ?>}}
                                                 </td>
+
+                                                <td align="right" ng-switch="x.title_name">
+                                                    <span ng-switch-when="KIP">{{ calculateTotalAmountTHB(x) }}</span>
+                                                    <span ng-switch-when="THB">{{ calculateTotalAmountTHB(x) }}</span>
+                                                    <span
+                                                        ng-switch-default>{{ x.product_sale_num * x.product_price }}</span>
+                                                </td>
+
+                                                <td align="right" style="width:50px;">
+                                                    {{(x.product_price - x.product_price_discount) * x.product_sale_num * x.rate | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                </td>
                                             </tr>
+                                            <!-- A4 ------------------------->
+
                                             <tr>
-                                                <td colspan="6" align="right" style="font-weight: bold;">
-                                                    <?=$lang_all?></td>
 
-                                                <td align="right" style="font-weight: bold;">{{sumsale_num | number}}
+                                                <td colspan="6"
+                                                    style="font-weight: bold;font-family:Phetsarath OT; text-align: right;">
+                                                    ຍອດທັງໝົດ
+                                                    KIP</td>
+
+                                                <td colspan="6"
+                                                    style="font-weight: bold;color:blue; text-align: right;">
+                                                    {{ Sumsale_price_kip() | number }}
+                                                </td>
+                                            </tr>
+                                            <!-- <tr>
+                                                <td colspan="2" align="right"
+                                                    style="font-weight: bold;font-family:Phetsarath OT;">
+                                                    ຍອດທັງໝົດ KIP
                                                 </td>
 
-                                                <td align="right" style="font-weight: bold;">
-                                                    <u>{{sumsale_price | number:<?php echo $_SESSION['decimal_print']; ?>}}</u>
+                                                <td colspan="6" align="right" style="font-weight: bold;color:blue">
+
+                                                    {{ Sumsale_price_kip()|number:2 }}
                                                 </td>
+
+
+                                            </tr> -->
+
+                                            <!-- A4 ------------------------->
+
+                                            <!-- -------------------------------------- -->
+                                            <!-- <tr ng-if="vat3 > '0'">
+                                                <td align="right" colspan="6">VAT {{vat3}}%</td>
+                                                <td style="font-weight: bold;" align="right">
+                                                    {{sumsalevat-sumsale_price | number}}</td>
                                             </tr>
 
 
-                                            <!-- <tr ng-if="vat3 > '0'">
-		<td align="right" colspan="6">VAT {{vat3}}%</td>
-		<td style="font-weight: bold;" align="right">
-		{{sumsalevat-sumsale_price | number}}</td>
-		</tr>
+                                            <tr ng-if="vat3 > '0'">
+                                                <td align="right" colspan="6"><?=$lang_pricesumvat?></td>
+                                                <td style="font-weight: bold;" align="right">
+                                                    {{sumsalevat | number}}</td>
+                                            </tr> -->
 
-
-<tr ng-if="vat3 > '0'">
-		<td align="right" colspan="6"><?=$lang_pricesumvat?></td>
-		<td style="font-weight: bold;" align="right">
-		{{sumsalevat | number}}</td>
-		</tr> -->
-
-
+                                            <!-- -------------------------------------- -->
 
 
 
@@ -1878,8 +1940,8 @@ if($_SESSION['logoonslip']=='0'){
 
 
                                             <?php
-if($_SESSION['owner_vat_status']=='2'){
-?>
+                                            if($_SESSION['owner_vat_status']=='2'){
+                                            ?>
                                             <tr ng-if="vat3!='0'">
                                                 <td align="right" colspan="7"><?=$lang_vat?> {{vat3}}%</td>
                                                 <td style="font-weight: bold;" align="right">
@@ -1902,11 +1964,8 @@ if($_SESSION['owner_vat_status']=='2'){
                                             </tr>
 
                                             <?php
-}
-?>
-
-
-
+                                            }
+                                            ?>
 
                                             <tr ng-if="discount_last2 !='0.00'">
                                                 <td align="right" colspan="7">
@@ -1915,10 +1974,20 @@ if($_SESSION['owner_vat_status']=='2'){
                                                     -{{discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td align="right" colspan="7"><?=$lang_sumall?></td>
+                                            <!-- <tr>
+                                                <td align="right" colspan="7">ຍອດທັງໝົດ THB</td>
                                                 <td style="font-weight: bold;" align="right">
                                                     <u>{{sumsalevat-discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}</u>
+                                                </td>
+                                            </tr> -->
+                                            <tr>
+                                                <td align="right" colspan="6">ຍອດທັງໝົດ THB</td>
+                                                <!-- <td style="font-weight: bold;" align="right" colspan="5">
+                                                  
+                                                    <u>{{Sumsale_price_thb()|number}}</u>
+                                                </td> -->
+                                                <td style="font-weight: bold;" align="right" colspan="5">
+                                                    {{ Sumsale_price_thb() }}
                                                 </td>
                                             </tr>
 
@@ -1986,23 +2055,37 @@ if($_SESSION['owner_vat_status']=='2'){
                                     </table>
 
 
-
+                                    <!-- exchange rate zone -------------------------------------------- -->
                                     <?php
-                                if($_SESSION['exchangerateonslip']=='1'){
+                                // if($_SESSION['exchangerateonslip']=='1')
+                                
+                                {
                                 ?>
 
-                                    <table class="table table-bordered">
+                                    <!-- <table class="table table-bordered">
 
                                         <tr ng-repeat="x in exchangeratelist">
+                                            
                                             <td style="font-weight: bold;" align="right">{{x.title_name}}</td>
+                                        
                                             <td style="font-weight: bold;" align="right">
-                                                {{(sumsalevat-discount_last2)/x.rate | number}}</td>
+                                                {{x.rate | number}}</td>
                                         </tr>
 
-                                    </table>
+                                    </table> -->
                                     <?php } ?>
 
+                                    <!-- update exchange rate new  --------------------->
+                                    <?php if ($_SESSION['exchangerateonslip'] == '1'): ?>
+                                    <table class="table table-bordered">
+                                        <tr ng-repeat="x in exchangeratelist" ng-show="x.title_name === 'THB'">
+                                            <td style="font-weight: bold;" align="right">{{x.title_name}}</td>
+                                            <td style="font-weight: bold;" align="right">{{x.rate | number}}</td>
+                                        </tr>
+                                    </table>
+                                    <?php endif; ?>
 
+                                    <!-- exchange rate zone --------------------------------------------- -->
 
 
 
@@ -2055,7 +2138,7 @@ if($_SESSION['owner_vat_status']=='2'){
                         </div>
                     </div>
 
-
+                    <!-- End  A4 bill ------------------------------------- -->
 
 
 
@@ -2201,7 +2284,7 @@ if($_SESSION['owner_vat_status']=='2'){
 
 
                                         <!-- <span ng-if="pay_type!='4'" style="font-size: 35px;font-weight: bold;">
-<?=$lang_billall?>
+                                        <?=$lang_billall?>
 </span>
 
 <span ng-if="pay_type=='4'" style="font-size: 35px;font-weight: bold;">ใบค้างชำระ</span> -->
@@ -2721,8 +2804,7 @@ echo '<br /><b>{{dataprintsend.sale_runno}}</b><br />';
 
 
                                     <center>
-
-                                        <?php if($_SESSION['user_type'] == '2' || $_SESSION['user_type']== '3' || $_SESSION['user_type'] == '4'){?>
+                                        <?php if($_SESSION['user_type'] > '0'){?>
 
 
                                         <?php if(isset($_SESSION['shift_id_old'])){;?>
@@ -2765,7 +2847,7 @@ echo '<br /><b>{{dataprintsend.sale_runno}}</b><br />';
                                 </div>
 
 
-                                <<div class="modal-footer">
+                                <div class="modal-footer">
                                     <center>
                                         <a href="<?php echo $base_url;?>" class="btn btn-xs btn-default">
                                             <?=$lang_goindex?>
@@ -2776,10 +2858,10 @@ echo '<br /><b>{{dataprintsend.sale_runno}}</b><br />';
                                             <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
                                             <?=$lang_logout?></a>
                                     </center>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
 
 
@@ -2787,284 +2869,45 @@ echo '<br /><b>{{dataprintsend.sale_runno}}</b><br />';
 
 
 
-                <div class="modal fade" id="Closeshiftnow">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
+                    <div class="modal fade" id="Closeshiftnow">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
 
 
-                            <div class="modal-body">
-                                <center>
-                                    <b><?=$lang_closeshifsendmoney?></b>
-                                    <br />
-                                    <input type="text" onkeypress="validate(event)" class="form-control"
-                                        style="font-size:17px;font-weight:bold;height:50px;" ng-model="shift_money_end"
-                                        placeholder="<?php echo $lang_getlastmoney;?>" />
-                                    <br>
-                                    <button ng-show="shift_money_end" class="btn btn-lg btn-info"
-                                        ng-click="Closeshiftnowconfirm()">
-                                        <?=$lang_confirmcloseshif?>
-                                    </button>
-
-
-
-
-                                    <hr />
-
-                                    <input type="checkbox" ng-model="addmoneytoshift">
-                                    <?php echo $lang_sp_77;?> <?php echo $_SESSION['shift_id']; ?>
-                                    <form ng-if="addmoneytoshift" action="salepic/addshiftmoneystart" method="post">
-
-                                        <input type="number" class="form-control"
-                                            style="font-size:20px;font-weight:bold;height:50px;"
-                                            name="addshiftmoneystart" placeholder="x.xx" />
-                                        <?php echo $lang_sp_78;?>
-                                        <?php if(isset($_SESSION['shift_money_start'])){ echo number_format($_SESSION['shift_money_start'],2); } ?>
-                                        <br>
-                                        <input type="submit" class="btn btn-success btn-lg"
-                                            value="<?php echo $lang_add;?>">
-                                    </form>
-
-
-                                </center>
-
-
-
-
-
-
-                            </div>
-
-
-                            <div class="modal-footer">
-
-                                <center>
-                                    <a href="<?php echo $base_url;?>" class="btn btn-xs btn-default">
-                                        <?=$lang_goindex?>
-                                    </a>
-
-
-                                    <a href="<?php echo $base_url;?>/logout" class="btn btn-xs btn-default">
-                                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                                        <?=$lang_logout?></a>
-
-
-                                    <button type="button" class="btn btn-default btn-xs" data-dismiss="modal"
-                                        aria-hidden="true">close</button>
-
-
-                                </center>
-
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-                <div class="modal fade" id="Openbillcloseday">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-
-                            <div class="modal-header">
-
-                                <button class="btn btn-primary" onClick="Openprintdiv_table()"><?=$lang_print?></button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-
-                            </div>
-
-                            <div class="modal-body" id="openprint_table">
-                                <form class="form-inline">
-                                    <div class="form-group">
-
-                                    </div>
-
-
-                                </form>
-
-
-                                <div id="section-to-print" style="font-size: 14px;background-color: #fff;">
-
-
-
-
-                                    <center style="font-size: 25px;">
-                                        <b><span style="font-size: 25px;"> <?php echo $_SESSION['owner_name']; ?></span>
-                                        </b>
-
-                                        <br />
-                                        <?php echo $_SESSION['owner_address']; ?>
-                                        <br />
-                                        <?=$lang_tel?>: <?php echo $_SESSION['owner_tel']; ?>
-
-                                        <h4 style="font-weight:bold;">
-                                            <?=$lang_billcloseshif?>
-                                            <?php if(isset($_SESSION['shift_id_old'])){ echo $_SESSION['shift_id_old'];}?>
-                                        </h4>
-
-                                    </center>
-
-                                    <!-- ====== update new 100522 (resize bill close shift) -->
-                                    <div style="font-size: 18px;">
-                                        <?=$lang_start?>:
-                                        <?php if(isset($_SESSION['shift_start_time_old'])){ echo $_SESSION['shift_start_time_old'];}?>
-                                        <br />
-                                        <?=$lang_to?>:
-                                        <?php if(isset($_SESSION['shift_end_time_old'])){ echo $_SESSION['shift_end_time_old'];}?>
-                                        <br />
-                                        <?php
-if(isset($_SESSION['shift_id_old'])){
-$moneyshiftchange = number_format($_SESSION['shift_money_end_old']-$_SESSION['shift_money_start_old']);
-echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
-<br />'.$lang_startmoney.' ( '.number_format($_SESSION['shift_money_start_old']).' )
-<br />'.$lang_endstart.' ( '.$moneyshiftchange.' )';
-}
-?>
-                                    </div>
-                                    <!-- ====== add new 100522 -->
-                                    <br />
-                                    <center>..............................
-                                        <br />
-                                        <input type="checkbox" ng-model="hideproduct_shift"><b><?php echo $lang_sp_79;?>
-                                        </b>
-                                    </center>
-
-                                    <table ng-if="!hideproduct_shift" class="table table-hover" style="width: 100%;">
-
-                                        <tbody>
-
-                                            <tr ng-repeat="y in openbillclosedaylistproduct">
-                                                <td>{{y.product_sale_num | number}}</td>
-                                                <td> {{y.product_name}} </td>
-
-                                                <td align="right">{{y.product_sale_price | number}}</td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-
-                                    <center>..............................</center>
-
-
-                                    <table class="table table-bordered">
-
-                                        <tbody>
-                                            <tr ng-repeat="x in openbillclosedaylista">
-                                                <td width="200px;">{{x.product_category_name2}}</td>
-
-                                                <td align="right">{{x.product_price2 | number}}</td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-
-                                    <table class="table table-bordered">
-
-                                        <tbody>
-
-
-                                            <tr ng-repeat="x in openbillclosedaylistb">
-                                                <td width="200px;">
-                                                    <?php echo $lang_sp_80;?></td>
-                                                <td align="right">{{x.sumsale_price2 | number}}</td>
-                                            </tr>
-
-
-                                            <tr ng-repeat="x in openbillclosedaylistb">
-                                                <td width="200px;">
-                                                    <?php echo $lang_sp_81;?></td>
-                                                <td align="right">-{{x.discount_last2 | number}}</td>
-
-                                            </tr>
-
-                                            <tr ng-repeat="x in openbillclosedaylistb">
-                                                <td width="200px;"><?php echo $lang_sp_82;?></td>
-                                                <td align="right">-{{x.money_from_customer | number}}</td>
-                                            </tr>
-
-
-                                            <tr ng-repeat="x in openbillclosedaylistb">
-                                                <td width="200px;" align="right" style="font-weight:bold;">
-                                                    <?php echo $lang_sp_83;?></td>
-                                                <td align="right" style="font-weight:bold;">
-                                                    {{x.sumsale_price2-x.discount_last2-x.money_from_customer | number}}
-                                                </td>
-                                            </tr>
-
-
-                                        </tbody>
-                                    </table>
-
-
-                                    <table class="table table-bordered">
-
-                                        <tbody>
-                                            <tr ng-repeat="x in openbillclosedaylistc">
-                                                <td width="200px;">
-
-                                                    <div ng-repeat="y in pay_type_list">
-                                                        <span
-                                                            ng-if="x.pay_type==y.pay_type_id">{{y.pay_type_name}}</span>
-                                                    </div>
-
-
-
-                                                </td>
-
-                                                <td align="right" ng-if="x.pay_type=='1'"
-                                                    ng-repeat="y in openbillclosedaylistb">
-                                                    {{x.sumsale_price2-y.money_changeto_customer | number}}</td>
-
-                                                <td align="right" ng-if="x.pay_type!='1'">{{x.sumsale_price2 | number}}
-                                                </td>
-
-
-                                            </tr>
-
-                                            <tr>
-                                                <td width="200px;" align="right" style="font-weight:bold;">
-                                                    <?php echo $lang_sp_83;?></td>
-                                                <td align="right" style="font-weight:bold;"
-                                                    ng-repeat="y in openbillclosedaylistb">
-                                                    {{Summary_pay_type()-y.money_changeto_customer | number}}</td>
-                                            </tr>
-
-
-                                        </tbody>
-                                    </table>
-
-
-
-
-
-
-
-
-
-
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td width="200px;" style="text-align: left;"><?=$lang_sales?> </td>
-                                            <td style="text-align: right;"><?php echo $_SESSION['name']; ?></td>
-
-                                        </tr>
-
-                                    </table>
-
-
+                                <div class="modal-body">
                                     <center>
-                                        <?php echo $lang_sp_87;?>
-                                        : <?php echo date('d-m-Y H:i:s'); ?>
+                                        <b><?=$lang_closeshifsendmoney?></b>
+                                        <br />
+                                        <input type="text" onkeypress="validate(event)" class="form-control"
+                                            style="font-size:17px;font-weight:bold;height:50px;"
+                                            ng-model="shift_money_end" placeholder="<?php echo $lang_getlastmoney;?>" />
+                                        <br>
+                                        <button ng-show="shift_money_end" class="btn btn-lg btn-info"
+                                            ng-click="Closeshiftnowconfirm()">
+                                            <?=$lang_confirmcloseshif?>
+                                        </button>
+
+
+
+
+                                        <hr />
+
+                                        <input type="checkbox" ng-model="addmoneytoshift">
+                                        <?php echo $lang_sp_77;?> <?php echo $_SESSION['shift_id']; ?>
+                                        <form ng-if="addmoneytoshift" action="salepic/addshiftmoneystart" method="post">
+
+                                            <input type="number" class="form-control"
+                                                style="font-size:20px;font-weight:bold;height:50px;"
+                                                name="addshiftmoneystart" placeholder="x.xx" />
+                                            <?php echo $lang_sp_78;?>
+                                            <?php if(isset($_SESSION['shift_money_start'])){ echo number_format($_SESSION['shift_money_start'],2); } ?>
+                                            <br>
+                                            <input type="submit" class="btn btn-success btn-lg"
+                                                value="<?php echo $lang_add;?>">
+                                        </form>
+
+
                                     </center>
-
-
 
 
 
@@ -3073,13 +2916,32 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
                                 </div>
 
-                            </div>
-                            <div class="modal-footer">
 
+                                <div class="modal-footer">
+
+                                    <center>
+                                        <a href="<?php echo $base_url;?>" class="btn btn-xs btn-default">
+                                            <?=$lang_goindex?>
+                                        </a>
+
+
+                                        <a href="<?php echo $base_url;?>/logout" class="btn btn-xs btn-default">
+                                            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                                            <?=$lang_logout?></a>
+
+
+                                        <button type="button" class="btn btn-default btn-xs" data-dismiss="modal"
+                                            aria-hidden="true">close</button>
+
+
+                                    </center>
+
+
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
 
 
@@ -3088,18 +2950,20 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
 
 
-
-
-
-
-
-                <div style="position: absolute; opacity: 0.0;">
-
-                    <div class="modal fade" id="Openbillclosedayip">
-                        <div class="modal-dialog" style="width: 790px;">
+                    <div class="modal fade" id="Openbillcloseday">
+                        <div class="modal-dialog modal-sm">
                             <div class="modal-content">
 
-                                <div class="modal-body">
+                                <div class="modal-header">
+
+                                    <button class="btn btn-primary"
+                                        onClick="Openprintdiv_table()"><?=$lang_print?></button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+
+                                </div>
+
+                                <div class="modal-body" id="openprint_table">
                                     <form class="form-inline">
                                         <div class="form-group">
 
@@ -3109,32 +2973,30 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                     </form>
 
 
-                                    <div id="section-to-print-billclose"
-                                        style="width: <?php echo $pt_width;?>;font-size: 25px;text-align: left;background-color: #fff;overflow:visible !important;">
+                                    <div id="section-to-print" style="font-size: 14px;background-color: #fff;">
 
-                                        <center>
-                                            <td width="250px" align="center">
-                                                <img src="<?=$base_url?>/<?=$_SESSION['owner_logo']?>" width="200px">
-                                            </td>
-                                            </tr>
-                                            </table>
+
+
+
+                                        <center style="font-size: 25px;">
+                                            <b><span style="font-size: 25px;">
+                                                    <?php echo $_SESSION['owner_name']; ?></span>
+                                            </b>
+
+                                            <br />
+                                            <?php echo $_SESSION['owner_address']; ?>
+                                            <br />
+                                            <?=$lang_tel?>: <?php echo $_SESSION['owner_tel']; ?>
+
+                                            <h4 style="font-weight:bold;">
+                                                <?=$lang_billcloseshif?>
+                                                <?php if(isset($_SESSION['shift_id_old'])){ echo $_SESSION['shift_id_old'];}?>
+                                            </h4>
+
                                         </center>
 
-                                        <b><span style="font-size: 25px;"> <?php echo $_SESSION['owner_name']; ?></span>
-                                        </b>
-
-                                        <br />
-                                        <?php echo $_SESSION['owner_address']; ?>
-                                        <br />
-                                        <?=$lang_tel?>: <?php echo $_SESSION['owner_tel']; ?>
-
-                                        <br />
-                                        ____________________________________________
-                                        <br />
+                                        <!-- ====== update new 100522 (resize bill close shift) -->
                                         <div style="font-size: 18px;">
-                                            <?=$lang_billcloseshif?>
-                                            <?php if(isset($_SESSION['shift_id_old'])){ echo $_SESSION['shift_id_old'];}?>
-                                            <br />
                                             <?=$lang_start?>:
                                             <?php if(isset($_SESSION['shift_start_time_old'])){ echo $_SESSION['shift_start_time_old'];}?>
                                             <br />
@@ -3150,102 +3012,149 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 }
 ?>
                                         </div>
+                                        <!-- ====== add new 100522 -->
                                         <br />
-                                        ____________________________________________
+                                        <center>..............................
+                                            <br />
+                                            <input type="checkbox"
+                                                ng-model="hideproduct_shift"><b><?php echo $lang_sp_79;?>
+                                            </b>
+                                        </center>
+
+                                        <table ng-if="!hideproduct_shift" class="table table-hover"
+                                            style="width: 100%;">
+
+                                            <tbody>
+
+                                                <tr ng-repeat="y in openbillclosedaylistproduct">
+                                                    <td>{{y.product_sale_num | number}}</td>
+                                                    <td> {{y.product_name}} </td>
+
+                                                    <td align="right">{{y.product_sale_price | number}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+
+                                        <center>..............................</center>
 
 
-                                        <table style="width: 100%;">
+                                        <table class="table table-bordered">
 
                                             <tbody>
                                                 <tr ng-repeat="x in openbillclosedaylista">
-                                                    <td>{{x.product_category_name2}}</td>
+                                                    <td width="200px;">{{x.product_category_name2}}</td>
 
                                                     <td align="right">{{x.product_price2 | number}}</td>
                                                 </tr>
 
                                             </tbody>
                                         </table>
-                                        ____________________________________________
-                                        <table style="width: 100%;">
+
+                                        <table class="table table-bordered">
 
                                             <tbody>
 
+
                                                 <tr ng-repeat="x in openbillclosedaylistb">
-                                                    <td><?=$lang_discount?></td>
-                                                    <td align="right">{{x.discount_last2 | number}}</td>
+                                                    <td width="200px;">
+                                                        <?php echo $lang_sp_80;?></td>
+                                                    <td align="right">{{x.sumsale_price2 | number}}</td>
+                                                </tr>
+
+
+                                                <tr ng-repeat="x in openbillclosedaylistb">
+                                                    <td width="200px;">
+                                                        <?php echo $lang_sp_81;?></td>
+                                                    <td align="right">-{{x.discount_last2 | number}}</td>
 
                                                 </tr>
+
+                                                <tr ng-repeat="x in openbillclosedaylistb">
+                                                    <td width="200px;"><?php echo $lang_sp_82;?></td>
+                                                    <td align="right">-{{x.money_from_customer | number}}</td>
+                                                </tr>
+
+
+                                                <tr ng-repeat="x in openbillclosedaylistb">
+                                                    <td width="200px;" align="right" style="font-weight:bold;">
+                                                        <?php echo $lang_sp_83;?></td>
+                                                    <td align="right" style="font-weight:bold;">
+                                                        {{x.sumsale_price2-x.discount_last2-x.money_from_customer | number}}
+                                                    </td>
+                                                </tr>
+
+
                                             </tbody>
                                         </table>
 
-                                        ____________________________________________
-                                        <table style="width: 100%;">
+
+                                        <table class="table table-bordered">
 
                                             <tbody>
                                                 <tr ng-repeat="x in openbillclosedaylistc">
-                                                    <td>
+                                                    <td width="200px;">
+
                                                         <div ng-repeat="y in pay_type_list">
                                                             <span
                                                                 ng-if="x.pay_type==y.pay_type_id">{{y.pay_type_name}}</span>
                                                         </div>
+
+
+
                                                     </td>
 
-                                                    <td align="right">{{x.sumsale_price2-x.discount_last2 | number}}
+                                                    <td align="right" ng-if="x.pay_type=='1'"
+                                                        ng-repeat="y in openbillclosedaylistb">
+                                                        {{x.sumsale_price2-y.money_changeto_customer | number}}</td>
+
+                                                    <td align="right" ng-if="x.pay_type!='1'">
+                                                        {{x.sumsale_price2 | number}}
                                                     </td>
+
+
                                                 </tr>
+
+                                                <tr>
+                                                    <td width="200px;" align="right" style="font-weight:bold;">
+                                                        <?php echo $lang_sp_83;?></td>
+                                                    <td align="right" style="font-weight:bold;"
+                                                        ng-repeat="y in openbillclosedaylistb">
+                                                        {{Summary_pay_type()-y.money_changeto_customer | number}}</td>
+                                                </tr>
+
+
                                             </tbody>
                                         </table>
-                                        ____________________________________________
-                                        <table style="width: 100%;">
-                                            <tbody>
-                                                <tr ng-repeat="x in openbillclosedaylistb">
-                                                    <td><?=$lang_all?></td>
-                                                    <td align="right">{{x.sumsale_price2-x.discount_last2 | number}}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
 
 
-                                        ____________________________________________
-                                        <table width="100%">
+
+
+
+
+
+
+
+
+                                        <table class="table table-bordered">
                                             <tr>
-                                                <td style="text-align: left;"><?=$lang_sales?> </td>
-                                                <td style="text-align: left;"><?php echo $_SESSION['name']; ?></td>
-                                                <td> </td>
+                                                <td width="200px;" style="text-align: left;"><?=$lang_sales?> </td>
+                                                <td style="text-align: right;"><?php echo $_SESSION['name']; ?></td>
+
                                             </tr>
 
                                         </table>
-                                        <?=$lang_day?>: {{adddate}}
-                                        <br />
-                                        ____________________________________________
 
 
-                                        <?=$lang_productlist?>
-                                        <table style="width: 100%;">
+                                        <center>
+                                            <?php echo $lang_sp_87;?>
+                                            : <?php echo date('d-m-Y H:i:s'); ?>
+                                        </center>
 
-                                            <tbody>
 
-                                                <tr>
-                                                    <td><?=$lang_productlist?></td>
-                                                    <td>
-                                                        <?=$lang_num?>
-                                                    </td>
-                                                    <td><?=$lang_summary?></td>
 
-                                                </tr>
-                                                <tr ng-repeat="x in openbillclosedaylistproduct">
-                                                    <td>{{x.product_name}}</td>
-                                                    <td style="text-align:center;">
-                                                        {{x.product_sale_num | number}}
-                                                    </td>
-                                                    <td align="right"> {{x.product_sale_price | number}}</td>
 
-                                                </tr>
-                                            </tbody>
-                                        </table>
 
-                                        ____________________________________________
 
 
 
@@ -3253,20 +3162,12 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" ng-if="printer_ul =='0'" class="btn btn-primary"
-                                        ng-click="printDiv2()"><?=$lang_print?></button>
 
-
-
-
-                                    <button type="button" class="btn btn-default"
-                                        data-dismiss="modal"><?=$lang_close?></button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                </div>
 
 
 
@@ -3278,460 +3179,670 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
 
 
-                <div class="modal fade" id="Openonemini" style="visibility: hidden;">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                            <!-- <div class="modal-header">
+
+                    <div style="position: absolute; opacity: 0.0;">
+
+                        <div class="modal fade" id="Openbillclosedayip">
+                            <div class="modal-dialog" style="width: 790px;">
+                                <div class="modal-content">
+
+                                    <div class="modal-body">
+                                        <form class="form-inline">
+                                            <div class="form-group">
+
+                                            </div>
+
+
+                                        </form>
+
+
+                                        <div id="section-to-print-billclose"
+                                            style="width: <?php echo $pt_width;?>;font-size: 25px;text-align: left;background-color: #fff;overflow:visible !important;">
+
+                                            <center>
+                                                <td width="250px" align="center">
+                                                    <img src="<?=$base_url?>/<?=$_SESSION['owner_logo']?>"
+                                                        width="200px">
+                                                </td>
+                                                </tr>
+                                                </table>
+                                            </center>
+
+                                            <b><span style="font-size: 25px;">
+                                                    <?php echo $_SESSION['owner_name']; ?></span>
+                                            </b>
+
+                                            <br />
+                                            <?php echo $_SESSION['owner_address']; ?>
+                                            <br />
+                                            <?=$lang_tel?>: <?php echo $_SESSION['owner_tel']; ?>
+
+                                            <br />
+                                            ____________________________________________
+                                            <br />
+                                            <div style="font-size: 18px;">
+                                                <?=$lang_billcloseshif?>
+                                                <?php if(isset($_SESSION['shift_id_old'])){ echo $_SESSION['shift_id_old'];}?>
+                                                <br />
+                                                <?=$lang_start?>:
+                                                <?php if(isset($_SESSION['shift_start_time_old'])){ echo $_SESSION['shift_start_time_old'];}?>
+                                                <br />
+                                                <?=$lang_to?>:
+                                                <?php if(isset($_SESSION['shift_end_time_old'])){ echo $_SESSION['shift_end_time_old'];}?>
+                                                <br />
+                                                <?php
+if(isset($_SESSION['shift_id_old'])){
+$moneyshiftchange = number_format($_SESSION['shift_money_end_old']-$_SESSION['shift_money_start_old']);
+echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
+<br />'.$lang_startmoney.' ( '.number_format($_SESSION['shift_money_start_old']).' )
+<br />'.$lang_endstart.' ( '.$moneyshiftchange.' )';
+}
+?>
+                                            </div>
+                                            <br />
+                                            ____________________________________________
+
+
+                                            <table style="width: 100%;">
+
+                                                <tbody>
+                                                    <tr ng-repeat="x in openbillclosedaylista">
+                                                        <td>{{x.product_category_name2}}</td>
+
+                                                        <td align="right">{{x.product_price2 | number}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                            ____________________________________________
+                                            <table style="width: 100%;">
+
+                                                <tbody>
+
+                                                    <tr ng-repeat="x in openbillclosedaylistb">
+                                                        <td><?=$lang_discount?></td>
+                                                        <td align="right">{{x.discount_last2 | number}}</td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            ____________________________________________
+                                            <table style="width: 100%;">
+
+                                                <tbody>
+                                                    <tr ng-repeat="x in openbillclosedaylistc">
+                                                        <td>
+                                                            <div ng-repeat="y in pay_type_list">
+                                                                <span
+                                                                    ng-if="x.pay_type==y.pay_type_id">{{y.pay_type_name}}</span>
+                                                            </div>
+                                                        </td>
+
+                                                        <td align="right">{{x.sumsale_price2-x.discount_last2 | number}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            ____________________________________________
+                                            <table style="width: 100%;">
+                                                <tbody>
+                                                    <tr ng-repeat="x in openbillclosedaylistb">
+                                                        <td><?=$lang_all?></td>
+                                                        <td align="right">{{x.sumsale_price2-x.discount_last2 | number}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+
+                                            ____________________________________________
+                                            <table width="100%">
+                                                <tr>
+                                                    <td style="text-align: left;"><?=$lang_sales?> </td>
+                                                    <td style="text-align: left;"><?php echo $_SESSION['name']; ?></td>
+                                                    <td> </td>
+                                                </tr>
+
+                                            </table>
+                                            <?=$lang_day?>: {{adddate}}
+                                            <br />
+                                            ____________________________________________
+
+
+                                            <?=$lang_productlist?>
+                                            <table style="width: 100%;">
+
+                                                <tbody>
+
+                                                    <tr>
+                                                        <td><?=$lang_productlist?></td>
+                                                        <td>
+                                                            <?=$lang_num?>
+                                                        </td>
+                                                        <td><?=$lang_summary?></td>
+
+                                                    </tr>
+                                                    <tr ng-repeat="x in openbillclosedaylistproduct">
+                                                        <td>{{x.product_name}}</td>
+                                                        <td style="text-align:center;">
+                                                            {{x.product_sale_num | number}}
+                                                        </td>
+                                                        <td align="right"> {{x.product_sale_price | number}}</td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            ____________________________________________
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" ng-if="printer_ul =='0'" class="btn btn-primary"
+                                            ng-click="printDiv2()"><?=$lang_print?></button>
+
+
+
+
+                                        <button type="button" class="btn btn-default"
+                                            data-dismiss="modal"><?=$lang_close?></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                    <!-- print small bill modal-------------------------------------------------------------- -->
+                    <div class="modal fade" id="Openonemini" style="visibility: hidden;">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <!-- <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				<h4 class="modal-title"><?=$lang_billmini?></h4>
 
 			</div> -->
-                            <div class="modal-body">
-                                <div id="section-to-print-mini" style="font-size: 12px;">
-                                    <center>
-
-
-                                        <?php
-if($_SESSION['open_number_for_cus']=='1'){
-?>
-                                        <br />
-                                        <center style="font-size:60px;font-weight:bold;">{{number_for_cus | number}}
-
-                                            <div style="font-size:12px;">
-                                                <?php echo $lang_sp_88;?>
-                                            </div>
-                                        </center>
-                                        <br />
-                                        <?php
-}
-?>
-
-
-
-                                        <?php
-if($_SESSION['logoonslip']=='0'){
-?>
+                                <div class="modal-body">
+                                    <div id="section-to-print-mini" style="font-size: 12px;">
                                         <center>
-                                            <table width="100%">
-                                                <tr>
-                                                    <td width="150px" align="center">
-                                                        <img src="<?=$base_url?>/<?=$_SESSION['owner_logo']?>"
-                                                            style="width: 150px;">
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </center>
-                                        <?php
-}
-?>
+
+
+                                            <?php
+                                        if($_SESSION['open_number_for_cus']=='1'){
+                                        ?>
+                                            <br />
+                                            <center style="font-size:60px;font-weight:bold;">{{number_for_cus | number}}
+
+                                                <div style="font-size:12px;">
+                                                    <?php echo $lang_sp_88;?>
+                                                </div>
+                                            </center>
+                                            <br />
+                                            <?php
+                                                }
+                                                ?>
+
+                                            <?php
+                                            if($_SESSION['logoonslip']=='0'){
+                                            ?>
+                                            <center>
+                                                <table width="100%">
+                                                    <tr>
+                                                        <td width="150px" align="center">
+                                                            <img src="<?=$base_url?>/<?=$_SESSION['owner_logo']?>"
+                                                                style="width: 150px;">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </center>
+                                            <?php
+                                                }
+                                                ?>
+                                            <?php if($_SESSION['showstorename']=='1'){ ?>
+                                            <b><span style="font-size: 16px;">
+                                                    <?php echo $_SESSION['owner_name']; ?></span>
+                                            </b>
+                                            <br />
+                                            <?php } ?>
+
+                                            <!--<br />
+		                                    <?=$lang_tax?>:<?php echo $_SESSION['owner_tax_number']; ?> -->
+
+
+                                            <?php if($_SESSION['showstoreaddress']=='1'){ ?>
+                                            <?php echo $_SESSION['owner_address']; ?>
+                                            <br />
+                                            <?=$lang_tel?>: <?php echo $_SESSION['owner_tel']; ?>
+                                            <br />
+                                            <?php } ?>
+
+
+                                            <?php if($_SESSION['showstorevatnumber']=='1'){ ?>
+                                            <?php
+                                            if($_SESSION['owner_tax_number'] !=''){
+                                            echo $lang_tax.':'.$_SESSION['owner_tax_number'].'<br />';
+                                            }
+                                            ?>
+                                            <?php } ?>
+
+
+                                            <?php if($_SESSION['showrunno']=='1'){ ?>
+                                            <?=$lang_runno?>:{{sale_runno}}
+                                            <br />
+                                            <?php } ?>
+
+                                            ___________________________
+                                            <br />
+
+                                            <span ng-if="pay_type=='4'" style="font-weight: bold;">
+                                                <?php echo $lang_sp_89;?></span>
+
+
+                                            <span ng-if="pay_type!='4'" style="font-weight: bold;">
+                                                <b><?php echo $_SESSION['header_slip'];?></b>
+                                            </span>
 
 
 
-                                        <?php if($_SESSION['showstorename']=='1'){ ?>
-                                        <b><span style="font-size: 16px;"> <?php echo $_SESSION['owner_name']; ?></span>
-                                        </b>
-                                        <br />
-                                        <?php } ?>
-
-                                        <!--<br />
-		 <?=$lang_tax?>:<?php echo $_SESSION['owner_tax_number']; ?> -->
-
-
-                                        <?php if($_SESSION['showstoreaddress']=='1'){ ?>
-                                        <?php echo $_SESSION['owner_address']; ?>
-                                        <br />
-                                        <?=$lang_tel?>: <?php echo $_SESSION['owner_tel']; ?>
-                                        <br />
-                                        <?php } ?>
-
-
-                                        <?php if($_SESSION['showstorevatnumber']=='1'){ ?>
-                                        <?php
-if($_SESSION['owner_tax_number'] !=''){
- echo $lang_tax.':'.$_SESSION['owner_tax_number'].'<br />';
-}
- ?>
-                                        <?php } ?>
-
-
-                                        <?php if($_SESSION['showrunno']=='1'){ ?>
-                                        <?=$lang_runno?>:{{sale_runno}}
-                                        <br />
-                                        <?php } ?>
-
-                                        ___________________________
-                                        <br />
-
-                                        <span ng-if="pay_type=='4'" style="font-weight: bold;">
-                                            <?php echo $lang_sp_89;?></span>
-
-
-                                        <span ng-if="pay_type!='4'" style="font-weight: bold;">
-                                            <b><?php echo $_SESSION['header_slip'];?></b>
-                                        </span>
-
-
-
-                                        <!--<br />
+                                            <!--<br />
 
  (VAT <span ng-if="vat3 == '0'">Included</span><span ng-if="vat3 > '0'">{{vat3}} %</span>)
  -->
 
-                                        <br />
-                                        <span ng-if="cus_name != null">
-
-                                            <?php if($_SESSION['showcusname']=='1' || $_SESSION['showcusaddress']=='1' || $_SESSION['showcustel']=='1'){ ?>
-                                            ___________________________
                                             <br />
-                                            <?php } ?>
+                                            <span ng-if="cus_name != null">
 
-                                            <?php if($_SESSION['showcusname']=='1'){ ?>
-                                            <?=$lang_cusname?>: {{cus_name}}
-                                            <br />
-                                            <?php } ?>
+                                                <?php if($_SESSION['showcusname']=='1' || $_SESSION['showcusaddress']=='1' || $_SESSION['showcustel']=='1'){ ?>
+                                                ___________________________
+                                                <br />
+                                                <?php } ?>
 
-
-                                            <?php if($_SESSION['showcusaddress']=='1'){ ?>
-                                            <?=$lang_address?>: {{cus_address_all}}
-                                            <span ng-if="taxnumber!=''"><br />
-                                                <?php echo $lang_sp_90;?> {{taxnumber}} </span>
-
-                                            <br />
-                                            <?php } ?>
+                                                <?php if($_SESSION['showcusname']=='1'){ ?>
+                                                <?=$lang_cusname?>: {{cus_name}}
+                                                <br />
+                                                <?php } ?>
 
 
-                                            <?php if($_SESSION['showcustel']=='1'){ ?>
-                                            <span ng-if="product_score_all != '0.00'">
-                                                <?php echo $lang_sp_91;?> : {{product_score_all | number}}<br />
+                                                <?php if($_SESSION['showcusaddress']=='1'){ ?>
+                                                <?=$lang_address?>: {{cus_address_all}}
+                                                <span ng-if="taxnumber!=''"><br />
+                                                    <?php echo $lang_sp_90;?> {{taxnumber}} </span>
+
+                                                <br />
+                                                <?php } ?>
+
+
+                                                <?php if($_SESSION['showcustel']=='1'){ ?>
+                                                <span ng-if="product_score_all != '0.00'">
+                                                    <?php echo $lang_sp_91;?> : {{product_score_all | number}}<br />
+                                                </span>
+                                                <span ng-if="cus_score != '0.00'">
+                                                    <?php echo $lang_sp_92;?>: {{cus_score | number}}</span>
+                                                <br />
+                                                <?php } ?>
+
                                             </span>
-                                            <span ng-if="cus_score != '0.00'">
-                                                <?php echo $lang_sp_92;?>: {{cus_score | number}}</span>
-                                            <br />
-                                            <?php } ?>
-
-                                        </span>
 
 
-                                        ___________________________
-                                        <!-- <br /> -->
-
-
-
-                                        <!----------------------------- ------------------------------------------------------------ -->
-                                        <table class="table" style="width: 100%; font-size: 12px;">
-                                            <thead>
-                                                <tr>
-                                                    <th>ສິນຄ້າ</th>
-                                                    <th align="center">
-                                                        ລາຄາ
-                                                    </th>
-
-                                                    <th>ຈຳນວນ</th>
-                                                    <th align="right">
-                                                        ທຽບ KIP
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody style="height: 10px;">
-                                                <tr ng-repeat="x in listone">
-                                                    <!-- product_name -->
-                                                    <td align="left">{{x.product_name}}</td>
-
-                                                    <!-- product_price/currency -->
-                                                    <td align="left" width="40px">
-                                                        ({{x.product_price | number:0}}/{{x.title_name}})
-
-                                                    </td>
-
-                                                    <!-- qty -->
-                                                    <td>x{{x.product_sale_num | number}}</td>
-
-                                                    <!-- total in kip -->
-                                                    <td align="left">
-
-                                                        {{ ((x.product_price - x.product_price_discount) * x.product_sale_num * x.rate) | number: <?php echo $_SESSION['decimal_print']; ?> }}
-                                                    </td>
-
-                                                </tr>
-                                                <!-- --------------------------------------------------------- -->
-                                                <!-- <tr>
-                                                    <td colspan="3" style="font-weight: bold;">ລວມທັງໝົດກີບ (KIP)</td>
-                                                    <td style="font-weight: bold; color: blue">
-                                                        {{ Grand_totalkip() | number }}
-                                                    </td>
-                                                </tr> -->
-
-                                                <!-- update ------------- -->
-                                                <tr>
-                                                    <td colspan="3" style="font-weight: bold;">ລວມທັງໝົດກີບ (KIP)</td>
-                                                    <td style="font-weight: bold; color: blue">
-                                                        <!-- {{ sumsalevat | number  }} -->
-                                                        <!-- {{parseFloat((x.product_price - x.product_price_discount) * x.product_sale_num * x.rate) | number}} -->
-
-                                                        {{ sumsale_price}}
-                                                    </td>
-                                                </tr>
-                                                <!-- update ------------- -->
-
-
-
-                                                <tr ng-if="discount_last2!='0.00'">
-                                                    <td colspan="3"><?php echo $lang_sp_93;?></td>
-                                                    <td align="right">
-                                                        -{{discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                    </td>
-                                                </tr>
-                                                <tr ng-if="discount_last2!='0.00'">
-                                                    <td colspan="3"><?=$lang_sumall?></td>
-                                                    <td align="right" style="font-weight: bold;">
-                                                        {{sumsalevat-discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3"><?=$lang_getmoney?></td>
-                                                    <td align="right">
-                                                        {{money_from_customer3 | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="3">
-                                                        <span ng-if="pay_type=='4'" style="font-weight: bold;">
-                                                            ຄ້າງຊຳລະ
-                                                        </span>
-                                                        <span ng-if="pay_type!='4'" style="font-weight: bold;">
-                                                            <?=$lang_moneychange?>
-                                                        </span>
-                                                    </td>
-                                                    <td align="right">
-                                                        {{money_from_customer3-(money_from_customer3 -(sumsalevat-discount_last2)) | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <!-- ------------------------------------------------------ -->
-
-                                        <!-- ------------------------------------------------------ -->
-                                        <!----------------------------- ------------------------------------------------------------ -->
-
-                                        <?php
-                                                        if($_SESSION['exchangerateonslip']=='1'){
-                                                        ?>
-                                        <center>
                                             ___________________________
-                                        </center>
-                                        <table width="100%">
-
-                                            <tr ng-repeat="x in exchangeratelist">
-                                                <td>{{x.title_name}}</td>
-                                                <td style="font-weight: bold;" align="right">
-                                                    {{(sumsalevat-discount_last2)/x.rate | number}}</td>
-                                            </tr>
-
-                                        </table>
-                                        <?php } ?>
+                                            <!-- <br /> -->
 
 
 
-                                        <?php
+                                            <!----------------------------- ------------------------------------------------------------ -->
+                                            <table class="table" style="width: 100%; font-size: 12px;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ສິນຄ້າ</th>
+                                                        <th align="center">
+                                                            ລາຄາ
+                                                        </th>
+
+                                                        <th>ຈຳນວນ</th>
+                                                        <th align="right">
+                                                            ທຽບ KIP
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody style="height: 10px;">
+                                                    <tr ng-repeat="x in listone">
+                                                        <!-- product_name -->
+                                                        <td align="left">{{x.product_name}}</td>
+
+                                                        <!-- product_price/currency -->
+                                                        <td align="left" width="40px">
+                                                            ({{x.product_price | number:0}}/{{x.title_name}})
+
+                                                        </td>
+
+                                                        <!-- qty -->
+                                                        <td>x{{x.product_sale_num | number}}</td>
+
+                                                        <!-- total in kip -->
+                                                        <td align="left">
+
+                                                            {{ ((x.product_price - x.product_price_discount) * x.product_sale_num * x.rate) | number: <?php echo $_SESSION['decimal_print']; ?> }}
+                                                        </td>
+
+                                                    </tr>
+                                                    <!-- --------------------------------------------------------- -->
+                                                    <!-- <tr>
+                                                        <td colspan="3" style="font-weight: bold;">ລວມ ທັງໝົດກີບ (KIP)
+                                                        </td>
+                                                        <td style="font-weight: bold; color: blue">
+
+                                                            {{sumsale_price_kip  |number:2}}
+
+                                                        </td>
+                                                    </tr> -->
+
+                                                    <div ng-if="Sumsale_price_kip !== undefined || null">
+                                                        <tr>
+                                                            <td colspan="3" style="font-weight: bold;">ລວມ ທັງໝົດກີບ
+                                                                (KIP)</td>
+                                                            <td style="font-weight: bold; color: blue">
+                                                                {{ Sumsale_price_kip() | number:2 }}</td>
+                                                        </tr>
+                                                    </div>
+                                                    <div ng-if="Sumsale_price_thb !== undefined || null">
+                                                        <tr>
+                                                            <td colspan="3" style="font-weight: bold;">ລວມ ທັງໝົດ
+                                                                (THB)</td>
+                                                            <td style="font-weight: bold; color: blue">
+                                                                {{ Sumsale_price_thb() | number:2 }}</td>
+                                                        </tr>
+                                                    </div>
+
+
+                                                    <?php if ($_SESSION['exchangerateonslip'] == '1'): ?>
+
+                                                    <tr>
+                                                        <th style="text-align: right; height: 10px;">Currency</th>
+                                                        <th style="text-align: right; height: 10px;">Rate</th>
+                                                    </tr>
+                                                    <tr ng-repeat="x in exchangeratelist"
+                                                        ng-show="x.title_name === 'THB'">
+                                                        <td style="font-weight: bold; text-align: right;">
+                                                            {{x.title_name}}</td>
+                                                        <td style="font-weight: bold; text-align: right;">
+                                                            {{x.rate | number}}</td>
+                                                    </tr>
+
+
+                                                    <?php endif; ?>
+
+
+                                                    <tr ng-if="discount_last2!='0.00'">
+                                                        <td colspan="3">ສ່ວນຫຼຸດທ້າຍບິນ</td>
+                                                        <td align="right">
+                                                            -{{discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-if="discount_last2!='0.00'">
+                                                        <td colspan="3">ຍອດທັງໝົດ</td>
+                                                        <td align="right" style="font-weight: bold;">
+                                                            {{sumsalevat-discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3">ຮັບເງິນ</td>
+                                                        <td align="right">
+                                                            {{money_from_customer3 | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr style="margin-left: 20px; margin-right: 20px;">
+                                                        <td colspan="3">
+                                                            <div style="margin-left: 10px; margin-right: 10px;">
+                                                                <span ng-if="pay_type=='4'" style="font-weight: bold;">
+                                                                    ຄ້າງຊຳລະ
+                                                                </span>
+                                                                <span ng-if="pay_type!='4'" style="font-weight: bold;">
+                                                                    ເງິນທອນ
+                                                                </span>
+                                                            </div>
+                                                        </td>
+
+                                                        <td align="center" colspan="3">
+                                                            <div style="margin-left: 10px; margin-right: 10px;">
+                                                                <!-- {{money_from_customer3-(money_from_customer3 -(sumsalevat-discount_last2)) | number:<?php echo $_SESSION['decimal_print']; ?>}} -->
+                                                                {{money_from_customer3-money_from_customer3 | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+
+                                                </tbody>
+                                            </table>
+
+                                            <?php
                                     if($_SESSION['open_vat_on_slip']=='1'){
                                     ?>
-                                        <center>
-                                            ___________________________
-                                        </center>
-                                        <table width="100%">
+                                            <center>
+                                                ___________________________
+                                            </center>
+                                            <table width="100%">
 
-                                            <tr>
-                                                <td>VAT</td>
-                                                <td style="font-weight: bold;" align="right">
-                                                    {{price_vat_all | number}}</td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td>befor VAT</td>
-                                                <td align="right">
-                                                    {{sumsalevat-price_vat_all-discount_last2 | number}}</td>
-                                            </tr>
-
-                                        </table>
-                                        <?php } ?>
+                                                <tr>
+                                                    <td>VAT</td>
+                                                    <td style="font-weight: bold;" align="right">
+                                                        {{price_vat_all | number}}</td>
+                                                </tr>
 
 
+                                                <tr>
+                                                    <td>befor VAT</td>
+                                                    <td align="right">
+                                                        {{sumsalevat-price_vat_all-discount_last2 | number}}</td>
+                                                </tr>
 
-
-
-                                        <center>
-                                            ___________________________
-                                        </center>
-                                        <table width="100%">
-                                            <tr ng-repeat="y in getonepaylist">
-                                                <td>{{y.pay_type_name}}</td>
-                                                <td align="right">
-                                                    {{y.money | number:<?php echo $_SESSION['decimal_print']; ?>}}</td>
-
-                                            </tr>
-
-
-
-                                        </table>
-
-
-                                        <center>
-                                            ___________________________
-                                            <br />
-                                            <?php if($_SESSION['showsalesname']=='1'){ ?>
-
-                                            <?=$lang_sales?>: <?php echo $_SESSION['name']; ?>
-                                            <br />
+                                            </table>
                                             <?php } ?>
 
-
-
-                                            <?php if($_SESSION['showadddate']=='1'){ ?>
-                                            <?=$lang_day?>: {{adddate}}
-                                            <!-- <br />
-<img src="<?php echo $base_url;?>/warehouse/barcode/png?barcode={{sale_runno}}" style="height: 70px;width: 160px;"> -->
-                                            <br />
-
-                                            <?php } ?>
-
-
-
-
-                                            <?=$_SESSION['footer_slip']?>
-
-                                            <br />
-                                            ___________________________
-
-                                            <br />
-
-
-                                            <?php if($_SESSION['picunderslip']!=''){?>
-                                            <img src="<?php echo $base_url.'/'.$_SESSION['picunderslip'];?>">
-                                            <?php } ?>
 
 
 
 
                                             <center>
+                                                ___________________________
+                                            </center>
+                                            <table width="100%">
+                                                <tr ng-repeat="y in getonepaylist">
+                                                    <td style="margin-left: 10px; margin-right: 10px;">
+                                                        {{y.pay_type_name}}</td>
+                                                    <td align="right" style="margin-left: 10px; margin-right: 10px;">
+                                                        {{y.money | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                    </td>
+
+                                                </tr>
+
+
+
+                                            </table>
+
+
+                                            <table width="100%">
+                                                <tr>
+                                                    <td>{{sumsale_price_kip}}</td>
+
+
+                                                </tr>
+
+
+
+                                            </table>
+
+
+                                            <center>
+                                                ___________________________
+                                                <br />
+                                                <?php if($_SESSION['showsalesname']=='1'){ ?>
+
+                                                <?=$lang_sales?>: <?php echo $_SESSION['name']; ?>
+                                                <br />
+                                                <?php } ?>
+
+
+
+                                                <?php if($_SESSION['showadddate']=='1'){ ?>
+                                                <?=$lang_day?>: {{adddate}}
+                                                <!-- <br />
+<img src="<?php echo $base_url;?>/warehouse/barcode/png?barcode={{sale_runno}}" style="height: 70px;width: 160px;"> -->
+                                                <br />
+
+                                                <?php } ?>
+
+
+
+
+                                                <?=$_SESSION['footer_slip']?>
+
+                                                <br />
+                                                ___________________________
+
+                                                <br />
+
+
+                                                <?php if($_SESSION['picunderslip']!=''){?>
+                                                <img src="<?php echo $base_url.'/'.$_SESSION['picunderslip'];?>">
+                                                <?php } ?>
+
+
+
+
+                                                <center>
+
+
+                                                    <span ng-show="showremarkonslip=='1'">
+                                                        <br />
+                                                        {{saleremark}}
+                                                    </span>
+
+
+
+
+
+
+
+
+
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="printDiv()">
+                                        <?=$lang_print?></button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                                        aria-hidden="true">Close</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- end print small bill modal-------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+                    <div class="modal fade" id="Openonemini_order" style="visibility: hidden;">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <!-- <div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title"><?=$lang_billmini?></h4>
+
+			</div> -->
+                                <div class="modal-body">
+                                    <div id="section-to-print-mini-order" style="font-size: 12px;">
+                                        <center>
+
+
+
+                                            <?php if($_SESSION['show_order_on_slip']=='1'){?>
+                                            <center>
+                                                <br />
+
+
+                                                <span style="font-size:20px;font-weight:bold;">
+                                                    <?php echo $lang_sp_95;?></span>
+
+                                                <?php
+if($_SESSION['open_number_for_cus']=='1'){
+?>
+                                                <br />
+                                                <center style="font-size:60px;font-weight:bold;">
+                                                    {{number_for_cus | number}}
+
+                                                    <div style="font-size:12px;">
+                                                        <?php echo $lang_sp_96;?></div>
+                                                </center>
+                                                <br />
+                                                <?php
+}
+?>
+
+
+                                            </center>
+
+                                            <table class="table" width="100%" style="font-size:20px;font-weight:bold;">
+
+                                                <tr ng-repeat="x in listone">
+
+                                                    <td width="70%">{{x.product_name}}
+                                                    </td>
+                                                    <td align="right" width="30%">{{x.product_sale_num | number}}</td>
+                                                </tr>
+
+                                            </table>
+
+                                            <center>
+                                                ------------
+                                                <br />
+                                                sale no: {{sale_runno}}
+                                                <br />
+                                                <?=$lang_sales?>: <?php echo $_SESSION['name']; ?>
+                                                <br />
+
+
+                                                <?=$lang_day?>: {{adddate}}
+                                                <br />
+                                                ------------
+
 
 
                                                 <span ng-show="showremarkonslip=='1'">
                                                     <br />
                                                     {{saleremark}}
                                                 </span>
-
-
-
-
-
-
-
-
-
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" ng-click="printDiv()">
-                                    <?=$lang_print?></button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"
-                                    aria-hidden="true">Close</button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-                <div class="modal fade" id="Openonemini_order" style="visibility: hidden;">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                            <!-- <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title"><?=$lang_billmini?></h4>
-
-			</div> -->
-                            <div class="modal-body">
-                                <div id="section-to-print-mini-order" style="font-size: 12px;">
-                                    <center>
-
-
-
-                                        <?php if($_SESSION['show_order_on_slip']=='1'){?>
-                                        <center>
-                                            <br />
-
-
-                                            <span style="font-size:20px;font-weight:bold;">
-                                                <?php echo $lang_sp_95;?></span>
-
-                                            <?php
-if($_SESSION['open_number_for_cus']=='1'){
-?>
-                                            <br />
-                                            <center style="font-size:60px;font-weight:bold;">{{number_for_cus | number}}
-
-                                                <div style="font-size:12px;">
-                                                    <?php echo $lang_sp_96;?></div>
                                             </center>
-                                            <br />
-                                            <?php
-}
-?>
-
-
-                                        </center>
-
-                                        <table class="table" width="100%" style="font-size:20px;font-weight:bold;">
-
-                                            <tr ng-repeat="x in listone">
-
-                                                <td width="70%">{{x.product_name}}
-                                                </td>
-                                                <td align="right" width="30%">{{x.product_sale_num | number}}</td>
-                                            </tr>
-
-                                        </table>
-
-                                        <center>
-                                            ------------
-                                            <br />
-                                            sale no: {{sale_runno}}
-                                            <br />
-                                            <?=$lang_sales?>: <?php echo $_SESSION['name']; ?>
-                                            <br />
-
-
-                                            <?=$lang_day?>: {{adddate}}
-                                            <br />
-                                            ------------
-
-
-
-                                            <span ng-show="showremarkonslip=='1'">
-                                                <br />
-                                                {{saleremark}}
-                                            </span>
-                                        </center>
 
 
 
 
 
 
-                                        <?php } ?>
+                                            <?php } ?>
 
 
 
@@ -3739,31 +3850,31 @@ if($_SESSION['open_number_for_cus']=='1'){
 
 
 
+
+                                    </div>
 
                                 </div>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="printDiv()">
+                                        <?=$lang_print?></button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                                        aria-hidden="true">Close</button>
 
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" ng-click="printDiv()">
-                                    <?=$lang_print?></button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"
-                                    aria-hidden="true">Close</button>
-
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
 
 
 
-                <!-- new test -->
-                <!-- <div class="modal fade" id="Opengetmoneymodal">
+                    <!-- new test -->
+                    <!-- <div class="modal fade" id="Opengetmoneymodal">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-body" style="height: 550px;"> -->
-                <!-- ===================== debug data ======================= -->
-                <!-- <pre>money input: {{ money_from_customer | json }}</pre>
+                    <!-- ===================== debug data ======================= -->
+                    <!-- <pre>money input: {{ money_from_customer | json }}</pre>
                                 <pre>{{ pay_type | json }}</pre>
                                 <pre>gty:</pre>
                                 <pre ng-repeat="item in product_sale_num">{{ item | json }}</pre>
@@ -3777,23 +3888,23 @@ if($_SESSION['open_number_for_cus']=='1'){
                                 <pre ng-repeat="item in product_code">{{ item | json }}</pre>
                                 <pre>product_price:</pre>
                                 <pre ng-repeat="item in product_price">{{ item | json }}</pre> -->
-                <!-- ============================================ -->
-                <!-- </div>
+                    <!-- ============================================ -->
+                    <!-- </div>
                         </div>
                     </div>
                 </div> -->
-                <!-- new test -->
+                    <!-- new test -->
 
 
-                <div class="modal fade" id="Opengetmoneymodal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
+                    <div class="modal fade" id="Opengetmoneymodal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
 
-                            <div class="modal-body" style="height:550px;">
+                                <div class="modal-body" style="height:550px;">
 
 
-                                <!-- ===================== debug data ======================= -->
-                                <!-- <pre>money input{{ money_from_customer | json }}</pre>
+                                    <!-- ===================== debug data ======================= -->
+                                    <!-- <pre>money input{{ money_from_customer | json }}</pre>
                                 <pre>{{ pay_type |json}}</pre>
                                 <pre>gty{{ product_sale_num|json }}</pre>
                                 <pre>sale_runno{{ sale_runno |json}}</pre>
@@ -3801,32 +3912,32 @@ if($_SESSION['open_number_for_cus']=='1'){
                                 <pre>product_name{{ product_name|json }}</pre>
                                 <pre>product_code{{ product_code|json }}</pre>
                                 <pre>product_price{{ product_price |json}}</pre> -->
-                                <!-- ============================================ -->
+                                    <!-- ============================================ -->
 
-                                <center>
+                                    <center>
 
-                                    <div class="form-group">
-                                        <select class="form-control" ng-model="pay_type"
-                                            style="background-color:orange;color:#fff;font-size:30px;height:60px;">
-                                            <option ng-repeat="x in pay_type_list" value="{{x.pay_type_id}}">
-                                                {{x.pay_type_name}}
-                                            </option>
-                                        </select>
-                                    </div>
+                                        <div class="form-group">
+                                            <select class="form-control" ng-model="pay_type"
+                                                style="background-color:orange;color:#fff;font-size:30px;height:60px;">
+                                                <option ng-repeat="x in pay_type_list" value="{{x.pay_type_id}}">
+                                                    {{x.pay_type_name}}
+                                                </option>
+                                            </select>
+                                        </div>
 
-                                    <!-- <tr style="font-size: 20px;" ng-repeat="item in listsale">
+                                        <!-- <tr style="font-size: 20px;" ng-repeat="item in listsale">
                                         <td>Grand_totalkip() </td>
                                         <input type="text" id="Grand_totalkip{{$index}}" class="form-control"
                                             ng-model="item.grandTotalkip"
                                             style="font-size: 20px;text-align: right;height: 47px;background-color:#dff0d8;">
                                     </tr> -->
 
-                                    <!-- <input type="text" id="Grand_totalkip" class="form-control"
+                                        <!-- <input type="text" id="Grand_totalkip" class="form-control"
                                         ng-init="Grand_totalkip = calculateGrandTotalkip()" ng-model="Grand_totalkip"
                                         placeholder="Grand_totalkip" onkeypress="validate(event)" autocomplete="off"
                                         style="text-align: right;height: 70px;background-color:#dff0d8;font-size: 40px;font-weight:bold;"
                                         autofocus> -->
-                                    <!-- 
+                                        <!-- 
                                     <tr>
 
                                         <td
@@ -3846,16 +3957,21 @@ if($_SESSION['open_number_for_cus']=='1'){
                                     </tr> -->
 
 
-                                    <input type="text" id="money_from_customer_id" class="form-control"
-                                        ng-model="money_from_customer" placeholder="<?=$lang_getmoneyfromcus?>"
+                                        <input type="text" id="money_from_customer_id" class="form-control"
+                                            ng-model="money_from_customer" placeholder="<?=$lang_getmoneyfromcus?>KIP"
+                                            onkeypress="validate(event)" autocomplete="off"
+                                            style="text-align: right;height: 70px;background-color:#dff0d8;font-size: 40px;font-weight:bold;"
+                                            autofocus>
+                                        <!-- <input type="text" id="money_from_customer_id_thb" class="form-control"
+                                        ng-model="money_from_customer" placeholder="<?=$lang_getmoneyfromcus?>THB"
                                         onkeypress="validate(event)" autocomplete="off"
                                         style="text-align: right;height: 70px;background-color:#dff0d8;font-size: 40px;font-weight:bold;"
-                                        autofocus>
+                                        autofocus> -->
 
 
-                                    <br />
-                                    <!-- origin ---------- -->
-                                    <!-- <div ng-click="Addnumbermoney('c2m')"
+                                        <br />
+                                        <!-- origin ---------- -->
+                                        <!-- <div ng-click="Addnumbermoney('c2m')"
                                         class="col-xs-12 col-sm-12 col-md-12 btn btn-primary"
                                         style="font-size:40px;font-weight:bold;height: 70px;">
                                         <?php echo $lang_sp_97;?> <span ng-show="discount_percent=='0'">
@@ -3866,743 +3982,345 @@ if($_SESSION['open_number_for_cus']=='1'){
                                             {{Sumsaleprice() + (Sumsaleprice() * vatnumber/100) - ((Sumsaleprice() + (Sumsaleprice() * vatnumber/100))*(discount_last_percent/100)) | number }}
                                         </span>
                                     </div> -->
-                                    <!-- origin ---------- -->
+                                        <!-- origin ---------- -->
 
 
-                                    <!-- update 12-05-2024 -->
-                                    <div ng-click="Addnumbermoney('c2m')"
-                                        class="col-xs-12 col-sm-12 col-md-12 btn btn-primary"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        ພໍດີ <span ng-show="discount_percent=='0'">
-                                            {{Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100) - discount_last | number }}
-                                        </span>
+                                        <!-- update 12-05-2024 -->
+                                        <div ng-click="Addnumbermoney('c2m')"
+                                            class="col-xs-12 col-sm-12 col-md-12 btn btn-primary"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            ພໍດີ <span ng-show="discount_percent=='0'">
+                                                {{Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100) - discount_last | number }}
+                                            </span>
 
-                                        <span ng-show="discount_percent=='1'">
-                                            {{Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100) - ((Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100))*(discount_last_percent/100)) | number }}
-                                        </span>
+                                            <span ng-show="discount_percent=='1'">
+                                                {{Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100) - ((Totalconvert_to_kip() + (Totalconvert_to_kip() * vatnumber/100))*(discount_last_percent/100)) | number }}
+                                            </span>
+                                        </div>
+                                        <!-- update 12-05-2024 -->
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <br />
+                                        </div>
+
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_1;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_1_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_2;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_2_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_3;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_3_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_4;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_4_t;?>
+                                        </div>
+
+
+
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_5;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_5_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_6;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_6_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_7;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_7_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_8;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_8_t;?>
+                                        </div>
+
+
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_9;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_9_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_0;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_0_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_20;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-info"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_20_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_50;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-info"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_50_t;?>
+                                        </div>
+
+
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_100;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-info"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_100_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_500;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-info"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_500_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_1000;?>')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-info"
+                                            style="font-size:40px;font-weight:bold;height: 70px;">
+                                            <?php echo $lang_sp_98_1000_t;?>
+                                        </div>
+                                        <div ng-click="Addnumbermoney('')"
+                                            class="col-xs-3 col-sm-3 col-md-3 btn btn-warning"
+                                            style="font-size:20px;font-weight:bold;height: 70px;">
+                                            x <br /> <?=$lang_deleteall?>
+                                        </div>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <br />
+                                        </div>
+
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <input type="checkbox" ng-model="showremark">
+                                            <?php echo $lang_sp_99;?>
+                                            <textarea placeholder="<?php echo $lang_sp_99;?>" ng-show="showremark"
+                                                ng-model="saleremark" class="form-control"
+                                                style="height:200px;"></textarea>
+                                            <span ng-show="showremark">
+                                                <select ng-model="showremarkonslip">
+                                                    <option value="0">
+                                                        <?php echo $lang_sp_100;?>
+                                                    </option>
+                                                    <option value="1">
+                                                        <?php echo $lang_sp_101;?>
+                                                    </option>
+                                                </select>
+                                            </span>
+                                            <br /><br />
+                                        </div>
+
+                                        <button type="submit" class="col-xs-12 col-sm-12 col-md-12 btn btn-success"
+                                            style="font-size:40px;font-weight:bold;height: 70px;" id="savesale"
+                                            ng-click="Savesale(money_from_customer,Sumsalepricevat(),discount_last )">
+                                            ຢຶນຢັນ_test(Enter)
+                                        </button>
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <br /><br />
+                                        </div>
+
+
+
+                                        <!-- <button class="col-xs-12 col-sm-12 col-md-12 btn btn-info"
+                                            style="font-size:40px;font-weight:bold;height: 70px;" ng-click="Morepay()">
+                                            <?php echo $lang_sp_102;?>
+                                        </button> -->
+
+
+
+
+                                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                            <br /><br />
+                                        </div>
+
+
+
+                                    </center>
+
+
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <center>
+                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
+                                            aria-hidden="true">ປີດ(Esc)</button>
+                                    </center>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="modal fade" id="popup_nummodal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-body">
+                                    <center>
+                                        <h1 style="color:green;"><b>
+                                                <span ng-if="popup_pricenum=='1'"><?php echo $lang_sp_103;?></span>
+                                                <span ng-if="popup_pricenum=='3'"><?php echo $lang_sp_104;?></span>
+                                            </b></h1>
+                                        <span ng-if="popup_pricenum=='3'"
+                                            style="color:red;"><?php echo $lang_sp_105;?></span>
+                                        <form class="form-inline">
+                                            <input type="number" id="popup_nummodal_focus" ng-model="popup_num_num"
+                                                ng-change="Savepopup_num()" class="form-control" style="height: 100px;
+    font-size: 100px;
+	width: 100%;
+    color: green;">
+                                            <br />
+                                            <br />
+                                            <button type="submit" class="btn btn-success btn-lg" data-dismiss="modal"
+                                                aria-hidden="true">
+                                                Enter
+                                            </button>
+                                        </form>
+                                    </center>
+
+                                    <br />
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <center>
+                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
+                                            aria-hidden="true">Close ESC</button>
+                                    </center>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="modal fade" id="morepay">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+
+                                <div class="modal-body">
+
+                                    <center style="font-size:30px;">
+
+                                        <b><?php echo $lang_sp_106;?></b>
+                                        <br />
+
+                                        :<?php echo $lang_sp_107;?>
+                                        <b style="color:red;font-weight:bold;">
+                                            {{Sumsaleprice() - discount_last | number }}
+
+                                        </b>
+                                        <br />
+
+
+
+                                        :<?php echo $lang_sp_108;?> <b
+                                            style="color:green;">{{Summorepaymoney() | number}}</b>
+                                    </center>
+
+
+
+                                    <div ng-repeat="x in pay_type_list" ng-if="x.pay_type_id!='4'">
+                                        {{x.pay_type_name}}
+                                        <input onkeypress="validate(event)" ng-model="x.pay_money"
+                                            placeholder="{{x.pay_type_name}}" class="form-control"
+                                            style="color:orange;font-size:30px;height: 50px;">
                                     </div>
-                                    <!-- update 12-05-2024 -->
+
+
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <br />
                                     </div>
-
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_1;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_1_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_2;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_2_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_3;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_3_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_4;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_4_t;?>
-                                    </div>
-
-
-
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_5;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_5_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_6;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_6_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_7;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_7_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_8;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_8_t;?>
-                                    </div>
-
-
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_9;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_9_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_0;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-default"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_0_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_20;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-info"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_20_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_50;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-info"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_50_t;?>
-                                    </div>
-
-
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_100;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-info"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_100_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_500;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-info"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_500_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('<?php echo $lang_sp_98_1000;?>')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-info"
-                                        style="font-size:40px;font-weight:bold;height: 70px;">
-                                        <?php echo $lang_sp_98_1000_t;?>
-                                    </div>
-                                    <div ng-click="Addnumbermoney('')"
-                                        class="col-xs-3 col-sm-3 col-md-3 btn btn-warning"
-                                        style="font-size:20px;font-weight:bold;height: 70px;">
-                                        x <br /> <?=$lang_deleteall?>
-                                    </div>
-
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <br />
-                                    </div>
-
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <input type="checkbox" ng-model="showremark">
-                                        <?php echo $lang_sp_99;?>
-                                        <textarea placeholder="<?php echo $lang_sp_99;?>" ng-show="showremark"
+                                        <?php echo $lang_sp_109;?>
+                                        <textarea placeholder="<?php echo $lang_sp_109;?>" ng-if="showremark"
                                             ng-model="saleremark" class="form-control" style="height:200px;"></textarea>
                                         <span ng-show="showremark">
                                             <select ng-model="showremarkonslip">
                                                 <option value="0">
-                                                    <?php echo $lang_sp_100;?>
+                                                    <?php echo $lang_sp_110;?>
                                                 </option>
                                                 <option value="1">
-                                                    <?php echo $lang_sp_101;?>
+                                                    <?php echo $lang_sp_111;?>
                                                 </option>
                                             </select>
                                         </span>
                                         <br /><br />
                                     </div>
 
-                                    <button type="submit" class="col-xs-12 col-sm-12 col-md-12 btn btn-success"
-                                        style="font-size:40px;font-weight:bold;height: 70px;" id="savesale"
+
+                                    <button
+                                        ng-if="Summorepaymoney() >= Sumsaleprice() - discount_last && Countmorepaymoney() > '1'"
+                                        type="submit" class="col-xs-12 col-sm-12 col-md-12 btn btn-success"
+                                        style="font-size:40px;font-weight:bold;height: 70px;" id="savesalemorepay"
                                         ng-click="Savesale(money_from_customer,Sumsalepricevat(),discount_last )">
-                                        ຢຶນຢັນ(Enter)
+                                        <?=$lang_confirm?>(Enter)
                                     </button>
 
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <br /><br />
                                     </div>
 
-
-
-                                    <button class="col-xs-12 col-sm-12 col-md-12 btn btn-info"
-                                        style="font-size:40px;font-weight:bold;height: 70px;" ng-click="Morepay()">
-                                        <?php echo $lang_sp_102;?>
-                                    </button>
-
-
-
-
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
-                                        <br /><br />
-                                    </div>
-
-
-
-                                </center>
-
-
-
-                            </div>
-                            <div class="modal-footer">
-
-                                <center>
-                                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
-                                        aria-hidden="true">ປີດ(Esc)</button>
-                                </center>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-                <div class="modal fade" id="popup_nummodal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <div class="modal-body">
-                                <center>
-                                    <h1 style="color:green;"><b>
-                                            <span ng-if="popup_pricenum=='1'"><?php echo $lang_sp_103;?></span>
-                                            <span ng-if="popup_pricenum=='3'"><?php echo $lang_sp_104;?></span>
-                                        </b></h1>
-                                    <span ng-if="popup_pricenum=='3'"
-                                        style="color:red;"><?php echo $lang_sp_105;?></span>
-                                    <form class="form-inline">
-                                        <input type="number" id="popup_nummodal_focus" ng-model="popup_num_num"
-                                            ng-change="Savepopup_num()" class="form-control" style="height: 100px;
-    font-size: 100px;
-	width: 100%;
-    color: green;">
-                                        <br />
-                                        <br />
-                                        <button type="submit" class="btn btn-success btn-lg" data-dismiss="modal"
-                                            aria-hidden="true">
-                                            Enter
-                                        </button>
-                                    </form>
-                                </center>
-
-                                <br />
-
-                            </div>
-                            <div class="modal-footer">
-
-                                <center>
-                                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
-                                        aria-hidden="true">Close ESC</button>
-                                </center>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-                <div class="modal fade" id="morepay">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-
-                            <div class="modal-body">
-
-                                <center style="font-size:30px;">
-
-                                    <b><?php echo $lang_sp_106;?></b>
-                                    <br />
-
-                                    :<?php echo $lang_sp_107;?>
-                                    <b style="color:red;font-weight:bold;">
-                                        {{Sumsaleprice() - discount_last | number }}
-
-                                    </b>
-                                    <br />
-
-
-
-                                    :<?php echo $lang_sp_108;?> <b
-                                        style="color:green;">{{Summorepaymoney() | number}}</b>
-                                </center>
-
-
-
-                                <div ng-repeat="x in pay_type_list" ng-if="x.pay_type_id!='4'">
-                                    {{x.pay_type_name}}
-                                    <input onkeypress="validate(event)" ng-model="x.pay_money"
-                                        placeholder="{{x.pay_type_name}}" class="form-control"
-                                        style="color:orange;font-size:30px;height: 50px;">
-                                </div>
-
-
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <br />
-                                </div>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <input type="checkbox" ng-model="showremark">
-                                    <?php echo $lang_sp_109;?>
-                                    <textarea placeholder="<?php echo $lang_sp_109;?>" ng-if="showremark"
-                                        ng-model="saleremark" class="form-control" style="height:200px;"></textarea>
-                                    <span ng-show="showremark">
-                                        <select ng-model="showremarkonslip">
-                                            <option value="0">
-                                                <?php echo $lang_sp_110;?>
-                                            </option>
-                                            <option value="1">
-                                                <?php echo $lang_sp_111;?>
-                                            </option>
-                                        </select>
-                                    </span>
-                                    <br /><br />
-                                </div>
-
-
-                                <button
-                                    ng-if="Summorepaymoney() >= Sumsaleprice() - discount_last && Countmorepaymoney() > '1'"
-                                    type="submit" class="col-xs-12 col-sm-12 col-md-12 btn btn-success"
-                                    style="font-size:40px;font-weight:bold;height: 70px;" id="savesalemorepay"
-                                    ng-click="Savesale(money_from_customer,Sumsalepricevat(),discount_last )">
-                                    <?=$lang_confirm?>(Enter)
-                                </button>
-
-                                <div class="col-xs-12 col-sm-12 col-md-12">
-                                    <br /><br />
-                                </div>
-
-
-                            </div>
-                            <div class="modal-footer">
-
-                                <center>
-                                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
-                                        aria-hidden="true">Close</button>
-                                </center>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-                <div class="modal fade" id="Seemorepay">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-
-
-                            <div class="modal-body">
-
-                                <center>
-                                    <h2><b>{{sale_runno}}</b></h2>
-                                </center>
-
-                                <table class="table table-hover">
-                                    <tr ng-repeat="x in morepaylist">
-                                        <td>{{x.pay_type_name}}</td>
-                                        <td align="right">{{x.money | number}}</td>
-                                    </tr>
-                                </table>
-
-                            </div>
-                            <div class="modal-footer">
-
-                                <button type="button" class="btn btn-default" data-dismiss="modal"
-                                    aria-hidden="true">Close</button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-                <div class="modal fade" id="popup_pricemodal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <div class="modal-body">
-                                <center>
-                                    <h1 style="color:blue;"><b>
-                                            <?php echo $lang_sp_112;?>
-                                        </b></h1>
-                                    <form class="form-inline">
-                                        <input type="number" id="popup_pricemodal_focus" ng-model="popup_price_price"
-                                            ng-change="Savepopup_price()" class="form-control" style="height: 100px;
-    font-size: 100px;
-	width: 100%;
-    color: blue;">
-                                        <br />
-                                        <br />
-                                        <button type="submit" class="btn btn-success btn-lg" data-dismiss="modal"
-                                            aria-hidden="true">
-                                            Enter
-                                        </button>
-                                    </form>
-                                </center>
-
-                                <br />
-
-                            </div>
-                            <div class="modal-footer">
-
-                                <center>
-                                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
-                                        aria-hidden="true">Close(Esc)</button>
-                                </center>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-                <div class="modal fade" id="Modalcannotfindproduct">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <div class="modal-body">
-
-
-                                <center>
-                                    <h2 style="color:red;"><?php echo $lang_cannotfoundproduct;?></h2>
-                                    <h1><b>
-                                            {{cannotfindproduct_barcode}}
-                                        </b></h1>
-
-                                </center>
-
-
-
-                            </div>
-                            <div class="modal-footer">
-
-                                <center>
-                                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
-                                        aria-hidden="true">Close (Esc)</button>
-                                </center>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <div class="modal fade" id="Deleteorder_pass">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <div class="modal-body">
-
-
-                                <center>
-                                    <h2 style="color:red;"><?php echo $lang_sp_113;?></h2>
-                                    <h1><b>
-                                            {{product_name_order}}
-                                        </b></h1>
-
-                                    <input type="password" placeholder="<?php echo $lang_sp_114;?>" ng-model="orderpass"
-                                        class="form-control" style="height:50px;font-size50px;">
-                                    <br />
-
-
-                                    <button class="btn btn-success btn-lg"
-                                        ng-click="Deletepush_pass_ok(deletepushdatax)">
-                                        <?php echo $lang_sp_115;?></button>
-                                    <span ng-if="cannotdeleteorder=='0'" style="color:red;"><br />
-                                        <?php echo $lang_sp_116;?> </span>
-                                </center>
-
-
-
-                            </div>
-                            <div class="modal-footer">
-
-                                <center>
-                                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
-                                        aria-hidden="true">ປິດໜ້າຕ່າງ(Esc)</button>
-                                </center>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <div class="modal fade" id="Modalgetnumtoprice_noti">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <div class="modal-body">
-
-
-                                <center>
-
-                                    <h1><b>
-                                            {{getnumtoprice_noti}}
-                                        </b></h1>
-
-                                </center>
-
-
-
-                            </div>
-                            <div class="modal-footer">
-
-                                <center>
-                                    <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
-                                        aria-hidden="true">ປິດໜ້າຕ່າງ(Esc)</button>
-                                </center>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                <div style="position: absolute; opacity: 0.0;">
-                    <div class="modal fade" id="Openoneminiip">
-                        <div class="modal-dialog modal-lg">
-                            <div class="modal-content">
-
-                                <div class="modal-body">
-                                    <div id="section-to-print-slip"
-                                        style="width: <?php echo $pt_width;?>;font-size: 25px;text-align: left;background-color: #fff;overflow:visible !important;">
-
-
-
-                                        <?php
-if($_SESSION['owner_logo']!=''){
-?>
-
-                                        <center>
-                                            <table width="100%">
-                                                <tr>
-                                                    <td width="250px" align="center">
-                                                        <img src="<?=$base_url?>/<?=$_SESSION['owner_logo']?>"
-                                                            style="width: 200px;">
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </center>
-                                        <?php
-}
-?>
-
-                                        <!-- <br />
-<center style="font-size:100px;font-weight:bold;">{{number_for_cus | number}}</center> -->
-
-                                        <br />
-                                        <b><span> <?php echo $_SESSION['owner_name']; ?></span> </b>
-                                        <!--<br />
-		 <?=$lang_tax?>:<?php echo $_SESSION['owner_tax_number']; ?> -->
-                                        <br />
-                                        <?php echo $_SESSION['owner_address']; ?>
-                                        <br />
-                                        <?=$lang_tel?>: <?php echo $_SESSION['owner_tel']; ?>
-                                        <br />
-                                        <?=$lang_tax?>:<?php echo $_SESSION['owner_tax_number']; ?>
-                                        <br />
-                                        <?=$lang_runno?>:{{sale_runno}}
-                                        <br />
-                                        __________________________________________
-
-                                        <table width="100%">
-                                            <tr>
-                                                <td width="30%"></td>
-                                                <td><?=$lang_billmini?></td>
-                                            </tr>
-                                        </table>
-
-
-                                        <!--<br />
-
- (VAT <span ng-if="vat3 == '0'">Included</span><span ng-if="vat3 > '0'">{{vat3}} %</span>)
- -->
-
-                                        <b ng-if="cus_id != null">
-                                            __________________________________________
-                                            <br />
-                                            <?=$lang_cusname?>: {{cus_name}}
-                                            <br />
-                                            <?=$lang_address?>: {{cus_address_all}}
-                                            <br />
-                                        </b>
-                                        __________________________________________
-                                        <table width="100%">
-                                            <tr>
-                                                <td width="30%"></td>
-                                                <td><?=$lang_productservice?></td>
-                                            </tr>
-                                        </table>
-                                        <table style="width: 100%;font-size: 25px;">
-
-                                            <tr ng-repeat="x in listone">
-
-                                                <td width="50%" style="text-align: left;">
-                                                    {{x.product_name}}
-                                                </td>
-                                                <td valign="top">
-                                                    {{x.product_sale_num | number}}
-                                                </td>
-                                                <td align="right" valign="top">
-                                                    {{(x.product_price - x.product_price_discount) * x.product_sale_num | number}}
-                                                </td>
-                                            </tr>
-                                            <tr>
-
-                                                <td style="text-align: left;"><?=$lang_summary?></td>
-                                                <td></td>
-
-                                                <td align="right">{{sumsale_price | number}}</td>
-                                            </tr>
-
-                                            <tr ng-if="vat3 > '0'">
-                                                <td style="text-align: left;"><?=$lang_vat?> {{vat3}} %</td>
-                                                <td></td>
-                                                <td style="font-weight: bold;" align="right">
-                                                    {{sumsale_price*(vat3/100) | number}}</td>
-                                            </tr>
-
-
-                                            <tr ng-if="vat3 > '0'">
-                                                <td style="text-align: left;"><?=$lang_pricesumvat?></td>
-                                                <td></td>
-                                                <td align="right">
-                                                    {{sumsalevat | number}}</td>
-                                            </tr>
-
-
-
-
-                                            <?php
-if($_SESSION['owner_vat_status']!='0'){
-?>
-                                            <tr>
-                                                <td><?=$lang_vat?> <?=$_SESSION['owner_vat']?> %</td>
-                                                <td style="font-weight: bold;" align="right">
-                                                    {{((sumsalevat*100)/<?php echo $_SESSION['owner_vat']+100; ?>)*(<?=$_SESSION['owner_vat']?>/100) | number}}
-                                                </td>
-                                            </tr>
-
-
-                                            <tr>
-                                                <td><?=$lang_pricebeforvat?></td>
-                                                <td align="right">
-                                                    {{(sumsalevat*100)/<?php echo $_SESSION['owner_vat']+100; ?> | number}}
-                                                </td>
-                                            </tr>
-                                            <?php } ?>
-
-
-
-                                            <tr>
-
-                                                <td style="text-align: left;"><?=$lang_discount?></td>
-                                                <td></td>
-                                                <td align="right">{{discount_last2 | number}}</td>
-                                            </tr>
-
-                                            <tr>
-
-                                                <td style="text-align: left;"><?=$lang_sumall?></td>
-                                                <td></td>
-                                                <td align="right" style="font-weight: bold;">
-                                                    {{sumsalevat-discount_last2 | number}}</td>
-                                            </tr>
-
-
-                                            <tr>
-
-                                                <td style="text-align: left;"><?=$lang_getmoney?></td>
-                                                <td></td>
-                                                <td align="right">{{money_from_customer3 | number}}</td>
-                                            </tr>
-
-                                            <tr>
-
-                                                <td style="text-align: left;"><?=$lang_moneychange?></td>
-                                                <td></td>
-                                                <td align="right">
-                                                    {{money_from_customer3 -(sumsalevat-discount_last2) | number}}</td>
-                                            </tr>
-
-                                        </table>
-
-                                        __________________________________________
-
-                                        <table width="100%">
-                                            <tr>
-                                                <td><?=$lang_sales?></td>
-                                                <td><?php echo $_SESSION['name']; ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td><?=$lang_day?></td>
-                                                <td> {{adddate}} </td>
-                                            </tr>
-
-                                        </table>
-                                        <span style="text-align:left;"><?=$_SESSION['footer_slip']?></span>
-                                        <br />
-                                        __________________________________________
-
-
-
-                                    </div>
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary" ng-click="printDiv()">
-                                        <?=$lang_print?></button>
+
+                                    <center>
+                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
+                                            aria-hidden="true">Close</button>
+                                    </center>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+                    <div class="modal fade" id="Seemorepay">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+
+
+                                <div class="modal-body">
+
+                                    <center>
+                                        <h2><b>{{sale_runno}}</b></h2>
+                                    </center>
+
+                                    <table class="table table-hover">
+                                        <tr ng-repeat="x in morepaylist">
+                                            <td>{{x.pay_type_name}}</td>
+                                            <td align="right">{{x.money | number}}</td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                                <div class="modal-footer">
+
                                     <button type="button" class="btn btn-default" data-dismiss="modal"
                                         aria-hidden="true">Close</button>
 
@@ -4611,297 +4329,686 @@ if($_SESSION['owner_vat_status']!='0'){
                         </div>
                     </div>
 
-                </div>
 
 
 
 
 
 
+                    <div class="modal fade" id="popup_pricemodal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
 
-            </div>
+                                <div class="modal-body">
+                                    <center>
+                                        <h1 style="color:blue;"><b>
+                                                <?php echo $lang_sp_112;?>
+                                            </b></h1>
+                                        <form class="form-inline">
+                                            <input type="number" id="popup_pricemodal_focus"
+                                                ng-model="popup_price_price" ng-change="Savepopup_price()"
+                                                class="form-control" style="height: 100px;
+    font-size: 100px;
+	width: 100%;
+    color: blue;">
+                                            <br />
+                                            <br />
+                                            <button type="submit" class="btn btn-success btn-lg" data-dismiss="modal"
+                                                aria-hidden="true">
+                                                Enter
+                                            </button>
+                                        </form>
+                                    </center>
 
+                                    <br />
 
+                                </div>
+                                <div class="modal-footer">
 
-            <?php if($_SESSION['user_type'] != '0'){?>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <hr />
-            </div>
+                                    <center>
+                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
+                                            aria-hidden="true">Close(Esc)</button>
+                                    </center>
 
-            <div class="col-xs-12  col-sm-12 col-md-12">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-
-
-                        <center>
-                            <h3>ລາຍການຂາຍຂອງກະທີ: <b>
-                                    <?php if(isset($_SESSION['shift_id'])){echo $_SESSION['shift_id'];}?> </b>
-                                <br /> ໃນມື້ນີ້/
-                                <?php echo $lang_sp_118;?>: <b><?php echo $_SESSION['name'];?></b>
-                            </h3>
-                        </center>
-
-
-
-
-                        <!-- ============== update show list sale last and show delete button in salepic ============================-->
-
-                        <?php
-if($_SESSION['user_type']=='4'){
-?>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <hr />
+                                </div>
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="col-xs-12  col-sm-12 col-md-12">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
 
-                                    <div style="float: right;">
-                                        <input type="checkbox" ng-model="showdeletcbut">
-                                        <?=$lang_showdel?>
-                                    </div>
 
 
-                                    <?php
-                                    }
-                                    ?>
 
-                                    <div class="panel-body">
 
-                                        <?=$lang_lastsale?>
-                                        <?php
-                                             {
-                                            ?>
-                                        <!-- <div class="col-xs-12 col-sm-12 col-md-12">
-                                                    <hr />
-                                                </div> -->
+                    <div class="modal fade" id="Modalcannotfindproduct">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
 
-                                        <?php
-                                                }
-                                                ?>
+                                <div class="modal-body">
 
-                                        <!-- ============== update show list sale last and show delete button in salepic ======================-->
 
-                                        <form class="form-inline">
+                                    <center>
+                                        <h2 style="color:red;"><?php echo $lang_cannotfoundproduct;?></h2>
+                                        <h1><b>
+                                                {{cannotfindproduct_barcode}}
+                                            </b></h1>
 
-
-                                            <div class="form-group">
-                                                <input type="text" ng-model="searchtext"
-                                                    ng-change="getlist(searchtext,'1')" class="form-control"
-                                                    style="width:300px;"
-                                                    placeholder="<?=$lang_search?> Runno, <?=$lang_cusname?>">
-                                            </div>
-
-                                            <div class="form-group">
-                                                <button type="submit" ng-click="getlist(searchtext,'1')"
-                                                    class="btn btn-success" placeholder=""
-                                                    title="<?=$lang_search?>"><span class="glyphicon glyphicon-search"
-                                                        aria-hidden="true"></span></button>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" ng-click="getlist('','1')" class="btn btn-default"
-                                                    placeholder="" title="<?=$lang_refresh?>"><span
-                                                        class="glyphicon glyphicon-refresh"
-                                                        aria-hidden="true"></span></button>
-                                            </div>
-
-                                        </form>
-                                        <br />
-
-
-
-
-                                        <table class="table table-hover table-bordered">
-                                            <thead>
-                                                <tr class="trheader">
-                                                    <th><?=$lang_rank?></th>
-                                                    <th><?=$lang_runno?></th>
-                                                    <th><?=$lang_cusname?></th>
-
-                                                    <th><?php echo $lang_sp_119;?></th>
-
-
-
-                                                    <th><?=$lang_productnum?></th>
-                                                    <th><?=$lang_pricesum?></th>
-
-
-                                                    <?php
-                                                            if($_SESSION['owner_vat_status']=='2'){
-                                                            ?>
-                                                    <th><?=$lang_vat?> Exclude %</th>
-                                                    <th><?=$lang_pricesumvat?></th>
-                                                    <?php
-                                                            }
-                                                            ?>
-
-
-                                                    <th><?=$lang_discountlast?></th>
-                                                    <th><?=$lang_sumall?></th>
-                                                    <th><?=$lang_getmoney?></th>
-                                                    <th><?=$lang_moneychange?></th>
-                                                    <th><?=$lang_payby?></th>
-                                                    <th><?php echo $lang_sp_118;?></th>
-                                                    <th><?php echo $lang_sp_120;?></th>
-                                                    <th><?php echo $lang_sp_121;?></th>
-                                                    <th ng-show="showdeletcbut" style="width: 50px;">
-                                                        <?=$lang_delete?></th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-
-                                                <tr ng-repeat="x in list">
-                                                    <td ng-show="selectpage=='1'" class="text-center">
-                                                        {{($index+1)}}</td>
-                                                    <td ng-show="selectpage!='1'" class="text-center">
-                                                        {{($index+1)+(perpage*(selectpage-1))}}</td>
-
-                                                    <!-- button slip bill in sale list -->
-                                                    <td>
-
-                                                        <?php
-                                                            if($_SESSION['user_type']=='4'){
-                                                            ?>
-                                                        <button ng-show="printer_ul =='0'"
-                                                            class="btn btn-primary btn-sm" ng-click="printDivmini2(x)">
-                                                            ພິມ
-                                                        </button>
-
-                                                        <button ng-show="printer_ul !='0'"
-                                                            class="btn btn-primary btn-sm"
-                                                            ng-click="printDivminiip2(x)">ພິມ slip</button>
-
-
-                                                        <button class="btn btn-default btn-sm"
-                                                            ng-click="Getone(x)">{{x.sale_runno}}</button>
-                                                        <?php
-                                                            }
-                                                            ?>
-
-                                                    </td>
-                                                    <!-- button slip bill in sale list -->
-
-
-
-                                                    <td>{{x.cus_name}}
-
-                                                        <span ng-if="x.product_score_all !='0.00'"
-                                                            style="color:green;font-weight:bold;">
-                                                            +{{x.product_score_all | number}}
-                                                            <?php echo $lang_score;?> </span>
-                                                        <span ng-if="x.cus_name!=null">
-                                                            <br />
-                                                            <button class="btn btn-default btn-xs"
-                                                                ng-click="printDivfullsend(x)"><?=$lang_printbox?></button>
-                                                        </span>
-                                                    </td>
-
-                                                    <td>
-                                                        {{x.saleremark}}
-                                                    </td>
-
-
-                                                    <td align="right">{{x.sumsale_num | number}}</td>
-                                                    <td align="right">{{x.sumsale_price | number}}</td>
-
-
-                                                    <?php
-                                                            if($_SESSION['owner_vat_status']=='2'){
-                                                            ?>
-                                                    <td align="right">{{x.sumsale_price * (x.vat/100) | number}}
-                                                    </td>
-                                                    <td align="right">
-                                                        {{ParsefloatFunc(x.sumsale_price)  * (ParsefloatFunc(x.vat)/100) + ParsefloatFunc(x.sumsale_price) | number}}
-                                                    </td>
-                                                    <?php
-                                                            }
-                                                            ?>
-
-
-
-                                                    <td align="right">{{x.discount_last | number}}</td>
-                                                    <td align="right">
-                                                        {{ParsefloatFunc(x.sumsale_price)  * (ParsefloatFunc(x.vat)/100) + ParsefloatFunc(x.sumsale_price) - x.discount_last | number}}
-                                                    </td>
-                                                    <td align="right">{{x.money_from_customer | number}}</td>
-                                                    <td align="right">
-                                                        {{x.money_from_customer - ((ParsefloatFunc(x.sumsale_price)  * (ParsefloatFunc(x.vat)/100) + ParsefloatFunc(x.sumsale_price)) - x.discount_last) | number}}
-                                                    </td>
-
-                                                    <td>
-
-                                                        <span ng-if="x.cmp=='1'">
-                                                            <span ng-repeat="y in pay_type_list"
-                                                                ng-if="x.pay_type==y.pay_type_id">{{y.pay_type_name}}</span>
-                                                        </span>
-                                                        <span ng-if="x.cmp>'1'">
-                                                            <button class="btn btn-info btn-xs"
-                                                                ng-click="Seemorepay(x)">{{x.cmp}}
-                                                                <?php echo $lang_sp_122;?></button>
-                                                        </span>
-                                                    </td>
-
-
-                                                    <td><b><?php echo $_SESSION['name'];?></b></td>
-
-                                                    <td>{{x.adddate}}</td>
-                                                    <td>{{x.savedate}}</td>
-                                                    <td ng-show="showdeletcbut" align="center">
-
-
-                                                        <button title="<?php echo $lang_sp_123;?>  {{x.sale_runno}}"
-                                                            class="btn btn-sm btn-danger" ng-click="Deletelist_modal(x)"
-                                                            id="delbut{{x.ID}}">
-                                                            <?=$lang_delete?> {{x.sale_runno}}</button>
-
-
-                                                    </td>
-                                                </tr>
-
-
-                                            </tbody>
-                                        </table>
-
-
-                                        <form class="form-inline">
-                                            <div class="form-group">
-                                                <?=$lang_show?>
-                                                <select class="form-control" name="" id="" ng-model="perpage"
-                                                    ng-change="getlist(searchtext,'1',perpage)">
-                                                    <option value="10">10</option>
-                                                    <option value="20">20</option>
-                                                    <option value="30">30</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                    <option value="200">200</option>
-                                                    <option value="300">300</option>
-                                                </select>
-
-                                                <?=$lang_page?>
-                                                <select name="" id="" class="form-control" ng-model="selectthispage"
-                                                    ng-change="getlist(searchtext,selectthispage,perpage)">
-                                                    <option ng-repeat="i in pagealladd" value="{{i.a}}">{{i.a}}
-                                                    </option>
-                                                </select>
-                                            </div>
-
-
-                                        </form>
-
-
-                                    </div>
-
-
-                                    <?php } ?>
-
-
-
+                                    </center>
 
 
 
                                 </div>
+                                <div class="modal-footer">
+
+                                    <center>
+                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
+                                            aria-hidden="true">Close (Esc)</button>
+                                    </center>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="modal fade" id="Deleteorder_pass">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-body">
+
+
+                                    <center>
+                                        <h2 style="color:red;"><?php echo $lang_sp_113;?></h2>
+                                        <h1><b>
+                                                {{product_name_order}}
+                                            </b></h1>
+
+                                        <input type="password" placeholder="<?php echo $lang_sp_114;?>"
+                                            ng-model="orderpass" class="form-control"
+                                            style="height:50px;font-size50px;">
+                                        <br />
+
+
+                                        <button class="btn btn-success btn-lg"
+                                            ng-click="Deletepush_pass_ok(deletepushdatax)">
+                                            <?php echo $lang_sp_115;?></button>
+                                        <span ng-if="cannotdeleteorder=='0'" style="color:red;"><br />
+                                            <?php echo $lang_sp_116;?> </span>
+                                    </center>
+
+
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <center>
+                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
+                                            aria-hidden="true">ປິດໜ້າຕ່າງ(Esc)</button>
+                                    </center>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="modal fade" id="Modalgetnumtoprice_noti">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-body">
+
+
+                                    <center>
+
+                                        <h1><b>
+                                                {{getnumtoprice_noti}}
+                                            </b></h1>
+
+                                    </center>
+
+
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <center>
+                                        <button type="button" class="btn btn-danger btn-lg" data-dismiss="modal"
+                                            aria-hidden="true">ປິດໜ້າຕ່າງ(Esc)</button>
+                                    </center>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="position: absolute; opacity: 0.0;">
+                        <div class="modal fade" id="Openoneminiip">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+
+                                    <div class="modal-body">
+                                        <div id="section-to-print-slip"
+                                            style="width: <?php echo $pt_width;?>;font-size: 25px;text-align: left;background-color: #fff;overflow:visible !important;">
+
+                                            <?php
+if($_SESSION['owner_logo']!=''){
+?>
+
+                                            <center>
+                                                <table width="100%">
+                                                    <tr>
+                                                        <td width="250px" align="center">
+                                                            <img src="<?=$base_url?>/<?=$_SESSION['owner_logo']?>"
+                                                                style="width: 200px;">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </center>
+                                            <?php
+}
+?>
+
+                                            <!-- <br />
+<center style="font-size:100px;font-weight:bold;">{{number_for_cus | number}}</center> -->
+
+                                            <br />
+                                            <b><span> <?php echo $_SESSION['owner_name']; ?></span> </b>
+                                            <!--<br />
+		 <?=$lang_tax?>:<?php echo $_SESSION['owner_tax_number']; ?> -->
+                                            <br />
+                                            <?php echo $_SESSION['owner_address']; ?>
+                                            <br />
+                                            <?=$lang_tel?>: <?php echo $_SESSION['owner_tel']; ?>
+                                            <br />
+                                            <?=$lang_tax?>:<?php echo $_SESSION['owner_tax_number']; ?>
+                                            <br />
+                                            <?=$lang_runno?>:{{sale_runno}}
+                                            <br />
+                                            __________________________________________
+
+                                            <table width="100%">
+                                                <tr>
+                                                    <td width="30%"></td>
+                                                    <td><?=$lang_billmini?></td>
+                                                </tr>
+                                            </table>
+
+
+                                            <!--<br />
+
+ (VAT <span ng-if="vat3 == '0'">Included</span><span ng-if="vat3 > '0'">{{vat3}} %</span>)
+ -->
+
+                                            <b ng-if="cus_id != null">
+                                                __________________________________________
+                                                <br />
+                                                <?=$lang_cusname?>: {{cus_name}}
+                                                <br />
+                                                <?=$lang_address?>: {{cus_address_all}}
+                                                <br />
+                                            </b>
+                                            __________________________________________
+                                            <table width="100%">
+                                                <tr>
+                                                    <td width="30%"></td>
+                                                    <td><?=$lang_productservice?></td>
+                                                </tr>
+                                            </table>
+                                            <table style="width: 100%;font-size: 25px;">
+
+                                                <tr ng-repeat="x in listone">
+
+                                                    <td width="50%" style="text-align: left;">
+                                                        {{x.product_name}}
+                                                    </td>
+                                                    <td valign="top">
+                                                        {{x.product_sale_num | number}}
+                                                    </td>
+                                                    <td align="right" valign="top">
+                                                        {{(x.product_price - x.product_price_discount) * x.product_sale_num | number}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+
+                                                    <td style="text-align: left;"><?=$lang_summary?></td>
+                                                    <td></td>
+
+                                                    <td align="right">{{sumsale_price | number}}</td>
+                                                </tr>
+
+                                                <tr ng-if="vat3 > '0'">
+                                                    <td style="text-align: left;"><?=$lang_vat?> {{vat3}} %</td>
+                                                    <td></td>
+                                                    <td style="font-weight: bold;" align="right">
+                                                        {{sumsale_price*(vat3/100) | number}}</td>
+                                                </tr>
+
+
+                                                <tr ng-if="vat3 > '0'">
+                                                    <td style="text-align: left;"><?=$lang_pricesumvat?></td>
+                                                    <td></td>
+                                                    <td align="right">
+                                                        {{sumsalevat | number}}</td>
+                                                </tr>
+
+
+
+
+                                                <?php
+if($_SESSION['owner_vat_status']!='0'){
+?>
+                                                <tr>
+                                                    <td><?=$lang_vat?> <?=$_SESSION['owner_vat']?> %</td>
+                                                    <td style="font-weight: bold;" align="right">
+                                                        {{((sumsalevat*100)/<?php echo $_SESSION['owner_vat']+100; ?>)*(<?=$_SESSION['owner_vat']?>/100) | number}}
+                                                    </td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <td><?=$lang_pricebeforvat?></td>
+                                                    <td align="right">
+                                                        {{(sumsalevat*100)/<?php echo $_SESSION['owner_vat']+100; ?> | number}}
+                                                    </td>
+                                                </tr>
+                                                <?php } ?>
+
+
+
+                                                <tr>
+
+                                                    <td style="text-align: left;"><?=$lang_discount?></td>
+                                                    <td></td>
+                                                    <td align="right">{{discount_last2 | number}}</td>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td style="text-align: left;"><?=$lang_sumall?></td>
+                                                    <td></td>
+                                                    <td align="right" style="font-weight: bold;">
+                                                        {{sumsalevat-discount_last2 | number}}</td>
+                                                </tr>
+
+
+                                                <tr>
+
+                                                    <td style="text-align: left;"><?=$lang_getmoney?></td>
+                                                    <td></td>
+                                                    <td align="right">{{money_from_customer3 | number}}</td>
+                                                </tr>
+
+                                                <tr>
+
+                                                    <td style="text-align: left;"><?=$lang_moneychange?></td>
+                                                    <td></td>
+                                                    <td align="right">
+                                                        {{money_from_customer3 -(sumsalevat-discount_last2) | number}}
+                                                    </td>
+                                                </tr>
+
+                                            </table>
+
+                                            __________________________________________
+
+                                            <table width="100%">
+                                                <tr>
+                                                    <td><?=$lang_sales?></td>
+                                                    <td><?php echo $_SESSION['name']; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><?=$lang_day?></td>
+                                                    <td> {{adddate}} </td>
+                                                </tr>
+
+                                            </table>
+                                            <span style="text-align:left;"><?=$_SESSION['footer_slip']?></span>
+                                            <br />
+                                            __________________________________________
+
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-primary" ng-click="printDiv()">
+                                            <?=$lang_print?></button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal"
+                                            aria-hidden="true">Close</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <?php if($_SESSION['user_type'] != '0'){?>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <hr />
+                </div>
+
+                <div class="col-xs-12  col-sm-12 col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+
+                            <center>
+                                <h3>ລາຍການຂາຍຂອງກະທີ: <b>
+                                        <?php if(isset($_SESSION['shift_id'])){echo $_SESSION['shift_id'];}?> </b>
+                                    <br /> ໃນມື້ນີ້/
+                                    <?php echo $lang_sp_118;?>: <b><?php echo $_SESSION['name'];?></b>
+                                </h3>
+                            </center>
+
+
+
+
+                            <!-- ============== update show list sale last and show delete button in salepic ============================-->
+
+                            <?php
+if($_SESSION['user_type']=='4'){
+?>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <hr />
+                            </div>
+
+                            <div class="col-xs-12  col-sm-12 col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+
+                                        <div style="float: right;">
+                                            <input type="checkbox" ng-model="showdeletcbut">
+                                            <?=$lang_showdel?>
+                                        </div>
+
+
+                                        <?php
+                                    }
+                                    ?>
+
+                                        <div class="panel-body">
+
+                                            <?=$lang_lastsale?>
+                                            <?php
+                                             {
+                                            ?>
+                                            <!-- <div class="col-xs-12 col-sm-12 col-md-12">
+                                                    <hr />
+                                                </div> -->
+
+                                            <?php
+                                                }
+                                                ?>
+
+                                            <!-- ============== update show list sale last and show delete button in salepic ======================-->
+
+                                            <form class="form-inline">
+
+
+                                                <div class="form-group">
+                                                    <input type="text" ng-model="searchtext"
+                                                        ng-change="getlist(searchtext,'1')" class="form-control"
+                                                        style="width:300px;"
+                                                        placeholder="<?=$lang_search?> Runno, <?=$lang_cusname?>">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <button type="submit" ng-click="getlist(searchtext,'1')"
+                                                        class="btn btn-success" placeholder=""
+                                                        title="<?=$lang_search?>"><span
+                                                            class="glyphicon glyphicon-search"
+                                                            aria-hidden="true"></span></button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" ng-click="getlist('','1')"
+                                                        class="btn btn-default" placeholder=""
+                                                        title="<?=$lang_refresh?>"><span
+                                                            class="glyphicon glyphicon-refresh"
+                                                            aria-hidden="true"></span></button>
+                                                </div>
+
+                                            </form>
+                                            <br />
+
+
+
+
+                                            <table class="table table-hover table-bordered">
+                                                <thead>
+                                                    <tr class="trheader">
+                                                        <th><?=$lang_rank?></th>
+                                                        <th><?=$lang_runno?></th>
+                                                        <th><?=$lang_cusname?></th>
+
+                                                        <th><?php echo $lang_sp_119;?></th>
+
+
+
+                                                        <th><?=$lang_productnum?></th>
+                                                        <th><?=$lang_pricesum?></th>
+
+
+                                                        <?php
+                                                            if($_SESSION['owner_vat_status']=='2'){
+                                                            ?>
+                                                        <th><?=$lang_vat?> Exclude %</th>
+                                                        <th><?=$lang_pricesumvat?></th>
+                                                        <?php
+                                                            }
+                                                            ?>
+
+
+                                                        <th><?=$lang_discountlast?></th>
+                                                        <th><?=$lang_sumall?></th>
+                                                        <th><?=$lang_getmoney?></th>
+                                                        <th><?=$lang_moneychange?></th>
+                                                        <th><?=$lang_payby?></th>
+                                                        <th><?php echo $lang_sp_118;?></th>
+                                                        <th><?php echo $lang_sp_120;?></th>
+                                                        <!-- <th><?php echo $lang_sp_121;?></th> -->
+                                                        <th ng-show="showdeletcbut" style="width: 50px;">
+                                                            <?=$lang_delete?></th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <tr ng-repeat="x in list">
+                                                        <td ng-show="selectpage=='1'" class="text-center">
+                                                            {{($index+1)}}</td>
+                                                        <td ng-show="selectpage!='1'" class="text-center">
+                                                            {{($index+1)+(perpage*(selectpage-1))}}</td>
+
+                                                        <!-- button slip bill in sale list -->
+                                                        <td>
+
+                                                            <?php
+                                                            if($_SESSION['user_type']=='4'){
+                                                            ?>
+                                                            <button ng-show="printer_ul =='0'"
+                                                                class="btn btn-primary btn-sm"
+                                                                ng-click="printDivmini2(x)">
+                                                                ພິມ
+                                                            </button>
+
+                                                            <button ng-show="printer_ul !='0'"
+                                                                class="btn btn-primary btn-sm"
+                                                                ng-click="printDivminiip2(x)">ພິມ slip</button>
+
+
+                                                            <button class="btn btn-default btn-sm"
+                                                                ng-click="Getone(x)">{{x.sale_runno}}</button>
+                                                            <?php
+                                                            }
+                                                            ?>
+
+                                                        </td>
+                                                        <!-- button slip bill in sale list -->
+
+
+
+                                                        <td>{{x.cus_name}}
+
+                                                            <span ng-if="x.product_score_all !='0.00'"
+                                                                style="color:green;font-weight:bold;">
+                                                                +{{x.product_score_all | number}}
+                                                                <?php echo $lang_score;?> </span>
+                                                            <span ng-if="x.cus_name!=null">
+                                                                <br />
+                                                                <button class="btn btn-default btn-xs"
+                                                                    ng-click="printDivfullsend(x)"><?=$lang_printbox?></button>
+                                                            </span>
+                                                        </td>
+
+                                                        <td>
+                                                            {{x.saleremark}}
+                                                        </td>
+
+
+                                                        <td align="right">{{x.sumsale_num | number}}</td>
+                                                        <td align="right">{{x.sumsale_price | number}}</td>
+
+
+                                                        <?php
+                                                            if($_SESSION['owner_vat_status']=='2'){
+                                                            ?>
+                                                        <td align="right">{{x.sumsale_price * (x.vat/100) | number}}
+                                                        </td>
+                                                        <td align="right">
+                                                            {{ParsefloatFunc(x.sumsale_price)  * (ParsefloatFunc(x.vat)/100) + ParsefloatFunc(x.sumsale_price) | number}}
+                                                        </td>
+                                                        <?php
+                                                            }
+                                                            ?>
+
+
+
+                                                        <td align="right">{{x.discount_last | number}}</td>
+                                                        <td align="right">
+                                                            {{ParsefloatFunc(x.sumsale_price)  * (ParsefloatFunc(x.vat)/100) + ParsefloatFunc(x.sumsale_price) - x.discount_last | number}}
+                                                        </td>
+                                                        <td align="right">{{x.money_from_customer | number}}</td>
+                                                        <td align="right">
+                                                            {{x.money_from_customer - ((ParsefloatFunc(x.sumsale_price)  * (ParsefloatFunc(x.vat)/100) + ParsefloatFunc(x.sumsale_price)) - x.discount_last) | number}}
+                                                        </td>
+
+                                                        <!-- <td>
+
+                                                            <span ng-if="x.cmp=='1'">
+                                                                <span ng-repeat="y in pay_type_list"
+                                                                    ng-if="x.pay_type==y.pay_type_id">{{y.pay_type_name}}</span>
+                                                            </span>
+                                                            <span ng-if="x.cmp>'1'">
+                                                                <button class="btn btn-info btn-xs"
+                                                                    ng-click="Seemorepay(x)">{{x.cmp}}
+                                                                    <?php echo $lang_sp_122;?></button>
+                                                            </span>
+                                                        </td> -->
+
+
+                                                        <td><b><?php echo $_SESSION['name'];?></b></td>
+
+                                                        <td>{{x.adddate}}</td>
+                                                        <td>{{x.savedate}}</td>
+                                                        <td ng-show="showdeletcbut" align="center">
+
+
+                                                            <button title="<?php echo $lang_sp_123;?>  {{x.sale_runno}}"
+                                                                class="btn btn-sm btn-danger"
+                                                                ng-click="Deletelist_modal(x)" id="delbut{{x.ID}}">
+                                                                <?=$lang_delete?> {{x.sale_runno}}</button>
+
+
+                                                        </td>
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+
+
+                                            <form class="form-inline">
+                                                <div class="form-group">
+                                                    <?=$lang_show?>
+                                                    <select class="form-control" name="" id="" ng-model="perpage"
+                                                        ng-change="getlist(searchtext,'1',perpage)">
+                                                        <option value="10">10</option>
+                                                        <option value="20">20</option>
+                                                        <option value="30">30</option>
+                                                        <option value="50">50</option>
+                                                        <option value="100">100</option>
+                                                        <option value="200">200</option>
+                                                        <option value="300">300</option>
+                                                    </select>
+
+                                                    <?=$lang_page?>
+                                                    <select name="" id="" class="form-control" ng-model="selectthispage"
+                                                        ng-change="getlist(searchtext,selectthispage,perpage)">
+                                                        <option ng-repeat="i in pagealladd" value="{{i.a}}">{{i.a}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+
+
+                                            </form>
+
+
+                                        </div>
+
+
+                                        <?php } ?>
+
+
+
+
+
+
+                                    </div>
 
 </font>
 
@@ -5780,17 +5887,18 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
 
     };
-
+    // -------- function open bill A4 ------------------
     $scope.printDivfull = function() {
-        $('#Openone').modal('show');
+        // $('#Openone').modal('show');
         $('#Openonemini').modal('hide');
         $scope.Getone($scope.list[0]);
-        setTimeout(function() {
-            $scope.printDiv();
-        }, 1000);
+        // setTimeout(function() {
+        //     $scope.printDiv();
+        // }, 1000);
+        // window.scrollBy(1000, 1000);
     };
 
-
+    // -------- function open bill A4 ------------------
     $scope.printDivfullsend = function(x) {
         $('#Openonesend').modal('show');
 
@@ -6074,7 +6182,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
 
 
-
+    // angular print small bill ----------------------
 
     $scope.printDivmini = function() {
         $('#Openonemini').modal('show');
@@ -6084,7 +6192,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
     };
 
-
+    // angular print small bill ----------------------
 
     $scope.printDivmini_order = function() {
         $('#Openonemini_order').modal('show');
@@ -6377,68 +6485,10 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             product_code: product_code
         }).success(function(data) {
 
-
-            // console.log('Findproduct data here...');
-            // console.log('list:');
-            // console.log(data.list);
-            // console.log('0:');
-            // console.log(data.list[0]);
-            // console.log('count_stock:');
-            // console.log(data.list[0].count_stock);
-            // console.log('e_id:');
-            // console.log(data.list[0].e_id);
-            // console.log('popup_pricenum:');
-            // console.log(data.list[0].popup_pricenum);
-            // console.log('product_category_id:');
-            // console.log(data.list[0].product_category_id);
-            // console.log('product_category_name:');
-            // console.log(data.list[0].product_category_name);
-            // console.log('product_code:');
-            // console.log(data.list[0].product_code);
-            // console.log('product_des:');
-            // console.log(data.list[0].product_des);
-            // console.log('product_id:');
-            // console.log(data.list[0].product_id);
-            // console.log('product_image:');
-            // console.log(data.list[0].product_image);
-            // console.log('product_name:');
-
-            // console.log('product_num_min:');
-            // console.log(data.list[0].product_num_min);
-            // console.log('product_price:');
-            // console.log(data.list[0].product_price);
-            // console.log('product_price3:');
-            // console.log(data.list[0].product_price3);
-            // console.log('product_price4:');
-            // console.log(data.list[0].product_price4);
-            // console.log('product_price5:');
-            // console.log(data.list[0].product_price5);
-            // console.log('product_price_discount:');
-            // console.log(data.list[0].product_price_discount);
-            // console.log('product_price_value:');
-            // console.log(data.list[0].product_price_value);
-            // console.log('product_pricebase:');
-            // console.log(data.list[0].product_pricebase);
-            // console.log('product_score:');
-            // console.log(data.list[0].product_score);
-            // console.log('product_stock_num:');
-            // console.log(data.list[0].product_stock_num);
-            // console.log('product_unit_name:');
-            // console.log(data.list[0].product_unit_name);
-            // console.log('product_wholesale_price:');
-            // console.log(data.list[0].product_wholesale_price);
-            // console.log('rate:');
-            // console.log(data.list[0].rate);
-            // console.log('title_name:');
-            console.log('product name:', data.list[0].product_name);
-            console.log(data.list[0].title_name);
-            // alert(data.list[0].title_name);
-
-
             $scope.yingbarcode = false;
             $scope.cansale = data.cansale;
 
-            console.log('title_name...', data.list[0].title_name);
+            // console.log('title_name...', data.list[0].title_name);
             // console.log('data can sale..', data.cansale);
 
 
@@ -6479,7 +6529,6 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
             $scope.www = data.w;
 
-            console.log('data.w....', data.w);
             if (data.w != 0) {
                 $scope.w_dws = data.w;
             } else {
@@ -6499,12 +6548,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             $scope.Findproductone = data.list;
             data = data.list;
 
-            console.log('Findproductone = data.list......', data);
-
             if (data == '') {
                 $scope.cannotfindproduct = true;
-
-                console.log('cannotfindproduct......', data.list);
 
                 if (product_code != '') {
                     $scope.cannotfindproduct_barcode = product_code;
@@ -6632,6 +6677,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                             product_score: data[0]
                                 .product_score,
                             product_price: product_price,
+                            e_id: data[0].e_id,
+                            // product_price_kip: product_price_kip,
                             product_pricebase: data[0]
                                 .product_pricebase,
                             product_stock_num: data[0]
@@ -6645,9 +6692,9 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                         }).success(function(data) {
 
 
-                            console.log(data, 'data save show cus...');
-                            console.log('product_id:', data[0].product_id);
-                            console.log('product_code:', data[0].product_code);
+                            // console.log(data, 'data save show cus...');
+                            // console.log('product_id:', data[0].product_id);
+                            // console.log('product_code:', data[0].product_code);
                             // alert(data: data[0]
                             //     .product_code);
 
@@ -7107,45 +7154,50 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             }
         });
 
-        console.log('total thb...', totalthb);
+        // console.log('total thb...', totalthb);
 
         return totalthb;
     };
-    // add new 
+    // add new ===========
     $scope.Totalconvert_to_kip = function() {
         var totalkip = 0;
 
         angular.forEach($scope.listsale, function(item) {
-            totalkip += parseFloat(item.product_price * item.rate * item
-                .product_sale_num);
+            totalkip += parseFloat(item.product_price_kip * item.product_sale_num);
         });
+
         return totalkip;
     };
-    $scope.Grandtotal_convert_lak = function() {
-        var totalkip = 0;
-        var totalthb = 0;
-        var merge_totalkip_totalthb = 0;
+
+    // ================================
+
+
+
+    // --------------------------------------------------------------
+    // $scope.Totalsumsale_price_to_kip = function() {
+    //     var totalsumsale_price_to_kip = 0;
+
+    //     angular.forEach($scope.listsale, function(item) {
+    //         totalsumsale_price_to_kip += parseFloat(item.sumsale_price_kip);
+    //     });
+
+    //     return totalsumsale_price_to_kip;
+    // };
+
+    $scope.Totalsumsale_price_to_kip = function() {
+        var sumkip = 0;
 
         angular.forEach($scope.listsale, function(item) {
-
-            if (item.title_name === "THB") {
-                totalthb += parseFloat(item.product_price * item.rate * item
-                    .product_sale_num);
-
-                return totalthb;
-                // alert(item.title_name); // Display the title_name of each item with title_name equal to "THB"
-            }
-            if (item.title_name === "KIP") {
-                totalkip += parseFloat(item.product_price * item.product_sale_num);
-
-                return totalkip;
-            }
-
-            merge_totalkip_totalthb == (totalkip + totalthb);
+            sumkip += parseFloat(item.sumsale_price_kip);
         });
-        console.log('Grandtotal_convert_lak...', merge_totalkip_totalthb);
-        return merge_totalkip_totalthb;
+        return sumkip;
     };
+
+
+
+
+
+
     // ----- this is working --------------------------------------------------
 
     // ============================
@@ -7212,6 +7264,20 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         });
         return total;
     };
+
+
+    // ---------------------
+    // $scope.Sumsale_price_kip = function(item) {
+    //     var sumkip = 0;
+    //     console.log('$scope.listsale:', $scope.listsale);
+
+    //     angular.forEach($scope.listsale, function(item) {
+    //         sumkip += parseFloat(item.sum_sumsale_price_kip);
+    //     });
+    //     return sumkip;
+
+    // };
+    // ---------------------
 
 
 
@@ -7299,6 +7365,17 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
         return sum;
     };
+    // add new ----------------------------------------------
+    // $scope.GetSumSumsalePriceKip = function(sale_runno) {
+
+    //     $http.get("Salelist/Getone?sale_runno=' + sale_runno")
+    //         .then(function(response) {
+    //             $scope.sumSumsalePriceKip = response.data.total_sum;
+    //         })
+    //         .catch(function(error) {
+    //             console.error('Error retrieving sum of sumsale_price_kip:', error);
+    //         });
+    // };
 
 
     // original =========================================================
@@ -7574,6 +7651,9 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             // ================
             $http.post("Salepage/Savesale", {
                 listsale: $scope.listsale,
+                // sumsale_price_kip: $scope.product_price_kip * $scope.product_sale_num,
+                // sumsale_price_kip: $scope.Totalsumsale_price_to_kip(), // assign the value here
+
                 cus_name: $scope.customer_name,
                 cus_id: $scope.customer_id,
                 cus_address_all: $scope.cus_address_all,
@@ -7582,6 +7662,10 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 vat: $scope.vatnumber,
                 product_score_all: $scope.Sumproduct_score(),
                 sumsale_price: $scope.Sumsaleprice(),
+                // rate: $scope.rate,
+                // add new -------------------------------
+
+                // add new -------------------------------
                 money_from_customer: $scope.money_from_customer,
                 money_changeto_customer: $scope
                     .money_from_customer - ($scope
@@ -7600,8 +7684,13 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 shift_id: '<?php if (isset($_SESSION['shift_id'])) {echo $_SESSION['shift_id'];
                 } ?>'
             }).success(function(data) {
-                //toastr.success('<?= $lang_success ?>');
 
+
+
+
+                // console.log('check data listsale...', $scope.listsale);
+                //toastr.success('<?= $lang_success ?>');
+                // console.log('console log sumsale_price_kip..', sumsale_price_kip);
 
                 //Line notify
                 <?php if ($_SESSION['line_stocknoti'] == '1') { ?>
@@ -7647,6 +7736,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                     $scope.Sumsalepricevat() - $scope
                     .discount_last);
 
+
+
                 $('#savesalemorepay').prop('disabled', false);
                 $('#Openchangemoney').modal({
                     backdrop: "static",
@@ -7656,11 +7747,12 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 $('#savesale2').prop('disabled', false);
                 $('#money_from_customer').prop('disabled', false);
                 $('#money_from_customer2').prop('disabled', false);
-                // console.log($scope.listsale);
+                console.log('check data listsale...', $scope.listsale);
                 // $scope.Refresh();
                 // console.log($scope.Refresh);
 
                 if ($scope.print_preview == 0) {
+                    // console.log('$scope.print_preview', $scope.print_preview);
                     $scope.getlist();
 
                     $scope.getproductlist();
@@ -7674,8 +7766,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 $scope.is_enter = true;
 
             }).catch(function(error) {
-                console.error('An error occurred:', error, $scope
-                    .listsale);
+
                 // Handle the error here
                 // loop save sale details ===================================
                 //Line notify
@@ -7718,7 +7809,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
                 $('#Opengetmoneymodal').modal('hide');
 
-                toastr.success('<?= $lang_savingsuccess ?>');
+                // toastr.success('<?= $lang_savingsuccess ?>');
 
 
                 $scope.changemoney = $scope.money_from_customer - (
@@ -7738,6 +7829,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
                 if ($scope.print_preview == 0) {
                     $scope.getlist();
+
                     $scope.getproductlist();
                 } else {
                     $scope.getlist('', '', '', 'printmini');
@@ -8017,19 +8109,12 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     };
     $scope.getlist('', '1');
 
-
-    // origin ----------------------------------------------------------------
     // $scope.Getone = function(x) {
     //     $('#Openone').modal('show');
     //     $http.post("Salelist/Getone", {
     //         sale_runno: x.sale_runno
-    //         // owner_id: x.owner_id
     //     }).success(function(response) {
-
     //         $scope.listone = response;
-
-
-    //         // alert($scope.listone);
     //         $scope.cus_name = x.cus_name;
     //         $scope.cus_address_all = x.cus_address_all;
     //         $scope.sale_runno = x.sale_runno;
@@ -8051,23 +8136,68 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     //         $scope.saleremark = x.saleremark;
     //         $scope.showremarkonslip = x.showremarkonslip;
     //         $scope.taxnumber = x.taxnumber;
-
-    //         $scope.product_weight = x.product_weight;
-    //         console.log('product_weight...', $scope.product_weight);
-
     //     });
 
-
     //     setTimeout(function() {
-    //         // $scope.printDiv();
+    //         //$scope.printDiv();
     //     }, 1000);
 
     //     setTimeout(function() {
-    //         // $('#Openone').modal('hide');
+    //         //$('#Openone').modal('hide');
     //     }, 1000);
+
 
     // };
+    // origin ----------------------------------------------------------------
+    $scope.Getone = function(x) {
+        $('#Openone').modal('show');
+        $http.post("Salelist/Getone", {
+            sale_runno: x.sale_runno,
+            owner_id: x.owner_id
+        }).success(function(response) {
+
+            $scope.listone = response;
+            // alert($scope.listone);
+            $scope.cus_name = x.cus_name;
+            $scope.cus_address_all = x.cus_address_all;
+            $scope.sale_runno = x.sale_runno;
+            $scope.sumsale_discount = x.sumsale_discount;
+            $scope.sumsale_num = x.sumsale_num;
+            $scope.sumsale_price = x.sumsale_price;
+            $scope.money_from_customer3 = x.money_from_customer;
+            $scope.vat3 = x.vat;
+            $scope.price_vat_all = x.price_vat_all;
+            $scope.sumsalevat = (parseFloat(x.sumsale_price) * (
+                parseFloat(x.vat) / 100)) + parseFloat(x
+                .sumsale_price);
+            $scope.money_changeto_customer = x
+                .money_changeto_customer;
+            $scope.adddate = x.adddate;
+            $scope.discount_last2 = x.discount_last;
+            $scope.pay_type = x.pay_type;
+            $scope.number_for_cus = x.number_for_cus;
+            $scope.saleremark = x.saleremark;
+            $scope.showremarkonslip = x.showremarkonslip;
+            $scope.taxnumber = x.taxnumber;
+
+            $scope.product_weight = x.product_weight;
+
+
+        });
+
+
+        setTimeout(function() {
+            // $scope.printDiv();
+        }, 1000);
+
+        setTimeout(function() {
+            // $('#Openone').modal('hide');
+        }, 1000);
+
+    };
     // ------- origin -------------------------------------
+
+
 
     //start ค้นหาสินค้าทั้งหมด
     $scope.searchtextarray = [];
@@ -8106,8 +8236,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 $scope.csearchtextarray2 = [];
             }, 1000);
         }
-    //end ค้นหาลูกค้า
-
+    //end search customer
+    // ------- function scope Getonemini to get data to print small bill ------------------------------
     $scope.Getonemini = function(x) {
 
         $http.post("Salelist/Seemorepay", {
@@ -8116,16 +8246,12 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             $scope.getonepaylist = response;
         });
 
-
         $http.post("Salelist/Getone", {
             sale_runno: x.sale_runno,
             owner_id: x.owner_id
         }).success(function(response) {
-            // console.log('Getone respone data...', response);
-            // $scope.listone = [];
-
+            $scope.listone = [];
             $scope.listone = response;
-            console.log('Getone respone data ...', $scope.listone);
             $scope.cus_name = x.cus_name;
             $scope.cus_score = x.cus_score;
             $scope.cus_address_all = x.cus_address_all;
@@ -8137,10 +8263,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             // column from sale_list_header
             $scope.money_from_customer3 = x.money_from_customer;
             $scope.vat3 = x.vat;
-            console.log(' $scope.vat3...', $scope.vat3)
             $scope.price_vat_all = x.price_vat_all;
-            $scope.rate = x.rate;
-            console.log('rate...', $scope.rate);
             $scope.sumsalevat = (parseFloat(x.sumsale_price) * (
                 parseFloat(x.vat) / 100)) + parseFloat(x
                 .sumsale_price);
@@ -8154,14 +8277,6 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             $scope.showremarkonslip = x.showremarkonslip;
             $scope.product_score_all = x.product_score_all;
             $scope.taxnumber = x.taxnumber;
-            // 
-            // $scope.product_price = x.product_price;
-            // $scope.rate = x.rate;
-            // console.log('$scope.rate...', $scope.rate)
-            // 
-            // $scope.gettotal_kip = $scope.sumsale_price;
-            // $scope.gettotal_kip = $scope.rate;
-            // console.log('get total kip', $scope.gettotal_kip);
 
             setTimeout(function() {
 
@@ -8175,13 +8290,13 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
     };
 
-
+    // ------- end function scope Getonemini to get data to print small bill ------------------------------
 
 
     $scope.Getonemini_order = function(x) {
         $http.post("Salelist/Getone", {
-            sale_runno: x.sale_runno,
-            owner_id: x.owner_id
+            sale_runno: x.sale_runno
+            // owner_id: x.owner_id
         }).success(function(response) {
             console.log(response);
             $scope.listone = [];
@@ -8296,6 +8411,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             sale_runno: x.sale_runno
         }).success(function(response) {
             $scope.listone = response;
+
             $scope.cus_name = x.cus_name;
             $scope.cus_address_all_2 = x.cus_address_all;
             $scope.sale_runno = x.sale_runno;
@@ -8317,11 +8433,11 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         });
 
         setTimeout(function() {
-            $scope.printDiv();
+            // $scope.printDiv();
         }, 1000);
 
         setTimeout(function() {
-            $('#Openonequotation').modal('hide');
+            // $('#Openonequotation').modal('hide');
         }, 1000);
 
 
@@ -8433,7 +8549,51 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     };
 
 
+    // ------ for sumsale_price_kip working --------------------
+    $scope.Sumsale_price_kip = function() {
+        var total = 0;
+        angular.forEach($scope.listone, function(item) {
+            if (item.sumsale_price_kip == '') {
+                sumsale_price_kip = '0';
+            } else {
+                sumsale_price_kip = item.sumsale_price_kip;
+            }
+            total += parseFloat(sumsale_price_kip);
+        });
 
+        return total;
+
+    };
+    // ------ for sumsale_price_kip --------------------
+
+    // ------ for sumsale_price_thb working --------------------
+    $scope.Sumsale_price_thb = function() {
+        var total = 0;
+        angular.forEach($scope.listone, function(item) {
+            var sumsale_price_thb = parseFloat(item.sumsale_price_thb) || 0;
+            total += sumsale_price_thb;
+        });
+
+        return total;
+
+    };
+    // ------ for calculate amount in thb working --------------------
+    $scope.calculateTotalAmountTHB = function(x) {
+        var sumthb = 0;
+        if (x.title_name === 'KIP') {
+            var casekip = x.product_sale_num * x.product_price * 0;
+            return casekip;
+
+        } else if (x.title_name === 'THB') {
+            var casethb = x.product_sale_num * x.product_price;
+            return casethb;
+        } else {
+            return 0;
+
+        }
+
+    };
+    // ------ for calculate amount in thb working --------------------
 
 
 
@@ -8471,6 +8631,9 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         // console.log('Grand Total:', grandTotal);
         return grandTotal;
     };
+    // add new ---------------
+
+
     // add new ---------------
 
 

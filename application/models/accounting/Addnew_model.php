@@ -326,7 +326,7 @@ return $encode_data;
        $query = $this->db->query('SELECT *,
          SUM(product_sale_num) as product_sale_num,
          (product_price-product_price_discount) AS product_price
-       FROM sale_list_datail WHERE sale_runno="'.$data['sale_runno'].'" GROUP BY product_name ORDER BY ID ASC');
+       FROM sale_list_detail WHERE sale_runno="'.$data['sale_runno'].'" GROUP BY product_name ORDER BY ID ASC');
        $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
        return $encode_data;
 

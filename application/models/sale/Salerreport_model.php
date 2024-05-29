@@ -45,7 +45,7 @@ $dayto = strtotime($data['dayto'])+86400;
 
 $query = $this->db->query('SELECT * , from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
 wc.product_category_name as product_category_name
-FROM sale_list_datail as sd
+FROM sale_list_detail as sd
 LEFT JOIN branch as b on b.branch_id=sd.branch_id
 LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
 LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_category_id
@@ -91,7 +91,7 @@ $query = $this->db->query('SELECT
     sd.product_sale_num as "QTY",
     (sd.product_price-sd.product_price_discount)*sd.product_sale_num as "Summary",
     from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as "Date"
-FROM sale_list_datail as sd
+FROM sale_list_detail as sd
 LEFT JOIN sale_list_header as sh on sh.sale_runno=sd.sale_runno
 LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
 WHERE sh.cus_id="'.$data['cus_id'].'" AND sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'" order by sd.ID DESC  ');
