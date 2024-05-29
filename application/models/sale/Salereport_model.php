@@ -45,7 +45,7 @@ sld.adddate as sale_adddate,
     sum((sld.product_price - sld.product_price_discount) * sld.product_sale_num)  as product_priceall,
     SUM(wl.product_pricebase*sld.product_sale_num) as product_pricebaseall
 
-FROM sale_list_datail as sld
+FROM sale_list_detail as sld
 LEFT JOIN wh_product_list as wl on wl.product_id=sld.product_id
 LEFT JOIN branch as b on b.branch_id=sld.branch_id
 WHERE sld.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'" AND b.branch_name LIKE "%'.$data['searchtext'].'%"
@@ -76,7 +76,7 @@ sld.adddate as sale_adddate,
     sum((sld.product_price - sld.product_price_discount) * sld.product_sale_num)  as product_priceall,
     SUM(wl.product_pricebase*sld.product_sale_num) as product_pricebaseall
 
-FROM sale_list_datail as sld
+FROM sale_list_detail as sld
 LEFT JOIN wh_product_list as wl on wl.product_id=sld.product_id
 LEFT JOIN branch as b on b.branch_id=sld.branch_id
 WHERE sld.price_vat!="0.00" AND sld.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'" AND b.branch_name LIKE "%'.$data['searchtext'].'%"
@@ -108,7 +108,7 @@ sld.adddate as sale_adddate,
     sum((sld.product_price - sld.product_price_discount) * sld.product_sale_num)  as product_priceall,
     SUM(wl.product_pricebase*sld.product_sale_num) as product_pricebaseall
 
-FROM sale_list_datail as sld
+FROM sale_list_detail as sld
 LEFT JOIN wh_product_list as wl on wl.product_id=sld.product_id
 LEFT JOIN branch as b on b.branch_id=sld.branch_id
 WHERE sld.price_vat="0.00" AND sld.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'" AND b.branch_name LIKE "%'.$data['searchtext'].'%"
@@ -142,7 +142,7 @@ $query = $this->db->query('SELECT * ,
 sd.branch_id,
 uo.name,
 from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate
-FROM sale_list_datail as sd
+FROM sale_list_detail as sd
 LEFT JOIN sale_list_header as sh on sh.sale_runno=sd.sale_runno
 LEFT JOIN branch as b on b.branch_id=sd.branch_id
 LEFT JOIN user_owner as uo on uo.user_id=sd.user_id
@@ -166,7 +166,7 @@ $dayto = strtotime($data['dayto'])+86400;
 
 $query = $this->db->query('SELECT *, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
 sh.cus_name
-FROM sale_list_datail as sd
+FROM sale_list_detail as sd
 LEFT JOIN sale_list_header as sh on sh.sale_runno=sd.sale_runno
 LEFT JOIN branch as b on b.branch_id=sd.branch_id
 WHERE sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'" AND b.branch_name LIKE "%'.$data['searchtext'].'%"
@@ -242,7 +242,7 @@ $query = $this->db->query('SELECT
 	sd.product_sale_num as "จำนวนที่ซื้อ",
 	(sd.product_price*sd.product_sale_num)-(sd.product_sale_num*sd.product_price_discount) as "รายรับ",
 	from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as "วันที่"
-FROM sale_list_datail as sd
+FROM sale_list_detail as sd
 LEFT JOIN sale_list_header as sh on sh.sale_runno=sd.sale_runno
 WHERE sh.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'"
 order by sd.ID DESC

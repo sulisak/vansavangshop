@@ -34,7 +34,7 @@ $query = $this->db->query('SELECT
     (SELECT sum(sdd.product_sale_num) FROM product_return_datail as sdd LEFT JOIN branch as bb on bb.branch_id=sdd.branch_id WHERE sdd.product_id=wpl.product_id AND sdd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'" AND bb.branch_name LIKE "%'.$data['searchtext'].'%") as product_numreturn,
     
 	(SELECT sum(sdd.product_price * sdd.product_sale_num) FROM product_return_datail as sdd LEFT JOIN branch as bb on bb.branch_id=sdd.branch_id WHERE sdd.product_id=wpl.product_id AND sdd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'" AND bb.branch_name LIKE "%'.$data['searchtext'].'%") as product_pricesalereturn
-FROM sale_list_datail as sld 
+FROM sale_list_detail as sld 
 LEFT JOIN wh_product_list as wpl on wpl.product_id=sld.product_id
 LEFT JOIN branch as b on b.branch_id=sld.branch_id
 WHERE 
@@ -63,7 +63,7 @@ $query = $this->db->query('SELECT
 	sd.product_sale_num as "จำนวนที่ซื้อ",
 	(sd.product_price*sd.product_sale_num)-(sd.product_sale_num*sd.product_price_discount) as "รายรับ",
 	from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as "วันที่"
-FROM sale_list_datail as sd
+FROM sale_list_detail as sd
 LEFT JOIN sale_list_header as sh on sh.sale_runno=sd.sale_runno
 WHERE sh.owner_id="'.$_SESSION['owner_id'].'" AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'"
 order by sd.ID DESC 

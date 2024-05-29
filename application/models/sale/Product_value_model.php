@@ -170,7 +170,7 @@ sd.sale_runno,
 sd.product_sale_num,
 b.branch_name as branch_name,
 wl.product_name as product_name
-    FROM sale_list_datail as sd
+    FROM sale_list_detail as sd
     LEFT JOIN branch as b on b.branch_id=sd.branch_id
     LEFT JOIN wh_product_list as wl on wl.product_id="'.$data['product_id'].'"
     WHERE sd.savedate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'" AND sd.product_id="'.$data['product_id'].'" AND sd.product_name LIKE "%'.$data['searchtext'].'%"

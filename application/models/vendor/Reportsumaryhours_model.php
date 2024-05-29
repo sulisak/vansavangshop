@@ -23,7 +23,7 @@ class Reportsumaryhours_model extends CI_Model {
 
           $query = $this->db->query('SELECT SUM((sh.product_price-sh.product_price_discount)*sh.product_sale_num) as count,
            from_unixtime(sh.adddate,"%H") as name
-              FROM sale_list_datail  as sh
+              FROM sale_list_detail  as sh
 LEFT JOIN wh_product_list as wl on wl.product_id=sh.product_id
               WHERE
             wl.supplier_id="'.$_SESSION['supplier_id'].'"  

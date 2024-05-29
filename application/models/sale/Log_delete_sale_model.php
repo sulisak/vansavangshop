@@ -80,7 +80,7 @@ public function Getone($data)
 
 
 $query = $this->db->query('SELECT *, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate
-    FROM sale_list_datail_bak as sd
+    FROM sale_list_detail_bak as sd
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.sale_runno="'.$data['sale_runno'].'"
     ORDER BY sd.ID ASC');
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
@@ -93,7 +93,7 @@ return $encode_data;
         {
 
 $query = $this->db->query('SELECT sum((sd.product_price*sd.product_sale_num)-sd.product_price_discount) as pricevalue,sum(sd.product_sale_num) as num, wc.product_category_name as catname, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate
-    FROM sale_list_datail_bak as sd
+    FROM sale_list_detail_bak as sd
     LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
     LEFT JOIN wh_product_category as wc on wc.product_category_id=wl.product_category_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.sale_runno="'.$data['sale_runno'].'"
@@ -111,7 +111,7 @@ return $encode_data;
         {
 
 $query = $this->db->query('SELECT *, from_unixtime(adddate,"%d-%m-%Y %H:%i:%s") as adddate
-    FROM sale_list_datail_bak
+    FROM sale_list_detail_bak
     WHERE owner_id="'.$_SESSION['owner_id'].'" AND sale_runno="'.$data['sale_runno'].'"
     ORDER BY ID ASC');
 
@@ -188,7 +188,7 @@ WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'
 
 
 
-$query0 = $this->db->query('INSERT INTO sale_list_datail_bak(ID,sale_runno,
+$query0 = $this->db->query('INSERT INTO sale_list_detail_bak(ID,sale_runno,
 product_id,
 product_name,
 product_code,
@@ -226,11 +226,11 @@ so_order,
 status,
 note_order,
 shift_id
-FROM sale_list_datail
+FROM sale_list_detail
 WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'].'"');
 
 
-$query = $this->db->query('DELETE FROM sale_list_datail  WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'].'"');
+$query = $this->db->query('DELETE FROM sale_list_detail  WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'].'"');
 
 if($query){
 $query2 = $this->db->query('DELETE FROM sale_list_header  WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'].'"');

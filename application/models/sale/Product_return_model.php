@@ -123,7 +123,7 @@ $price_vat = 0;
 
 
 
-/*$query = $this->db->query('UPDATE sale_list_datail 
+/*$query = $this->db->query('UPDATE sale_list_detail 
     SET product_sale_num=product_sale_num - '.$data['product_sale_num'].',
 	price_vat=price_vat-'.$price_vat.'
     WHERE ID="'.$data['ID'].'" AND sale_runno="'.$data['sale_runno'].'"');
@@ -307,7 +307,7 @@ $query = $this->db->query('SELECT sd.*,
 sd.product_sale_num as product_sale_num,
 IFNULL((SELECT sum(pr.product_sale_num) FROM product_return_datail2 as pr WHERE pr.sale_runno=sd.sale_runno AND pr.product_name=sd.product_name ),"0") as product_sale_num_pr,
 from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate
-    FROM sale_list_datail as sd
+    FROM sale_list_detail as sd
     WHERE sd.sale_runno LIKE "%'.$data['sale_runno'].'%"
     ORDER BY sd.ID ASC');
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );

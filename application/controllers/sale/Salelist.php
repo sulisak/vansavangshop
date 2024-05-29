@@ -69,8 +69,16 @@ $data = json_decode(file_get_contents("php://input"),true);
 echo  $this->salelist_model->Seemorepay($data);
 
 	}
+// add new -------------------------
+function GetSumSumsalePriceKip()
+    {
+
+$data = json_decode(file_get_contents("php://input"),true);
+echo  $this->salelist_model->GetSumSumsalePriceKip($data);
+
+	}
 	
-	
+	// add new -------------------------
 
 function Getone()
     {

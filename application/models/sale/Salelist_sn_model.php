@@ -34,7 +34,7 @@ $page = $data['page'];
 
 $querynum = $this->db->query('SELECT *, 
 from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate
-    FROM sale_list_datail  as sd
+    FROM sale_list_detail  as sd
 	LEFT JOIN sale_list_header as sh on sh.sale_runno=sd.sale_runno
     LEFT JOIN user_owner as uo on uo.user_id=sh.user_id
 	LEFT JOIN branch as b on b.branch_id=sd.branch_id
@@ -50,7 +50,7 @@ OR sd.sn_code!="" AND  sd.sn_code LIKE "%'.$data['searchtext'].'%"
 
 $query = $this->db->query('SELECT *, 
 from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate
-    FROM sale_list_datail  as sd
+    FROM sale_list_detail  as sd
 	LEFT JOIN sale_list_header as sh on sh.sale_runno=sd.sale_runno
     LEFT JOIN user_owner as uo on uo.user_id=sh.user_id
 	LEFT JOIN branch as b on b.branch_id=sd.branch_id
@@ -93,7 +93,7 @@ $dayfrom = strtotime($data['dayfrom']);
 $dayto = strtotime($data['dayto'])+86400;
 
 $query = $this->db->query('SELECT *, from_unixtime(sh.adddate,"%d-%m-%Y %H:%i:%s") as adddate
-    FROM sale_list_datail  as sh
+    FROM sale_list_detail  as sh
     WHERE sh.adddate
 BETWEEN "'.$dayfrom.'"
 AND "'.$dayto.'"
@@ -121,7 +121,7 @@ public function Getone($data)
         {
 
 $query = $this->db->query('SELECT *, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate
-    FROM sale_list_datail as sd
+    FROM sale_list_detail as sd
 
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.sale_runno="'.$data['sale_runno'].'"
     ORDER BY sd.ID ASC');
@@ -185,7 +185,7 @@ where owner_id = "'.$_SESSION['owner_id'].'" AND sale_runno="'.$data['sale_runno
         {
 
 $query = $this->db->query('SELECT *, from_unixtime(adddate,"%d-%m-%Y %H:%i:%s") as adddate
-    FROM sale_list_datail
+    FROM sale_list_detail
     WHERE owner_id="'.$_SESSION['owner_id'].'" AND sale_runno="'.$data['sale_runno'].'"
     ORDER BY ID ASC');
 
@@ -266,7 +266,7 @@ WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'
 
 
 
-$query0 = $this->db->query('INSERT INTO sale_list_datail_bak(ID,sale_runno,
+$query0 = $this->db->query('INSERT INTO sale_list_detail_bak(ID,sale_runno,
 product_id,
 product_name,
 product_image,
@@ -304,7 +304,7 @@ store_id,
 sc_ID,
 branch_id,
 shift_id
-FROM sale_list_datail
+FROM sale_list_detail
 WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'].'"');
 
 
@@ -312,7 +312,7 @@ WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'
 
 
 
-$query = $this->db->query('DELETE FROM sale_list_datail  WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'].'"');
+$query = $this->db->query('DELETE FROM sale_list_detail  WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'].'"');
 
 if($query){
 $query2 = $this->db->query('DELETE FROM sale_list_header  WHERE sale_runno="'.$data['sale_runno'].'" and  owner_id="'.$_SESSION['owner_id'].'"');

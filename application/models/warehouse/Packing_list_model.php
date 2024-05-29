@@ -215,7 +215,7 @@ $query = $this->db->query('SELECT
 SUM(sd.product_sale_num-sd.checkproduct) as allsum,
 sd.product_name,
 sd.product_unit_name
-    FROM sale_list_datail  as sd
+    FROM sale_list_detail  as sd
     WHERE sd.product_sale_num!=sd.checkproduct
 AND sd.adddate BETWEEN "'.$dayfrom.'" AND "'.$dayto.'"
 	GROUP BY sd.product_name
@@ -242,7 +242,7 @@ $query = $this->db->query('SELECT
 SUM(wrl.product_num_relation*(sd.product_sale_num-sd.checkproduct)) as allsum,
 wrl.product_name_relation as product_name,
 wrl.product_unit_relation as product_unit_name
-    FROM sale_list_datail  as sd
+    FROM sale_list_detail  as sd
 	LEFT JOIN wh_product_relation_list as wrl on wrl.product_id=sd.product_id
     WHERE sd.product_sale_num!=sd.checkproduct
 	AND wrl.product_type_relation="1"
@@ -268,7 +268,7 @@ $query = $this->db->query('SELECT
 (wrl.product_num_relation*(sd.product_sale_num-sd.checkproduct))/pf.product_num_mat as allsum,
 pf.produce_formula_name as produce_formula_name,
 wrl.product_unit_relation as product_unit_name
-    FROM sale_list_datail  as sd
+    FROM sale_list_detail  as sd
 	LEFT JOIN wh_product_relation_list as wrl on wrl.product_id=sd.product_id
 	LEFT JOIN produce_formula as pf on pf.product_id_mat=wrl.product_id_relation
     WHERE sd.product_sale_num!=sd.checkproduct
@@ -297,7 +297,7 @@ $dayfrom = strtotime($data['dayfrom']);
 $dayto = strtotime($data['dayto'])+86400;
 
 $query = $this->db->query('SELECT *, from_unixtime(sh.adddate,"%d-%m-%Y %H:%i:%s") as adddate
-    FROM sale_list_datail  as sh
+    FROM sale_list_detail  as sh
     WHERE sh.adddate
 BETWEEN "'.$dayfrom.'"
 AND "'.$dayto.'"
@@ -330,7 +330,7 @@ $query = $this->db->query('SELECT sd.*,
 z.zone_name,
 from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
 wpl.product_weight*sd.product_sale_num as product_weight
-    FROM sale_list_datail as sd
+    FROM sale_list_detail as sd
 LEFT JOIN wh_product_list as wpl on wpl.product_id=sd.product_id
 LEFT JOIN zone as z on z.zone_id=wpl.zone_id
     WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.sale_runno="'.$data['sale_runno'].'"
@@ -349,13 +349,13 @@ return $encode_data;
         {
 
 $query = $this->db->query('SELECT sd.product_code
-    FROM sale_list_datail as sd
+    FROM sale_list_detail as sd
     WHERE sd.product_sale_num>sd.checkproduct 
 	AND sd.product_code="'.$data['product_code'].'" 
 	AND sd.sale_runno="'.$data['sale_runno'].'" LIMIT 1');
 	
 	$query_sn = $this->db->query('SELECT sd.sn_code
-    FROM sale_list_datail as sd
+    FROM sale_list_detail as sd
     WHERE sd.product_sale_num>sd.checkproduct 
 	AND sd.sn_code="'.$data['product_code'].'" 
 	AND sd.sale_runno="'.$data['sale_runno'].'"');
@@ -367,7 +367,7 @@ $nump_sn = $query_sn->num_rows();
 
 if($nump > '0'){
 $findproduct = $data['product_code'];
-$this->db->query('UPDATE sale_list_datail  
+$this->db->query('UPDATE sale_list_detail  
 SET checkproduct=checkproduct+1
 WHERE product_code="'.$data['product_code'].'" 
 AND product_sale_num>checkproduct
@@ -378,7 +378,7 @@ SET checkproduct=checkproduct+1
 WHERE sale_runno="'.$data['sale_runno'].'"');
 }else if($nump_sn > '0'){
 $findproduct = $data['product_code'];
-$this->db->query('UPDATE sale_list_datail  
+$this->db->query('UPDATE sale_list_detail  
 SET checkproduct=checkproduct+1
 WHERE sn_code="'.$data['product_code'].'" 
 	AND sale_runno="'.$data['sale_runno'].'"');
@@ -398,7 +398,7 @@ return $findproduct;
 		public function Checkbarcode_new($data)
         {
 
-$this->db->query('UPDATE sale_list_datail  
+$this->db->query('UPDATE sale_list_detail  
 SET checkproduct="0"
 WHERE sale_runno="'.$data['sale_runno'].'"');
 

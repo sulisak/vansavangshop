@@ -718,6 +718,11 @@ if($_SESSION['user_type']==4 || $_SESSION['user_type']==3 ) // this one update f
                                     </select>
                                     <p></p>
 
+                                    <!-- product_price_kip -->
+                                    <input type="text" name="product_price_kip" placeholder="Product Price in Kip"
+                                        class="form-control text-right">
+                                    <!-- product_price_kip -->
+
 
 
 
