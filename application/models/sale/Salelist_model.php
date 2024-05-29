@@ -147,18 +147,47 @@ return $encode_data;
 public function Getone($data)
         {
 
-$query = $this->db->query('SELECT sd.*, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
-wl.product_weight*sd.product_sale_num as product_weight,e.title_name,e.rate
-    FROM sale_list_detail as sd
-	LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
-	LEFT JOIN exchangerate as e on e.e_id=wl.e_id
-
-    WHERE  sd.sale_runno="'.$data['sale_runno'].'"
+$query = $this->db->query('SELECT
+sd.*,
+from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
+wl.product_weight*sd.product_sale_num as product_weight,
+e.title_name,
+e.rate
+FROM
+sale_list_detail as sd
+LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
+LEFT JOIN exchangerate as e on e.e_id=wl.e_id
+WHERE sd.sale_runno="'.$data['sale_runno'].'" and sd.owner_id=wl.owner_id="'.$_SESSION['owner_id'].'"
     ORDER BY sd.ID ASC');
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 return $encode_data;
 
         }
+        // "'.$data['sale_runno'].'"
+// ----------- add for SumsalePriceKIP ------------------
+public function GetSumSumsalePriceKip($data)
+{
+    $query = $this->db->query('SELECT sum(sumsale_price_kip) AS sumsale_price_kip
+    FROM sale_list_detail 
+    WHERE sd.sale_runno ="'.$data['sale_runno'].'"');
+
+$encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
+return $encode_data;
+}
+
+// add for sumsaleprice_thb -------------
+public function GetSumSumsalePricethb($data)
+{
+    $query = $this->db->query('SELECT sum(sd.product_price*sd.product_sale_num) as sumsale_price_thb FROM sale_list_detail as sd
+	join wh_product_list as wh on sd.product_id=wh.product_id
+    join exchangerate as e on e.e_id=wh.e_id
+    WHERE wh.e_id=2 AND sd.sale_runno ="'.$data['sale_runno'].'"');
+
+$encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
+return $encode_data;
+}
+
+// ---------------------------------------------
 
 // public function Getone($data)
 // {

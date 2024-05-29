@@ -864,7 +864,19 @@ public function Adddetail($data)
     unset($data['title_name']); // Remove the 'title_name' column from data
     unset($data['rate']); // Remove the 'title_name' column from data
 
+    // Additional query to retrieve data from 'sale_list_detail' table
+    $query = $this->db->query('SELECT sd.*, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
+    wl.product_weight*sd.product_sale_num as product_weight,e.title_name,e.rate,sd.sumsale_price_kip
+        FROM sale_list_detail as sd
+      LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
+      LEFT JOIN exchangerate as e on e.e_id=wl.e_id
     
+        WHERE  sd.sale_runno="'.$data['sale_runno'].'"
+        ORDER BY sd.ID ASC');
+
+        $data_sumsale_price_kip = $query->result_array();
+
+
        // ------------- zone add new --------------------------------------------------------
     
 $this->db->insert('sale_list_detail', $data);
@@ -1370,7 +1382,7 @@ return $json;
             sh.product_score_all as product_score_all,cw.product_score_all as cus_score, from_unixtime(adddate,"%d-%m-%Y %H:%i:%s") as adddate
             FROM quotation_list_header as sh
             LEFT JOIN customer_owner as cw on cw.cus_id=sh.cus_id
-			WHERE sh.branch_id="'.$_SESSION['branch_id'].'"
+			WHERE sh.branch_id="'.$_SESSION['branch_id'].'" AND sh.user_id="'.$_SESSION['user_id'].'"
             ORDER BY sh.ID ASC ');
         $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 
@@ -1410,8 +1422,7 @@ sc.product_unit_name, sc.product_des, sc.product_code, sc.product_price,sc.produ
 sc.product_stock_num, sc.product_sale_num, sc.product_price_discount, sc.product_price_discount_percent, sc.product_score,
  sc.adddate, sc.owner_id, sc.user_id, sc.store_id, sc.sn_code, sc.product_sale_num, e.title_name, e.rate
 ,sum(sc.product_sale_num) 
-as product_sale_num,
-sum(sc.product_price *sc.product_sale_num*e.rate) as sumsale_price_kip
+as product_sale_num
 FROM sale_list_cus2mer AS sc
 LEFT JOIN wh_product_list as wh on wh.product_code=sc.product_code
 LEFT JOIN exchangerate as e on e.e_id=wh.e_id
