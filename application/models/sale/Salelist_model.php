@@ -147,26 +147,57 @@ return $encode_data;
 public function Getone($data)
         {
 
+// $query = $this->db->query('SELECT
+// sd.*,
+// from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
+// wl.product_weight*sd.product_sale_num as product_weight,
+// e.title_name,
+// e.rate,
+// -- 
+// (SELECT DISTINCT  sum(sd.product_price*sd.product_sale_num)
+//      AS sum_product_price_thb
+//     FROM sale_list_detail as sd
+// 	join wh_product_list as wh on sd.product_id=wh.product_id
+//     join exchangerate as e on e.e_id=wh.e_id
+//     WHERE wh.e_id=2 AND sd.sale_runno ="'.$data['sale_runno'].'") AS sum_product_price_thb
+
+
+// FROM
+// sale_list_detail as sd
+// LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
+// LEFT JOIN exchangerate as e on e.e_id=wl.e_id
+// WHERE sd.sale_runno="'.$data['sale_runno'].'" and sd.owner_id=wl.owner_id="'.$_SESSION['owner_id'].'"
+//     ORDER BY sd.ID ASC');
+
+
 $query = $this->db->query('SELECT
 sd.*,
-from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
-wl.product_weight*sd.product_sale_num as product_weight,
+FROM_UNIXTIME(sd.adddate, "%d-%m-%Y %H:%i:%s") AS adddate,
+wl.product_weight * sd.product_sale_num AS product_weight,
 e.title_name,
 e.rate,
--- 
-(SELECT DISTINCT  sum(sd.product_price*sd.product_sale_num)
-     AS sum_product_price_thb
-    FROM sale_list_detail as sd
-	join wh_product_list as wh on sd.product_id=wh.product_id
-    join exchangerate as e on e.e_id=wh.e_id
-    WHERE wh.e_id=2 AND sd.sale_runno ="'.$data['sale_runno'].'") AS sum_product_price_thb
-
+(
+    SELECT SUM(DISTINCT sd2.product_price * sd2.product_sale_num)
+    FROM sale_list_detail AS sd2
+    JOIN wh_product_list AS wh2 ON sd2.product_id = wh2.product_id
+    JOIN exchangerate AS e2 ON e2.e_id = wh2.e_id
+    WHERE wh2.e_id = 2 AND sd2.sale_runno = "'.$data['sale_runno'].'" 
+) AS sum_product_price_thb,
+(
+    SELECT SUM(DISTINCT sd3.product_price_kip * sd3.product_sale_num)
+    FROM sale_list_detail AS sd3
+    JOIN wh_product_list AS wh3 ON sd3.product_id = wh3.product_id
+    JOIN exchangerate AS e3 ON e3.e_id = wh3.e_id
+    WHERE wh3.e_id = 1 AND sd3.sale_runno ="'.$data['sale_runno'].'" 
+) AS totalkip
 FROM
-sale_list_detail as sd
-LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
-LEFT JOIN exchangerate as e on e.e_id=wl.e_id
-WHERE sd.sale_runno="'.$data['sale_runno'].'" and sd.owner_id=wl.owner_id="'.$_SESSION['owner_id'].'"
-    ORDER BY sd.ID ASC');
+sale_list_detail AS sd
+LEFT JOIN wh_product_list AS wl ON wl.product_id = sd.product_id
+LEFT JOIN exchangerate AS e ON e.e_id = wl.e_id
+WHERE
+sd.sale_runno ="'.$data['sale_runno'].'"  AND sd.owner_id = wl.owner_id AND wl.owner_id = "'.$_SESSION['owner_id'].'"
+ORDER BY
+sd.ID ASC');
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 return $encode_data;
 

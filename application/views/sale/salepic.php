@@ -19,6 +19,35 @@ foreach ($Getpermission_rule as $value) {
     font-family: "Phetsarath OT" !important;
 }
 
+/* table {
+    width: 80mm;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+th:nth-child(2),
+td:nth-child(2),
+td:nth-child(4),
+td:nth-child(5) {
+    text-align: center;
+}
+
+th:nth-child(4),
+td:nth-child(4),
+td:nth-child(5) {
+    text-align: right;
+} */
+
 .panel-body {
     font-family: "Phetsarath OT" !important;
 }
@@ -519,7 +548,8 @@ else {
                                             </th>
                                             <th style="text-align:left;font-family:Phetsarath OT;">ສະກຸນເງິນ</th>
                                             <th align="left" style="font-family:Phetsarath OT;">ລວມ</th>
-                                            <th style="text-align:left;font-family:Phetsarath OT;">ເປັນກິບ</th>
+                                            <th style="text-align:left;font-family:Phetsarath OT;">ເປັນ THB</th>
+                                            <th style="text-align:left;font-family:Phetsarath OT;">ເປັນ KIP</th>
                                             <!-- <th style="text-align:left;"><?=$lang_price?></th> -->
 
 
@@ -579,18 +609,32 @@ else {
                                                 <input type="hidden" ng-model="x.product_id">
 
                                             </td>
-
+                                            <!-- ສະກຸນເງິນ -->
                                             <?php {?>
                                             <td align="left">
                                                 {{x.title_name}}
 
                                             </td>
                                             <?php }?>
+                                            <!-- ສະກຸນເງິນ -->
 
+                                            <!-- ລວມ -->
                                             <td align="left">
                                                 {{(x.product_price - x.product_price_discount) * x.product_sale_num | number:0 }}
 
                                             </td>
+                                            <!-- ລວມ -->
+
+                                            <!-- ທຽບ thb -->
+                                            <?php {?>
+
+                                            <td align="left">
+                                                {{x.product_price * x.product_sale_num}}
+                                            </td>
+                                            <?php } ?>
+                                            <!-- ທຽບ thb -->
+
+                                            <!-- ທຽບ kip  -->
 
                                             <?php {?>
 
@@ -598,6 +642,7 @@ else {
                                                 {{x.rate * x.product_price * x.product_sale_num}}
                                             </td>
                                             <?php } ?>
+                                            <!-- ທຽບ kip  -->
 
 
 
@@ -936,16 +981,6 @@ else {
                                 </div>
                             </div>
 
-
-
-
-
-
-
-
-
-
-
                             <div class="modal fade" id="Deletelist_modal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -999,12 +1034,6 @@ else {
 
 
 
-
-
-
-
-
-
                             <div class="modal fade" id="Showquotationlistmodal">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
@@ -1035,13 +1064,13 @@ else {
 
 
                                                         <?php
-				if($_SESSION['owner_vat_status']=='2'){
-				?>
+                                                        if($_SESSION['owner_vat_status']=='2'){
+                                                        ?>
                                                         <th><?=$lang_vat?> Exclude %</th>
                                                         <th><?=$lang_pricesumvat?></th>
                                                         <?php
-				}
-				?>
+                                                        }
+                                                        ?>
 
 
                                                         <th><?=$lang_discountlast?></th>
@@ -1091,8 +1120,8 @@ else {
 
 
                                                         <?php
-				if($_SESSION['owner_vat_status']=='2'){
-				?>
+                                                            if($_SESSION['owner_vat_status']=='2'){
+                                                            ?>
                                                         <td align="right">{{x.sumsale_price * (x.vat/100) | number}}
                                                         </td>
                                                         <td align="right">
@@ -1747,7 +1776,7 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
 
 
 
-                    <!-- A4 bill ------------------------------------- -->
+                    <!----------------------------------------------------------- start A4 bill ----------------------------------------------------------------------------------------------------->
                     <div class="modal fade" id="Openone">
                         <div class="modal-dialog modal-lg">
                             <div class="modal-content">
@@ -1831,6 +1860,7 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                                 <!-- <th>ລາຄາລວມ KIP</th> -->
                                                 <th>ລາຄາລວມຕາມສະກຸນເງິນ</th>
                                                 <th>ລາຄາລວມ THB</th>
+                                                <th>ລາຄາລວມ KIP</th>
                                                 <th>ຍອດລາຄາລວມທຽບ KIP</th>
 
                                             </tr>
@@ -1883,18 +1913,23 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                                         ng-switch-default>{{ x.product_sale_num * x.product_price }}</span>
                                                 </td>
 
+                                                <td align="right" ng-switch="x.title_name">
+                                                    <span ng-switch-when="KIP">{{ calculateTotalAmountKIP(x) }}</span>
+                                                    <span ng-switch-when="THB">{{ calculateTotalAmountKIP(x) }}</span>
+                                                    <span
+                                                        ng-switch-default>{{ x.product_sale_num * x.product_price * x.rate }}</span>
+                                                </td>
+
                                                 <td align="right" style="width:50px;">
                                                     {{(x.product_price - x.product_price_discount) * x.product_sale_num * x.rate | number:<?php echo $_SESSION['decimal_print']; ?>}}
                                                 </td>
                                             </tr>
-                                            <!-- A4 ------------------------->
 
-                                            <tr>
-
+                                            <!-- origin------------------------- -->
+                                            <!-- <tr>
                                                 <td colspan="6"
                                                     style="font-weight: bold;font-family:Phetsarath OT; text-align: right;">
-                                                    ຍອດທັງໝົດ
-                                                    KIP</td>
+                                                    ຍອດທັງໝົດ KIP</td>
 
                                                 <td colspan="6"
                                                     style="font-weight: bold;color:blue; text-align: right;">
@@ -1903,29 +1938,72 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                             </tr>
                                             <tr>
                                                 <td align="right" colspan="6">ຍອດທັງໝົດ THB</td>
-                                                <!-- <td style="font-weight: bold;" align="right" colspan="5">
-                                                  
-                                                    <u>{{Sumsale_price_thb()|number}}</u>
-                                                </td> -->
                                                 <td style="font-weight: bold;" align="right" colspan="5">
                                                     {{ Sumsale_price_thb() }}
                                                 </td>
-                                            </tr>
-                                            <!-- <tr>
-                                                <td colspan="2" align="right"
-                                                    style="font-weight: bold;font-family:Phetsarath OT;">
-                                                    ຍອດທັງໝົດ KIP
-                                                </td>
-
-                                                <td colspan="6" align="right" style="font-weight: bold;color:blue">
-
-                                                    {{ Sumsale_price_kip()|number:2 }}
-                                                </td>
-
-
                                             </tr> -->
+                                            <!-- end origin  ----------------->
+                                            <!-- <div>
+                                                <tr> -->
+                                            <!-- <td style="font-weight: bold; text-align: right;" colspan="5">
+                                                        ຍອດທັງໝົດ THB</td> -->
+                                            <!-- <td style="font-weight: bold; text-align: right;" colspan="11">
+                                                        <span>ຍອດທັງໝົດ THB:</span>&nbsp;&nbsp;{{ Sumsale_price_thb() }}
+                                                    </td>
+                                                </tr>
+                                            </div> -->
+                                            <!-- -------------------- -->
+                                            <!-- <div>
+                                                <tr ng-if="Sumsale_price_kip !== undefined || null || 0"> -->
 
-                                            <!-- A4 ------------------------->
+                                            <!-- <td colspan="5" style="font-weight: bold;"> ຍອດທັງໝົດ KIP</td> -->
+                                            <!-- <td olspan="7" style="font-weight: bold; color: blue">
+                                                        <span>ຍອດທັງໝົດ KIP</span>&nbsp;&nbsp;{{ Totalkip() | number }}
+                                                    </td>
+                                                </tr>
+                                            </div> -->
+                                            <!-- -------------------- -->
+                                            <!-- <div>
+                                                <tr>
+                                                    <td colspan="8"
+                                                        style="font-weight: bold; font-family: Phetsarath OT; text-align: right; width: 50%;">
+                                                        ຍອດທັງໝົດ
+                                                    </td>
+                                                    <td colspan="9"
+                                                        style="font-weight: bold; color: blue; text-align: right; width: 50%;">
+                                                        <span> ຍອດທັງໝົດ</span>&nbsp;&nbsp;
+                                                        {{ Sumsale_price_kip() | number }}
+                                                    </td>
+                                                </tr>
+                                            </div> -->
+
+                                            <tr>
+                                                <td style="font-weight: bold; text-align: right;" colspan="11">
+                                                    <div>
+                                                        <span>ຍອດທັງໝົດ THB:</span>&nbsp;&nbsp;{{ Sumsale_price_thb() }}
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr ng-if="Sumsale_price_kip !== undefined || null || 0">
+                                                <td colspan="12" style="font-weight: bold;  text-align: right;">
+                                                    <span>ຍອດທັງໝົດ KIP:</span>&nbsp;&nbsp;{{ Totalkip() | number }}
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+
+                                                <td colspan="14"
+                                                    style="font-weight: bold; color: blue; text-align: right; width: 100%;">
+
+                                                    <span>
+                                                        ຍອດທັງໝົດ</span>&nbsp;&nbsp;{{ Sumsale_price_kip() | number }}
+
+                                                </td>
+                                            </tr>
+
+                                            <!--  -->
+
 
                                             <!-- -------------------------------------- -->
                                             <!-- <tr ng-if="vat3 > '0'">
@@ -1942,12 +2020,6 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                             </tr> -->
 
                                             <!-- -------------------------------------- -->
-
-
-
-
-
-
 
                                             <?php
                                             if($_SESSION['owner_vat_status']=='2'){
@@ -2053,13 +2125,9 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                                     {{sumsalevat-price_vat_all-discount_last2 | number}}</td>
                                             </tr>
 
-
-
                                             <?php
-}
-?>
-
-
+                                                    }
+                                                    ?>
 
                                         </tbody>
                                     </table>
@@ -2089,7 +2157,9 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                     <?php if ($_SESSION['exchangerateonslip'] == '1'): ?>
                                     <table class="table table-bordered">
                                         <tr ng-repeat="x in exchangeratelist" ng-show="x.title_name === 'THB'">
-                                            <td style="font-weight: bold;" align="right">{{x.title_name}}</td>
+                                            <td style="font-weight: bold;" align="right">
+                                                <span>Rate:</span>&nbsp;{{x.title_name}}
+                                            </td>
                                             <td style="font-weight: bold;" align="right">{{x.rate | number}}</td>
                                         </tr>
                                     </table>
@@ -3138,14 +3208,6 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                         </table>
 
 
-
-
-
-
-
-
-
-
                                         <table class="table table-bordered">
                                             <tr>
                                                 <td width="200px;" style="text-align: left;"><?=$lang_sales?> </td>
@@ -3162,12 +3224,6 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                         </center>
 
 
-
-
-
-
-
-
                                     </div>
 
                                 </div>
@@ -3177,16 +3233,6 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -3241,13 +3287,13 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                 <?php if(isset($_SESSION['shift_end_time_old'])){ echo $_SESSION['shift_end_time_old'];}?>
                                                 <br />
                                                 <?php
-if(isset($_SESSION['shift_id_old'])){
-$moneyshiftchange = number_format($_SESSION['shift_money_end_old']-$_SESSION['shift_money_start_old']);
-echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
-<br />'.$lang_startmoney.' ( '.number_format($_SESSION['shift_money_start_old']).' )
-<br />'.$lang_endstart.' ( '.$moneyshiftchange.' )';
-}
-?>
+                                                if(isset($_SESSION['shift_id_old'])){
+                                                $moneyshiftchange = number_format($_SESSION['shift_money_end_old']-$_SESSION['shift_money_start_old']);
+                                                echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
+                                                <br />'.$lang_startmoney.' ( '.number_format($_SESSION['shift_money_start_old']).' )
+                                                <br />'.$lang_endstart.' ( '.$moneyshiftchange.' )';
+                                                }
+                                                ?>
                                             </div>
                                             <br />
                                             ____________________________________________
@@ -3514,37 +3560,93 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
                                             <!----------------------------- ------------------------------------------------------------ -->
                                             <table class="table" style="width: 100%; font-size: 12px;">
-                                                <thead>
+                                                <thead style="text-align: left;">
                                                     <tr>
-                                                        <th>ສິນຄ້າ</th>
-                                                        <th align="center">
+                                                        <th style="text-align: left;">ສິນຄ້າ</th>
+                                                        <th style="text-align: left;">
                                                             ລາຄາ
                                                         </th>
-
-                                                        <th>ຈຳນວນ</th>
-                                                        <th align="right">
-                                                            ທຽບ KIP
+                                                        <th style="text-align: left;">ຈຳນວນ</th>
+                                                        <th style="text-align: left;">
+                                                            ລາຄາ THB
                                                         </th>
+                                                        <th style="text-align: left;">
+                                                            ລາຄາ KIP
+                                                        </th>
+                                                        <th style="text-align: left;">
+                                                            ລວມ
+                                                        </th>
+
+                                                        <!-- <th align="right">
+                                                            ລວມທຽບ KIP
+                                                        </th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody style="height: 10px;">
-                                                    <tr ng-repeat="x in listone">
+                                                    <tr ng-repeat="x in listone" style="text-align: left;">
                                                         <!-- product_name -->
                                                         <td align="left">{{x.product_name}}</td>
 
                                                         <!-- product_price/currency -->
-                                                        <td align="left" width="40px">
+                                                        <td align="left" width="40px" style="text-align: left;">
                                                             ({{x.product_price | number:0}}/{{x.title_name}})
 
                                                         </td>
 
                                                         <!-- qty -->
-                                                        <td>x{{x.product_sale_num | number}}</td>
+                                                        <td style="text-align: left;">x{{x.product_sale_num | number}}
+                                                        </td>
 
-                                                        <!-- total in kip -->
-                                                        <td align="left">
+                                                        <!-- total in THB -->
+                                                        <!-- <td align="left">
+
+                                                            {{ ((x.product_price - x.product_price_discount) * x.product_sale_num ) | number: <?php echo $_SESSION['decimal_print']; ?> }}
+                                                        </td> -->
+
+                                                        <!-- ---------------- -->
+
+                                                        <td style="text-align: left;" align="right"
+                                                            ng-switch="x.title_name">
+                                                            <span
+                                                                ng-switch-when="KIP">{{ calculateTotalAmountTHB(x) }}</span>
+                                                            <span
+                                                                ng-switch-when="THB">{{ calculateTotalAmountTHB(x) }}</span>
+                                                            <span
+                                                                ng-switch-default>{{ x.product_sale_num * x.product_price }}</span>
+                                                        </td>
+                                                        <!-- ------------------------------------------- -->
+
+                                                        <!-- <td align="left">
 
                                                             {{ ((x.product_price - x.product_price_discount) * x.product_sale_num * x.rate) | number: <?php echo $_SESSION['decimal_print']; ?> }}
+                                                        </td> -->
+
+                                                        <td style="text-align: left;" align="right"
+                                                            ng-switch="x.title_name">
+                                                            <span
+                                                                ng-switch-when="KIP">{{ calculateTotalAmountKIP(x) }}</span>
+                                                            <span
+                                                                ng-switch-when="THB">{{ calculateTotalAmountKIP(x) }}</span>
+                                                            <span
+                                                                ng-switch-default>{{ x.product_sale_num * x.product_price * x.rate }}</span>
+                                                        </td>
+                                                        <!-- ---------------------------------- -->
+                                                        <td style="text-align: left;" align="right"
+                                                            ng-switch="x.title_name">
+                                                            <span ng-switch-when="KIP">{{ calculateTotal(x) }}</span>
+                                                            <span ng-switch-when="THB">{{ calculateTotal(x) }}</span>
+                                                            <span
+                                                                ng-switch-default>{{ x.product_sale_num * x.product_price_kip }}</span>
+                                                        </td>
+
+
+                                                        <!-- ---------------------------- -->
+
+
+                                                        <td style="font-weight: bold; color: blue">
+
+                                                            {{sumsale_price_kip  |number:2}}
+
                                                         </td>
 
                                                     </tr>
@@ -3559,82 +3661,117 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                         </td>
                                                     </tr> -->
 
-                                                    <div ng-if="Sumsale_price_kip !== undefined || null">
-                                                        <tr>
-                                                            <td colspan="3" style="font-weight: bold;">ລວມ ທັງໝົດກີບ
-                                                                (KIP)</td>
-                                                            <td style="font-weight: bold; color: blue">
-                                                                {{ Sumsale_price_kip() | number:2 }}</td>
-                                                        </tr>
-                                                    </div>
                                                     <div ng-if="Sumsale_price_thb !== undefined || null || 0">
                                                         <tr>
-                                                            <td colspan="3" style="font-weight: bold;">ລວມ ທັງໝົດ
-                                                                (THB)</td>
+                                                            <td colspan="3" style="font-weight: bold;">ລວມທັງໝົດ (THB)
+                                                            </td>
                                                             <td style="font-weight: bold; color: blue">
-                                                                {{ Sumsale_price_thb() | number:2 }}</td>
+                                                                {{ Sumsale_price_thb() | number }}</td>
                                                         </tr>
                                                     </div>
+                                                    <!-- ---------------------- -->
+                                                    <div ng-if="Sumsale_price_kip !== undefined || null || 0">
+                                                        <tr>
+                                                            <td colspan="4" style="font-weight: bold;">ລວມທັງໝົດ (KIP)
+                                                            </td>
+                                                            <td style="font-weight: bold; color: blue">
+                                                                {{ Totalkip() | number }}</td>
+                                                        </tr>
+                                                    </div>
+                                                    <!-- ------------------------------ -->
+                                                    <div ng-if="Sumsale_price_kip !== undefined || null">
+                                                        <tr>
+                                                            <td colspan="5" style="font-weight: bold;">ລວມທັງໝົດ
+                                                            </td>
+                                                            <td style="font-weight: bold; color: blue">
+                                                                {{ Sumsale_price_kip() | number }}</td>
+                                                        </tr>
+                                                    </div>
+                                                    <!-- ----------------- -->
 
+                                                    <!-- ------------------------------------------------- -->
+                                                    <!-- <div ng-if="Sumsale_price_thb !== undefined || null || 0">
+                                                        <td align="right" ng-switch="x.title_name">
+                                                            <span
+                                                                ng-switch-when="KIP">{{ calculateTotalAmountKIP(x) }}</span>
+                                                            <span
+                                                                ng-switch-when="THB">{{ calculateTotalAmountKIP(x) }}</span>
+                                                            <span
+                                                                ng-switch-default>{{ x.product_sale_num * x.product_price * x.rate }}</span>
+                                                        </td>
+                                                    </div> -->
+
+
+                                                    <!-- ----------------------- -->
 
                                                     <?php if ($_SESSION['exchangerateonslip'] == '1'): ?>
+                                                    <table
+                                                        style="text-align: right; height: 10px;border-bottom: 1px solid black;width:100%;">
+                                                        <tr>
+                                                            <th
+                                                                style="text-align: center; height: 10px;border-bottom: 1px solid black;">
+                                                                Currency</th>
+                                                            <th
+                                                                style="text-align: center; height: 10px;border-bottom: 1px solid black;">
+                                                                Rate</th>
+                                                        </tr>
+                                                        <tr ng-repeat="x in exchangeratelist"
+                                                            ng-show="x.title_name === 'THB'">
+                                                            <td
+                                                                style="text-align: center; height: 10px;border-bottom: 1px solid black;">
+                                                                {{x.title_name}}</td>
+                                                            <td
+                                                                style="text-align: center; height: 10px;border-bottom: 1px solid black;">
+                                                                {{x.rate | number}}</td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <th style="text-align: right; height: 10px;">Currency</th>
-                                                        <th style="text-align: right; height: 10px;">Rate</th>
-                                                    </tr>
-                                                    <tr ng-repeat="x in exchangeratelist"
-                                                        ng-show="x.title_name === 'THB'">
-                                                        <td style="font-weight: bold; text-align: right;">
-                                                            {{x.title_name}}</td>
-                                                        <td style="font-weight: bold; text-align: right;">
-                                                            {{x.rate | number}}</td>
-                                                    </tr>
-
-
+                                                    </table>
                                                     <?php endif; ?>
 
+                                                    <br />
+                                                    <table>
+                                                        <tr ng-if="discount_last2!='0.00'">
+                                                            <td colspan="3">ສ່ວນຫຼຸດທ້າຍບິນ</td>
+                                                            <td align="right">
+                                                                -{{discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr ng-if="discount_last2!='0.00'">
+                                                            <td colspan="3">ຍອດທັງໝົດ</td>
+                                                            <td align="right" style="font-weight: bold;">
+                                                                {{sumsalevat-discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="3">ຮັບເງິນ</td>
+                                                            <td align="right">
+                                                                {{money_from_customer3 | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr ng-if="discount_last2!='0.00'">
-                                                        <td colspan="3">ສ່ວນຫຼຸດທ້າຍບິນ</td>
-                                                        <td align="right">
-                                                            -{{discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                        </td>
-                                                    </tr>
-                                                    <tr ng-if="discount_last2!='0.00'">
-                                                        <td colspan="3">ຍອດທັງໝົດ</td>
-                                                        <td align="right" style="font-weight: bold;">
-                                                            {{sumsalevat-discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">ຮັບເງິນ</td>
-                                                        <td align="right">
-                                                            {{money_from_customer3 | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                        </td>
-                                                    </tr>
+                                                        <tr style="margin-left: 10px; margin-right: 20px;">
+                                                            <td colspan="3">
+                                                                <div style="margin-left: 10px; margin-right: 10px;">
+                                                                    <span ng-if="pay_type=='4'"
+                                                                        style="font-weight: bold;">
+                                                                        ຄ້າງຊຳລະ
+                                                                    </span>
+                                                                    <span ng-if="pay_type!='4'"
+                                                                        style="font-weight: bold;">
+                                                                        ເງິນທອນ
+                                                                    </span>
+                                                                </div>
+                                                            </td>
 
-                                                    <tr style="margin-left: 20px; margin-right: 20px;">
-                                                        <td colspan="3">
-                                                            <div style="margin-left: 10px; margin-right: 10px;">
-                                                                <span ng-if="pay_type=='4'" style="font-weight: bold;">
-                                                                    ຄ້າງຊຳລະ
-                                                                </span>
-                                                                <span ng-if="pay_type!='4'" style="font-weight: bold;">
-                                                                    ເງິນທອນ
-                                                                </span>
-                                                            </div>
-                                                        </td>
+                                                            <td align="center" colspan="3">
+                                                                <div style="margin-left: 10px; margin-right: 10px;">
+                                                                    <!-- {{money_from_customer3-(money_from_customer3 -(sumsalevat-discount_last2)) | number:<?php echo $_SESSION['decimal_print']; ?>}} -->
+                                                                    {{money_from_customer3-money_from_customer3 | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
 
-                                                        <td align="center" colspan="3">
-                                                            <div style="margin-left: 10px; margin-right: 10px;">
-                                                                <!-- {{money_from_customer3-(money_from_customer3 -(sumsalevat-discount_last2)) | number:<?php echo $_SESSION['decimal_print']; ?>}} -->
-                                                                {{money_from_customer3-money_from_customer3 | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-
-
+                                                    </table>
 
                                                 </tbody>
                                             </table>
@@ -4186,9 +4323,9 @@ if($_SESSION['open_number_for_cus']=='1'){
                                         <form class="form-inline">
                                             <input type="number" id="popup_nummodal_focus" ng-model="popup_num_num"
                                                 ng-change="Savepopup_num()" class="form-control" style="height: 100px;
-    font-size: 100px;
-	width: 100%;
-    color: green;">
+                                                    font-size: 100px;
+                                                    width: 100%;
+                                                    color: green;">
                                             <br />
                                             <br />
                                             <button type="submit" class="btn btn-success btn-lg" data-dismiss="modal"
@@ -8573,6 +8710,15 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         return total;
 
     };
+    // -----------------------------------------------------------
+    $scope.Totalkip = function() {
+        var total = 0;
+        angular.forEach($scope.listone, function(item) {
+            total = parseFloat(item.totalkip);
+        });
+        return total;
+
+    };
     // ------ for sumsale_price_kip --------------------
 
     // ------ for sumsale_price_thb working --------------------
@@ -8592,6 +8738,37 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
         } else if (x.title_name === 'THB') {
             var casethb = x.product_sale_num * x.product_price;
+            return casethb;
+        } else {
+            return 0;
+
+        }
+
+    };
+    $scope.calculateTotalAmountKIP = function(x) {
+        var sumkip = 0;
+        if (x.title_name === 'KIP') {
+            var casekip = x.product_sale_num * x.product_price * x.rate;
+            return casekip;
+
+        } else if (x.title_name === 'THB') {
+            var casethb = x.product_sale_num * x.product_price * 0;
+            return casethb;
+        } else {
+            return 0;
+
+        }
+
+    };
+    // ------------------------------
+    $scope.calculateTotal = function(x) {
+        var sumkip = 0;
+        if (x.title_name === 'KIP') {
+            var casekip = x.product_sale_num * x.product_price_kip;
+            return casekip;
+
+        } else if (x.title_name === 'THB') {
+            var casethb = x.product_sale_num * x.product_price * x.rate;
             return casethb;
         } else {
             return 0;
@@ -8622,21 +8799,21 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
     // add new ---------------
 
-    $scope.calculateItemTotal = function(x) {
-        var itemTotal = (x.product_price - x.product_price_discount) * x.product_sale_num * x.rate;
-        // console.log('Item Total:', itemTotal);
-        return itemTotal;
-    };
+    // $scope.calculateItemTotal = function(x) {
+    //     var itemTotal = (x.product_price - x.product_price_discount) * x.product_sale_num * x.rate;
+    //     // console.log('Item Total:', itemTotal);
+    //     return itemTotal;
+    // };
 
-    $scope.calculateTotal = function() {
-        var grandTotal = 0;
-        angular.forEach($scope.listsale, function(item) {
-            grandTotal += $scope.calculateItemTotal(item);
-        });
+    // $scope.calculateTotal = function() {
+    //     var grandTotal = 0;
+    //     angular.forEach($scope.listsale, function(item) {
+    //         grandTotal += $scope.calculateItemTotal(item);
+    //     });
 
-        // console.log('Grand Total:', grandTotal);
-        return grandTotal;
-    };
+    //     // console.log('Grand Total:', grandTotal);
+    //     return grandTotal;
+    // };
     // add new ---------------
 
 
