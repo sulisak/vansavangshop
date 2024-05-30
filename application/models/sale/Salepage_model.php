@@ -852,9 +852,9 @@ public function Adddetail($data)
     }
 
     // ----------- try add new ------------------------------
-    
-    $data['sumsale_price_kip'] = $data['product_price_kip']*$data['product_sale_num']; // Assign the value to 'sumsale_price_kip'
 
+    $data['sumsale_price_kip'] = $data['product_price_kip']*$data['product_sale_num']; // Assign the value to 'sumsale_price_kip'
+    
     $data['price_vat'] = $price_vat;
     $data['owner_id'] = $_SESSION['owner_id'];
     $data['user_id'] = $_SESSION['user_id'];

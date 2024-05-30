@@ -152,7 +152,15 @@ sd.*,
 from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
 wl.product_weight*sd.product_sale_num as product_weight,
 e.title_name,
-e.rate
+e.rate,
+-- 
+(SELECT DISTINCT  sum(sd.product_price*sd.product_sale_num)
+     AS sum_product_price_thb
+    FROM sale_list_detail as sd
+	join wh_product_list as wh on sd.product_id=wh.product_id
+    join exchangerate as e on e.e_id=wh.e_id
+    WHERE wh.e_id=2 AND sd.sale_runno ="'.$data['sale_runno'].'") AS sum_product_price_thb
+
 FROM
 sale_list_detail as sd
 LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
@@ -178,7 +186,9 @@ return $encode_data;
 // add for sumsaleprice_thb -------------
 public function GetSumSumsalePricethb($data)
 {
-    $query = $this->db->query('SELECT sum(sd.product_price*sd.product_sale_num) as sumsale_price_thb FROM sale_list_detail as sd
+    $query = $this->db->query('SELECT sum(sd.product_price*sd.product_sale_num)
+     AS sum_product_price_thb
+    FROM sale_list_detail as sd
 	join wh_product_list as wh on sd.product_id=wh.product_id
     join exchangerate as e on e.e_id=wh.e_id
     WHERE wh.e_id=2 AND sd.sale_runno ="'.$data['sale_runno'].'"');
@@ -186,6 +196,7 @@ public function GetSumSumsalePricethb($data)
 $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
 return $encode_data;
 }
+
 
 // ---------------------------------------------
 

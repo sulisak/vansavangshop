@@ -1901,6 +1901,16 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                                     {{ Sumsale_price_kip() | number }}
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td align="right" colspan="6">ຍອດທັງໝົດ THB</td>
+                                                <!-- <td style="font-weight: bold;" align="right" colspan="5">
+                                                  
+                                                    <u>{{Sumsale_price_thb()|number}}</u>
+                                                </td> -->
+                                                <td style="font-weight: bold;" align="right" colspan="5">
+                                                    {{ Sumsale_price_thb() }}
+                                                </td>
+                                            </tr>
                                             <!-- <tr>
                                                 <td colspan="2" align="right"
                                                     style="font-weight: bold;font-family:Phetsarath OT;">
@@ -1980,16 +1990,16 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                                     <u>{{sumsalevat-discount_last2 | number:<?php echo $_SESSION['decimal_print']; ?>}}</u>
                                                 </td>
                                             </tr> -->
-                                            <tr>
-                                                <td align="right" colspan="6">ຍອດທັງໝົດ THB</td>
-                                                <!-- <td style="font-weight: bold;" align="right" colspan="5">
+                                            <!-- <tr>
+                                                <td align="right" colspan="6">ຍອດທັງໝົດ THB</td> -->
+                                            <!-- <td style="font-weight: bold;" align="right" colspan="5">
                                                   
                                                     <u>{{Sumsale_price_thb()|number}}</u>
                                                 </td> -->
-                                                <td style="font-weight: bold;" align="right" colspan="5">
+                                            <!-- <td style="font-weight: bold;" align="right" colspan="5">
                                                     {{ Sumsale_price_thb() }}
                                                 </td>
-                                            </tr>
+                                            </tr> -->
 
 
                                             <tr ng-if="pay_type=='4'">
@@ -3557,7 +3567,7 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                                 {{ Sumsale_price_kip() | number:2 }}</td>
                                                         </tr>
                                                     </div>
-                                                    <div ng-if="Sumsale_price_thb !== undefined || null">
+                                                    <div ng-if="Sumsale_price_thb !== undefined || null || 0">
                                                         <tr>
                                                             <td colspan="3" style="font-weight: bold;">ລວມ ທັງໝົດ
                                                                 (THB)</td>
@@ -3657,10 +3667,10 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
 
 
-                                            <center>
+                                            <!-- <center>
                                                 ___________________________
-                                            </center>
-                                            <table width="100%">
+                                            </center> -->
+                                            <!-- <table width="100%">
                                                 <tr ng-repeat="y in getonepaylist">
                                                     <td style="margin-left: 10px; margin-right: 10px;">
                                                         {{y.pay_type_name}}</td>
@@ -3670,21 +3680,19 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
                                                 </tr>
 
+                                            </table> -->
 
 
-                                            </table>
-
-
-                                            <table width="100%">
+                                            <!-- <table width="100%">
                                                 <tr>
-                                                    <td>{{sumsale_price_kip}}</td>
+                                                    <td>{{sumsale_price_kip}}_hhhhhhhh</td>
 
 
                                                 </tr>
 
 
 
-                                            </table>
+                                            </table> -->
 
 
                                             <center>
@@ -8181,9 +8189,16 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             $scope.taxnumber = x.taxnumber;
 
             $scope.product_weight = x.product_weight;
+            // Add the new property to the response object
 
+            $scope.listone.sum_product_price_thb = response[0].sum_product_price_thb;
+            console.log('$scope.listone.sum_product_price_thb', $scope.listone
+                .sum_product_price_thb);
 
+        }).error(function(error) {
+            console.log('Error:', error); // Log the error to the console
         });
+
 
 
         setTimeout(function() {
@@ -8443,12 +8458,6 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
     };
 
-
-
-
-
-
-
     $scope.Getonequotation2pay = function(x) {
 
 
@@ -8570,12 +8579,9 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     $scope.Sumsale_price_thb = function() {
         var total = 0;
         angular.forEach($scope.listone, function(item) {
-            var sumsale_price_thb = parseFloat(item.sumsale_price_thb) || 0;
-            total += sumsale_price_thb;
+            total = parseFloat(item.sum_product_price_thb);
         });
-
         return total;
-
     };
     // ------ for calculate amount in thb working --------------------
     $scope.calculateTotalAmountTHB = function(x) {
