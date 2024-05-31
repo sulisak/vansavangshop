@@ -1846,22 +1846,24 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                                 <th style="width:10px;"></th>
                                                 <!-- <th ><?=$lang_barcode?></th> -->
                                                 <th><?=$lang_productname?></th>
-                                                <th style="width:300px;"><?=$lang_detail?></th>
+                                                <th><?=$lang_qty?></th>
+                                                <!-- <th style="width:300px;"><?=$lang_detail?></th> -->
 
                                                 <th><?=$lang_saleprice?></th>
-                                                <th>ສະກຸນເງິນ</th>
-                                                <th><?=$lang_qty?></th>
-                                                <th>ເຫຼດ</th>
-                                                <th><?=$lang_discountperunit?></th>
-                                                <th><?=$lang_unit?></th>
+                                                <!-- <th>ສະກຸນເງິນ</th>
+                                                
+                                                <th>ເຫຼດ</th> -->
+                                                <!-- <th><?=$lang_discountperunit?></th> -->
+                                                <!-- <th><?=$lang_unit?></th> -->
 
 
 
                                                 <!-- <th>ລາຄາລວມ KIP</th> -->
-                                                <th>ລາຄາລວມຕາມສະກຸນເງິນ</th>
-                                                <th>ລາຄາລວມ THB</th>
-                                                <th>ລາຄາລວມ KIP</th>
-                                                <th>ຍອດລາຄາລວມທຽບ KIP</th>
+                                                <th>ລາຄາ</th>
+                                                <th colspan="2">ຈຳນວນ</th>
+                                                <th>ກິບ</th>
+                                                <th>ບາດ</th>
+                                                <th>ທຽບກິບ</th>
 
                                             </tr>
                                         </thead>
@@ -1872,26 +1874,27 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                                 <td style="width:500px;">
                                                     {{x.product_name}}
                                                 </td>
-                                                <td style="width:300px;">{{x.product_des}}</td>
+                                                <td align="right" style="width:5px;">{{x.product_sale_num | number}}
+                                                </td>
+                                                <!-- <td style="width:300px;">{{x.product_des}}</td> -->
 
                                                 <td align="right" style="width:50px;">
                                                     {{x.product_price | number:<?php echo $_SESSION['decimal_print']; ?>}}
                                                 </td>
 
                                                 <!--  -->
-                                                <td align="right" style="width:50px;">
+                                                <!-- <td align="right" style="width:50px;">
                                                     {{x.title_name }}
-                                                </td>
-                                                <td align="right" style="width:5px;">{{x.product_sale_num | number}}
-                                                </td>
+                                                </td> -->
+
                                                 <!--  -->
 
-                                                <td align="right">{{x.rate}}</td>
-                                                <td align="right" style="width:50px;">
+                                                <!-- <td align="right">{{x.rate}}</td> -->
+                                                <!-- <td align="right" style="width:50px;">
                                                     {{x.product_price_discount | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                </td>
+                                                </td> -->
 
-                                                <td align="right">{{x.product_unit_name}}</td>
+                                                <!-- <td align="right">{{x.product_unit_name}}</td> -->
 
                                                 <!-- thb -->
 
@@ -1902,16 +1905,9 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
 
                                                 <!-- thb -->
 
-                                                <td align="right" style="width:50px;">
+                                                <!-- <td align="right" style="width:50px;">
                                                     {{(x.product_price - x.product_price_discount) * x.product_sale_num | number:<?php echo $_SESSION['decimal_print']; ?>}}
-                                                </td>
-
-                                                <td align="right" ng-switch="x.title_name">
-                                                    <span ng-switch-when="KIP">{{ calculateTotalAmountTHB(x) }}</span>
-                                                    <span ng-switch-when="THB">{{ calculateTotalAmountTHB(x) }}</span>
-                                                    <span
-                                                        ng-switch-default>{{ x.product_sale_num * x.product_price }}</span>
-                                                </td>
+                                                </td> -->
 
                                                 <td align="right" ng-switch="x.title_name">
                                                     <span ng-switch-when="KIP">{{ calculateTotalAmountKIP(x) }}</span>
@@ -1919,10 +1915,19 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                                     <span
                                                         ng-switch-default>{{ x.product_sale_num * x.product_price * x.rate }}</span>
                                                 </td>
-
-                                                <td align="right" style="width:50px;">
-                                                    {{(x.product_price - x.product_price_discount) * x.product_sale_num * x.rate | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                <!-- --------------------- -->
+                                                <td align="right" ng-switch="x.title_name">
+                                                    <span ng-switch-when="KIP">{{ calculateTotalAmountTHB(x) }}</span>
+                                                    <span ng-switch-when="THB">{{ calculateTotalAmountTHB(x) }}</span>
+                                                    <span
+                                                        ng-switch-default>{{ x.product_sale_num * x.product_price }}</span>
                                                 </td>
+                                                <!-- --------------------- -->
+
+
+                                                <!-- <td align="right" style="width:50px;">
+                                                    {{(x.product_price - x.product_price_discount) * x.product_sale_num * x.rate | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                                </td> -->
                                             </tr>
 
                                             <!-- origin------------------------- -->
@@ -1976,31 +1981,35 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                                     </td>
                                                 </tr>
                                             </div> -->
-
-                                            <tr>
-                                                <td style="font-weight: bold; text-align: right;" colspan="11">
-                                                    <div>
-                                                        <span>ຍອດທັງໝົດ THB:</span>&nbsp;&nbsp;{{ Sumsale_price_thb() }}
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr ng-if="Sumsale_price_kip !== undefined || null || 0">
-                                                <td colspan="12" style="font-weight: bold;  text-align: right;">
-                                                    <span>ຍອດທັງໝົດ KIP:</span>&nbsp;&nbsp;{{ Totalkip() | number }}
-                                                </td>
-                                            </tr>
-
                                             <tr>
 
                                                 <td colspan="14"
                                                     style="font-weight: bold; color: blue; text-align: right; width: 100%;">
 
                                                     <span>
-                                                        ຍອດທັງໝົດ</span>&nbsp;&nbsp;{{ Sumsale_price_kip() | number }}
+                                                        ທັງໝົດ</span>&nbsp;&nbsp;{{ Sumsale_price_kip() | number }}
 
                                                 </td>
                                             </tr>
+                                            <!-- ------------ -->
+                                            <tr ng-if="Sumsale_price_kip !== undefined || null || 0">
+                                                <td colspan="12" style="font-weight: bold;  text-align: right;">
+                                                    <span>ທັງໝົດ KIP:</span>&nbsp;&nbsp;{{ Totalkip() | number }}
+                                                </td>
+                                            </tr>
+                                            <!-- ------------ -->
+
+                                            <tr>
+                                                <td style="font-weight: bold; text-align: right;" colspan="11">
+                                                    <div>
+                                                        <span>ທັງໝົດ THB:</span>&nbsp;&nbsp;{{ Sumsale_price_thb() }}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- ------------ -->
+
+
+
 
                                             <!--  -->
 
@@ -3567,14 +3576,14 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                             ລາຄາ
                                                         </th>
                                                         <th style="text-align: left;">ຈຳນວນ</th>
-                                                        <th style="text-align: left;">
+                                                        <!-- <th style="text-align: left;">
                                                             ລາຄາ THB
                                                         </th>
                                                         <th style="text-align: left;">
                                                             ລາຄາ KIP
-                                                        </th>
+                                                        </th> -->
                                                         <th style="text-align: left;">
-                                                            ລວມ
+                                                            ລວມທຽບກິບ
                                                         </th>
 
                                                         <!-- <th align="right">
@@ -3603,9 +3612,9 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                             {{ ((x.product_price - x.product_price_discount) * x.product_sale_num ) | number: <?php echo $_SESSION['decimal_print']; ?> }}
                                                         </td> -->
 
-                                                        <!-- ---------------- -->
+                                                        <!-- ------working but cut out for now---------- -->
 
-                                                        <td style="text-align: left;" align="right"
+                                                        <!-- <td style="text-align: left;" align="right"
                                                             ng-switch="x.title_name">
                                                             <span
                                                                 ng-switch-when="KIP">{{ calculateTotalAmountTHB(x) }}</span>
@@ -3613,15 +3622,15 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                                 ng-switch-when="THB">{{ calculateTotalAmountTHB(x) }}</span>
                                                             <span
                                                                 ng-switch-default>{{ x.product_sale_num * x.product_price }}</span>
-                                                        </td>
-                                                        <!-- ------------------------------------------- -->
+                                                        </td> -->
+                                                        <!-- ------working but cut out for now---------- -->
 
                                                         <!-- <td align="left">
 
                                                             {{ ((x.product_price - x.product_price_discount) * x.product_sale_num * x.rate) | number: <?php echo $_SESSION['decimal_print']; ?> }}
                                                         </td> -->
-
-                                                        <td style="text-align: left;" align="right"
+                                                        <!-- ------working but cut out for now---------- -->
+                                                        <!-- <td style="text-align: left;" align="right"
                                                             ng-switch="x.title_name">
                                                             <span
                                                                 ng-switch-when="KIP">{{ calculateTotalAmountKIP(x) }}</span>
@@ -3629,18 +3638,18 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                                 ng-switch-when="THB">{{ calculateTotalAmountKIP(x) }}</span>
                                                             <span
                                                                 ng-switch-default>{{ x.product_sale_num * x.product_price * x.rate }}</span>
-                                                        </td>
-                                                        <!-- ---------------------------------- -->
-                                                        <td style="text-align: left;" align="right"
+                                                        </td> -->
+                                                        <!-- ------working but cut out for now---------- -->
+                                                        <!-- <td style="text-align: left;" align="right"
                                                             ng-switch="x.title_name">
                                                             <span ng-switch-when="KIP">{{ calculateTotal(x) }}</span>
                                                             <span ng-switch-when="THB">{{ calculateTotal(x) }}</span>
                                                             <span
                                                                 ng-switch-default>{{ x.product_sale_num * x.product_price_kip }}</span>
-                                                        </td>
+                                                        </td> -->
 
 
-                                                        <!-- ---------------------------- -->
+                                                        <!-- ------working but cut out for now---------- -->
 
 
                                                         <td style="font-weight: bold; color: blue">
@@ -3660,16 +3669,6 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
                                                         </td>
                                                     </tr> -->
-
-                                                    <div ng-if="Sumsale_price_thb !== undefined || null || 0">
-                                                        <tr>
-                                                            <td colspan="3" style="font-weight: bold;">ລວມທັງໝົດ (THB)
-                                                            </td>
-                                                            <td style="font-weight: bold; color: blue">
-                                                                {{ Sumsale_price_thb() | number }}</td>
-                                                        </tr>
-                                                    </div>
-                                                    <!-- ---------------------- -->
                                                     <div ng-if="Sumsale_price_kip !== undefined || null || 0">
                                                         <tr>
                                                             <td colspan="4" style="font-weight: bold;">ລວມທັງໝົດ (KIP)
@@ -3678,6 +3677,17 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                                 {{ Totalkip() | number }}</td>
                                                         </tr>
                                                     </div>
+                                                    <!-- ---------------------- -->
+                                                    <div ng-if="Sumsale_price_thb !== undefined || null || 0">
+                                                        <tr>
+                                                            <td colspan="3" style="font-weight: bold;">ລວມທັງໝົດ (THB)
+                                                            </td>
+                                                            <td style="font-weight: bold; color: blue">
+                                                                {{ Sumsale_price_thb() | number }}</td>
+                                                        </tr>
+                                                    </div>
+
+
                                                     <!-- ------------------------------ -->
                                                     <div ng-if="Sumsale_price_kip !== undefined || null">
                                                         <tr>
@@ -3702,10 +3712,14 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                     </div> -->
 
 
-                                                    <!-- ----------------------- -->
+                                                    <!-- ---- rate in bill is working but cut out for now------------------- -->
 
-                                                    <?php if ($_SESSION['exchangerateonslip'] == '1'): ?>
-                                                    <table
+                                                    <?php 
+                                                    // if ($_SESSION['exchangerateonslip'] == '1'): 
+                                                    
+                                                    
+                                                    ?>
+                                                    <!-- <table
                                                         style="text-align: right; height: 10px;border-bottom: 1px solid black;width:100%;">
                                                         <tr>
                                                             <th
@@ -3725,11 +3739,17 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                                 {{x.rate | number}}</td>
                                                         </tr>
 
-                                                    </table>
-                                                    <?php endif; ?>
-
+                                                    </table> -->
+                                                    <?php 
+                                                    
+                                                // endif; 
+                                                    
+                                                    ?>
+                                                    <!-- ---- rate in bill is working but cut out for now------------------- -->
                                                     <br />
-                                                    <table>
+                                                    <!-- discount working but cout out for now -------------->
+
+                                                    <!-- <table>
                                                         <tr ng-if="discount_last2!='0.00'">
                                                             <td colspan="3">ສ່ວນຫຼຸດທ້າຍບິນ</td>
                                                             <td align="right">
@@ -3765,21 +3785,23 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
                                                             <td align="center" colspan="3">
                                                                 <div style="margin-left: 10px; margin-right: 10px;">
-                                                                    <!-- {{money_from_customer3-(money_from_customer3 -(sumsalevat-discount_last2)) | number:<?php echo $_SESSION['decimal_print']; ?>}} -->
+                                                                    
                                                                     {{money_from_customer3-money_from_customer3 | number:<?php echo $_SESSION['decimal_print']; ?>}}
                                                                 </div>
                                                             </td>
                                                         </tr>
 
-                                                    </table>
+                                                    </table> -->
+                                                    <!-- discount working but cout out for now -------------->
 
                                                 </tbody>
                                             </table>
-
+                                            <!-- calculate vat is working but cout out for now ----------------------->
                                             <?php
-                                    if($_SESSION['open_vat_on_slip']=='1'){
+                                    // if($_SESSION['open_vat_on_slip']=='1')
+                                    {
                                     ?>
-                                            <center>
+                                            <!-- <center>
                                                 ___________________________
                                             </center>
                                             <table width="100%">
@@ -3797,10 +3819,10 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                         {{sumsalevat-price_vat_all-discount_last2 | number}}</td>
                                                 </tr>
 
-                                            </table>
+                                            </table> -->
                                             <?php } ?>
 
-
+                                            <!-- calculate vat is working but cout out for now ----------------------->
 
 
 
@@ -4263,7 +4285,7 @@ if($_SESSION['open_number_for_cus']=='1'){
                                         <button type="submit" class="col-xs-12 col-sm-12 col-md-12 btn btn-success"
                                             style="font-size:40px;font-weight:bold;height: 70px;" id="savesale"
                                             ng-click="Savesale(money_from_customer,Sumsalepricevat(),discount_last )">
-                                            ຢຶນຢັນ_test(Enter)
+                                            ຢຶນຢັນ(Enter)
                                         </button>
 
                                         <div class="col-xs-12 col-sm-12 col-md-12">
