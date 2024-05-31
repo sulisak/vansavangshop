@@ -4939,13 +4939,12 @@ if($_SESSION['user_type']=='4'){
                                                     <input type="text" ng-model="searchtext"
                                                         ng-change="getlist(searchtext,'1')" class="form-control"
                                                         style="width:300px;"
-                                                        placeholder="<?=$lang_search?> Runno, <?=$lang_cusname?>">
+                                                        placeholder="ຄົ້ນຫາ Runno, <?=$lang_cusname?>">
                                                 </div>
 
                                                 <div class="form-group">
                                                     <button type="submit" ng-click="getlist(searchtext,'1')"
-                                                        class="btn btn-success" placeholder=""
-                                                        title="<?=$lang_search?>"><span
+                                                        class="btn btn-success" placeholder="" title="ຄົ້ນຫາ"><span
                                                             class="glyphicon glyphicon-search"
                                                             aria-hidden="true"></span></button>
                                                 </div>
