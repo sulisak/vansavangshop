@@ -20,14 +20,14 @@ foreach ($Getpermission_rule as $value) {
 }
 
 .table {
-    border-collapse: collapse;
+    /* border-collapse: collapse; */
     width: 100%;
     font-size: 12px;
 }
 
 .table th,
 .table td {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 8px;
     text-align: left;
 }
@@ -547,11 +547,11 @@ else {
 
 
 
-                            <div id="salebox" style="height: 350px;overflow: auto;border: 1px solid black;">
+                            <div id="salebox" style="height: 350px;overflow: auto;">
                                 <div ng-if="listsale==''" style="height:100px;text-align:center;"><br /><br />
                                     ຍັງບໍ່ມີລາຍການ</div>
                                 <table class="table table-hover">
-                                    <thead style="border: 1px solid black;font-family:Phetsarath OT;">
+                                    <thead style="font-family:Phetsarath OT;">
                                         <tr>
                                             <th style="text-align:center;font-family:Phetsarath OT;"><?=$lang_num?></th>
                                             <!-- <th style="text-align:left;"><?=$lang_productunit?></th> -->
