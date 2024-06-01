@@ -901,7 +901,9 @@ $this->db->insert('sale_list_detail', $data);
             $data2['sumsale_discount'] = $data['sumsale_discount'];
             $data2['sumsale_num '] = $data['sumsale_num'];
             $data2['sumsale_price'] = $data['sumsale_price'];
-            
+            // add new -------------------------------
+            $data2['sumsale_price_kip'] = $data['sumsale_price_kip'];
+             // add new -------------------------------
     
             // add more column ----------------------------------
             $data2['money_from_customer'] =  $data['money_from_customer'];
@@ -986,6 +988,7 @@ public function Adddetailquotation($data)
             $data['sumsale_price_kip'] = $product_price_kip * $product_sale_num;
         }
      // add new------------------------------
+     $data['sumsale_price_kip'] = $data['product_price_kip']*$data['product_sale_num']; // Assign the value to 'sumsale_price_kip'
         $data['owner_id'] = $_SESSION['owner_id'];
         $data['user_id'] = $_SESSION['user_id'];
         $data['store_id'] = $_SESSION['store_id'];
@@ -993,13 +996,15 @@ public function Adddetailquotation($data)
         $data['branch_id'] = $_SESSION['branch_id'];
     
         // Additional query to retrieve data from 'sale_list_detail' table
-        $query = $this->db->query('SELECT q.*, from_unixtime(q.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
-            wl.product_weight*q.product_sale_num as product_weight,q.sumsale_price_kip
-            FROM quotation_list_datail as q
-            LEFT JOIN wh_product_list as wl on wl.product_id=q.product_id
-            WHERE q.sale_runno="'.$data['sale_runno'].'"
-            ORDER BY q.ID ASC');
+        $query = $this->db->query('SELECT sd.*, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
+    wl.product_weight*sd.product_sale_num as product_weight,e.title_name,e.rate,sd.sumsale_price_kip
+        FROM sale_list_detail as sd
+      LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
+      LEFT JOIN exchangerate as e on e.e_id=wl.e_id
     
+        WHERE  sd.sale_runno="'.$data['sale_runno'].'"
+        ORDER BY sd.ID ASC');
+
         $data_sumsale_price_kip = $query->result_array();
     // ---------------------------------------------------------------
     unset($data['e_id']); // Remove 'e_id' field from data array
@@ -1012,15 +1017,19 @@ $this->db->insert("quotation_list_datail", $data);
 
   }
 
-
       public function Addheaderquotation($data)
         {
+// add new ---------------------------------
+
+// add new ---------------------------------
+         
 $data2['cus_name'] = $data['cus_name'];
     $data2['cus_id'] = $data['cus_id'];
     $data2['cus_address_all'] = $data['cus_address_all'];
     $data2['sumsale_discount'] = $data['sumsale_discount'];
     $data2['sumsale_num '] = $data['sumsale_num'];
     $data2['sumsale_price'] = $data['sumsale_price'];
+    $data2['sumsale_price_kip'] = $data['sumsale_price_kip'];
     $data2['money_from_customer'] =  $data['money_from_customer'];
     $data2['money_changeto_customer'] = $data['money_changeto_customer'];
     $data2['vat'] = $data['vat'];
@@ -1033,23 +1042,19 @@ $data2['cus_name'] = $data['cus_name'];
     $data2['reserv'] = $data['reserv'];
     $data2['discount_last'] = $data['discount_last'];
 
-$data2['owner_id'] = $_SESSION['owner_id'];
-$data2['user_id'] = $_SESSION['user_id'];
-$data2['store_id'] = $_SESSION['store_id'];
-$data2['shift_id'] = $_SESSION['shift_id'];
-$data2['branch_id'] = $_SESSION['branch_id'];
+    $data2['owner_id'] = $_SESSION['owner_id'];
+    $data2['user_id'] = $_SESSION['user_id'];
+    $data2['store_id'] = $_SESSION['store_id'];
+    $data2['shift_id'] = $_SESSION['shift_id'];
+    $data2['branch_id'] = $_SESSION['branch_id'];
 
-$data2['number_for_cus'] = $data['number_for_cus'];
+    $data2['number_for_cus'] = $data['number_for_cus'];
+// add new -------------------------------------------------------
 
-$this->db->insert("quotation_list_header", $data2);
+  $this->db->insert("quotation_list_header", $data2);
+
 
 $this->db->query('DELETE FROM sale_list_cus2mer WHERE user_id="'.$_SESSION['user_id'].'"');
-// add new------------------------
-$this->db->query('UPDATE quotation_list_header
-    SET sumsale_price_kip = '.$data2['sumsale_price_kip'].'
-    WHERE sale_runno="'.$data['sale_runno'].'"');
-
-// add new------------------------
 
 }
 // ----------------quotation--------------------------
@@ -1081,17 +1086,6 @@ public function Cususepoint($data)
         return true;
 
                 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 public function Addmoneychange($m,$mc,$pc)

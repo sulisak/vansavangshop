@@ -397,8 +397,8 @@ unset($data['title_name']);
 
   if($i==1){
   $this->salepage_model->Addheaderquotation($data);
-  //$price_value = $data['sumsale_price']-$data['discount_last'];
-  //$this->salepage_model->Addmoneychange($data['money_changeto_customer'],$data['money_from_customer'],$price_value);
+//   $price_value = $data['sumsale_price']-$data['discount_last'];
+//   $this->salepage_model->Addmoneychange($data['money_changeto_customer'],$data['money_from_customer'],$price_value);
   }
 
   }

@@ -7114,7 +7114,16 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         });
         return total;
     };
+    // add new ------------------
+    $scope.Sumsalepricekip = function() {
+        var total = 0;
 
+        angular.forEach($scope.listsale, function(item) {
+            total += parseFloat(item.product_price_kip * item.product_sale_num);
+        });
+        return total;
+    };
+    // add new ------------------
 
     //     $scope.Grand_totalkip = function() {
     //         var grand_totalkip = 0;
@@ -7711,6 +7720,9 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 cus_address_all: $scope.cus_address_all,
                 sumsale_discount: $scope.Sumsalediscount(),
                 sumsale_num: $scope.Sumsalenum(),
+                // add new ---------------
+                sumsale_price_kip: $scope.Sumsalepricekip(),
+                // add new ---------------
                 vat: $scope.vatnumber,
                 product_score_all: $scope.Sumproduct_score(),
                 sumsale_price: $scope.Sumsaleprice(),
@@ -7933,6 +7945,9 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 cus_address_all: $scope.cus_address_all,
                 sumsale_discount: $scope.Sumsalediscount(),
                 sumsale_num: $scope.Sumsalenum(),
+                // add new --------------------------
+                sumsale_price_kip: $scope.Sumsalepricekip(),
+                // add new --------------------------
                 vat: $scope.vatnumber,
                 product_score_all: $scope.Sumproduct_score(),
                 sumsale_price: $scope.Sumsaleprice(),
@@ -7948,11 +7963,11 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             }).success(function(data) {
                 //toastr.success('<?=$lang_success?>');
 
-                console.lo('listsale quoattt', listsale);
+                // console.lo('listsale quoattt', listsale);
 
                 $('#Opengetmoneymodal').modal('hide');
 
-                toastr.success('<?php echo $lang_sp_130;?>');
+                toastr.success('ບັນທຶກສຳເລັດ');
 
                 $scope.changemoney = $scope.money_from_customer - (
                     $scope.Sumsalepricevat() - $scope
