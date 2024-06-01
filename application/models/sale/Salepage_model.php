@@ -1920,11 +1920,15 @@ return $encode_data2;
                         product_sale_num, product_price_discount, product_price_discount_percent, product_score, 
                         adddate, owner_id, user_id, store_id, sn_code, delname, deltime, name, shift_id)
                       SELECT sc.sc_ID, sc.product_id, sc.product_name, sc.product_image, sc.product_unit_name, 
-                      sc.product_des, sc.product_code, sc.product_price, sc.product_pricebase, sc.product_stock_num, sc.product_sale_num, sc.product_price_discount, sc.product_price_discount_percent, sc.product_score, "'.time().'", "'.$_SESSION['name'].'", "'.$_SESSION['user_id'].'", "'.$_SESSION['store_id'].'", sc.sn_code, "'.$_SESSION['name'].'", "'.time().'", "'.$_SESSION['name'].'", "'.$_SESSION['shift_id'].'"
+                      sc.product_des, sc.product_code, sc.product_price, sc.product_pricebase, sc.product_stock_num, 
+                      sc.product_sale_num, sc.product_price_discount, sc.product_price_discount_percent, sc.product_score, 
+                      "'.time().'", "'.$_SESSION['name'].'", "'.$_SESSION['user_id'].'", "'.$_SESSION['store_id'].'", sc.sn_code,
+                       "'.$_SESSION['name'].'", "'.time().'", "'.$_SESSION['name'].'", "'.$_SESSION['shift_id'].'"
                       FROM sale_list_cus2mer AS sc
                       WHERE sc.product_name = "'.$data['product_name'].'" AND sc.user_id = "'.$_SESSION['user_id'].'"');
               
-                      $this->db->query('DELETE FROM sale_list_cus2mer WHERE product_name="'.$data['product_name'].'" AND user_id="'.$_SESSION['user_id'].'"');
+                      $this->db->query('DELETE FROM sale_list_cus2mer WHERE product_name="'.$data['product_name'].'" 
+                      AND user_id="'.$_SESSION['user_id'].'" and sc_ID="'.$data['sc_ID'].'"');
                   }
               
                   $query = $this->db->query('SELECT  sum(sc.product_sale_num) as product_sale_num,

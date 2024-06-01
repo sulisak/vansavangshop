@@ -783,6 +783,8 @@ else {
                             </center>
                             <!--  remove button save and show quotation as temperarity -->
                             <br />
+
+
                             <table class="table">
                                 <tbody>
 
@@ -6928,7 +6930,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
 
 
-
+    // delete  ----------------------
     $scope.Deletepush = function(x) {
 
         if (x == 'all') {
@@ -6939,8 +6941,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         }
 
         $http.post("Salepic/delshowcus", {
-            product_name: xproduct_name
-            // sc_ID: x.sc_ID
+            product_name: xproduct_name,
+            sc_ID: x.sc_ID
         }).success(function(data) {
 
             $scope.listsale = data;
@@ -6950,7 +6952,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
 
     };
-
+    // delete  ----------------------
 
 
     $scope.Selectpot = function(x) {
