@@ -357,11 +357,7 @@ $this->Line_notify($text);
 
   $numforcusplus = $numforcusnow + '1';
 
-
   //$runnolast = $this->salepage_model->Getrunnolast();
-
-
-
   $adddate = time();
   //$header_code = 'quo'.time();
   
@@ -370,10 +366,6 @@ $runnonow = $runnolast[0]['sale_runno'];
 $runnoplus = (int)$runnonow + 1;
 $header_code = str_pad($runnoplus, 5, "0", STR_PAD_LEFT);
 
-
-
-
-
   for($i=1;$i<=count($data['listsale']) ;$i++){
 
   $data['number_for_cus'] = $numforcusplus;
@@ -381,31 +373,27 @@ $header_code = str_pad($runnoplus, 5, "0", STR_PAD_LEFT);
   $data['sale_runno'] = $header_code;
   $data['adddate'] = $adddate;
 
-
-
   	if($data['listsale'][$i-1]['product_id']!='' && $data['listsale'][$i-1]['product_sale_num']!='0'){
   $data['listsale'][$i-1]['sale_runno'] = $header_code;
   $data['listsale'][$i-1]['adddate'] = $adddate;
 
 $data['listsale'][$i-1]['ID'] = null;
+unset($data['title_name']);
 
   if($this->salepage_model->Adddetailquotation($data['listsale'][$i-1])){
-  	//$this->salepage_model->Updateproductdeletestock($data['listsale'][$i-1]);
+    
+  	// $this->salepage_model->Updateproductdeletestock($data['listsale'][$i-1]);
 
 
-    //$getrelationlist = $this->salepage_model->Getrelationlist($data['listsale'][$i-1]['product_id']);
+    // $getrelationlist = $this->salepage_model->Getrelationlist($data['listsale'][$i-1]['product_id']);
 
-    //print_r($getrelationlist);
-    //foreach ($getrelationlist as $key => $value) {
-    //$this->salepage_model->Updateproductdeletestock_relation($value['product_id_relation'],($value['product_num_relation']*$data['listsale'][$i-1]['product_sale_num']));
+    // print_r($getrelationlist);
+    // foreach ($getrelationlist as $key => $value) {
+    // $this->salepage_model->Updateproductdeletestock_relation($value['product_id_relation'],($value['product_num_relation']*$data['listsale'][$i-1]['product_sale_num']));
 
-    //}
+    // }
 
   }
-
-
-
-
 
   if($i==1){
   $this->salepage_model->Addheaderquotation($data);
@@ -417,13 +405,6 @@ $data['listsale'][$i-1]['ID'] = null;
 
   }
 
+}
 
-
-  	}
-
-
-
-
-
-
-	}
+}

@@ -973,46 +973,38 @@ $this->db->query('UPDATE sale_list_header
 
 }
 
-public function Getproductformat($data)
-        {
-
-$query = $this->db->query('SELECT product_id_relation,product_num_relation FROM wh_product_relation_list
-    WHERE product_id="'.$data['product_id'].'"');
-return $query->result_array();
-
-        }
-public function Productmaterialaddstock($product_id,$num)
-                {
-
-        $query = $this->db->query('UPDATE stock
-            SET product_stock_num=product_stock_num + '.$num.'
-            WHERE product_id="'.$product_id.'" AND branch_id="'.$_SESSION['branch_id'].'"');
-        return true;
-
-                }
-
-public function Cususepoint($data)
-                {
-
-        $query = $this->db->query('UPDATE customer_owner
-            SET product_score_all=product_score_all - '.$data['customer_usepoint'].'
-            WHERE cus_id="'.$data['cus_id'].'"');
-        return true;
-
-                }
-
-
-
-
+// ----------------quotation--------------------------
 public function Adddetailquotation($data)
         {
 
-$data['owner_id'] = $_SESSION['owner_id'];
-$data['user_id'] = $_SESSION['user_id'];
-$data['store_id'] = $_SESSION['store_id'];
-$data['shift_id'] = $_SESSION['shift_id'];
-$data['branch_id'] = $_SESSION['branch_id'];
-
+          // add new------------------------------
+          if (isset($data['product_price_kip'], $data['product_sale_num'])) {
+            $product_price_kip = $data['product_price_kip'];
+            $product_sale_num = $data['product_sale_num'];
+            echo "product_price_kip: $product_price_kip<br>";
+            echo "product_sale_num: $product_sale_num<br>";
+            $data['sumsale_price_kip'] = $product_price_kip * $product_sale_num;
+        }
+     // add new------------------------------
+        $data['owner_id'] = $_SESSION['owner_id'];
+        $data['user_id'] = $_SESSION['user_id'];
+        $data['store_id'] = $_SESSION['store_id'];
+        $data['shift_id'] = $_SESSION['shift_id'];
+        $data['branch_id'] = $_SESSION['branch_id'];
+    
+        // Additional query to retrieve data from 'sale_list_detail' table
+        $query = $this->db->query('SELECT q.*, from_unixtime(q.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
+            wl.product_weight*q.product_sale_num as product_weight,q.sumsale_price_kip
+            FROM quotation_list_datail as q
+            LEFT JOIN wh_product_list as wl on wl.product_id=q.product_id
+            WHERE q.sale_runno="'.$data['sale_runno'].'"
+            ORDER BY q.ID ASC');
+    
+        $data_sumsale_price_kip = $query->result_array();
+    // ---------------------------------------------------------------
+    unset($data['e_id']); // Remove 'e_id' field from data array
+    unset($data['title_name']); // Remove 'e_id' field from data array
+    unset($data['rate']); // Remove 'e_id' field from data array
 $this->db->insert("quotation_list_datail", $data);
 
   $query = $this->db->query('DELETE FROM sale_list_cus2mer  WHERE sc_ID="'.$data['sc_ID'].'"'); //delete all from showcus2mer
@@ -1052,10 +1044,48 @@ $data2['number_for_cus'] = $data['number_for_cus'];
 $this->db->insert("quotation_list_header", $data2);
 
 $this->db->query('DELETE FROM sale_list_cus2mer WHERE user_id="'.$_SESSION['user_id'].'"');
+// add new------------------------
+$this->db->query('UPDATE quotation_list_header
+    SET sumsale_price_kip = '.$data2['sumsale_price_kip'].'
+    WHERE sale_runno="'.$data['sale_runno'].'"');
 
-
+// add new------------------------
 
 }
+// ----------------quotation--------------------------
+
+public function Getproductformat($data)
+        {
+
+$query = $this->db->query('SELECT product_id_relation,product_num_relation FROM wh_product_relation_list
+    WHERE product_id="'.$data['product_id'].'"');
+return $query->result_array();
+
+        }
+public function Productmaterialaddstock($product_id,$num)
+                {
+
+        $query = $this->db->query('UPDATE stock
+            SET product_stock_num=product_stock_num + '.$num.'
+            WHERE product_id="'.$product_id.'" AND branch_id="'.$_SESSION['branch_id'].'"');
+        return true;
+
+                }
+
+public function Cususepoint($data)
+                {
+
+        $query = $this->db->query('UPDATE customer_owner
+            SET product_score_all=product_score_all - '.$data['customer_usepoint'].'
+            WHERE cus_id="'.$data['cus_id'].'"');
+        return true;
+
+                }
+
+
+
+
+
 
 
 

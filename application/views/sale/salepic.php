@@ -738,28 +738,28 @@ else {
                             <br />
 
                             <!--  remove button save and show quotation as temperarity -->
-                            <!-- <center> -->
+                            <center>
 
 
-                            <!-- <div> -->
-                            <!-- <button style="font-color:blue" ng-if="listsale != ''" id="savequotation"
+                                <div>
+                                    <button style="font-color:blue" ng-if="listsale != ''" id="savequotation"
                                         class="btn btn-warning btn-sm" ng-click="Savequotation()">
                                         <?php 
-                                        // echo $lang_sp_14;
+                                        echo $lang_sp_14;
                                         
                                         ?>
-                                    </button> -->
-                            <!-- <button ng-if="listsale == ''" ng-click="Showquotationlist()"
+                                    </button>
+                                    <button ng-if="listsale == ''" ng-click="Showquotationlist()"
                                         class="btn btn-warning btn-sm">
                                         <?php 
-                                        // echo $lang_sp_15;
+                                     echo $lang_sp_15;
                                         ?>
-                                    </button> -->
+                                    </button>
 
-                            <!-- <span style="float:right;" ng-if="listsale!=''">
+                                    <span style="float:right;" ng-if="listsale!=''">
 
                                         <?php 
-                                        // if(!isset($arr) || $arr[32]->status==true)
+                                      if(!isset($arr) || $arr[32]->status==true)
                                         
                                         {?>
                                         <button class="btn btn-danger btn-xs" ng-click="Deletepush('all')">
@@ -768,7 +768,7 @@ else {
 
                                         <?php
                                         
-                                        // if(isset($arr) && $arr[32]->status==false)
+                                        if(isset($arr) && $arr[32]->status==false)
                                         
                                         {?>
                                         <button class="btn btn-danger btn-xs" ng-click="Deletepush_pass('all')">
@@ -776,11 +776,11 @@ else {
                                         </button>
                                         <?php } ?>
 
-                                        <span> -->
+                                        <span>
 
-                            <!-- </div> -->
+                                </div>
 
-                            <!-- </center> -->
+                            </center>
                             <!--  remove button save and show quotation as temperarity -->
                             <br />
                             <table class="table">
@@ -1059,7 +1059,7 @@ else {
 
 
 
-                                            <input ng-model="search_quotationlist" type="text" placeholder="ค้นหา..."
+                                            <input ng-model="search_quotationlist" type="text" placeholder="ຄົ້ນຫາ..."
                                                 class="form-control" style="width:200px;">
                                             <table class="table table-hover table-bordered">
                                                 <thead>
@@ -7706,9 +7706,6 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             // ================
             $http.post("Salepage/Savesale", {
                 listsale: $scope.listsale,
-                // sumsale_price_kip: $scope.product_price_kip * $scope.product_sale_num,
-                // sumsale_price_kip: $scope.Totalsumsale_price_to_kip(), // assign the value here
-
                 cus_name: $scope.customer_name,
                 cus_id: $scope.customer_id,
                 cus_address_all: $scope.cus_address_all,
@@ -7717,10 +7714,6 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 vat: $scope.vatnumber,
                 product_score_all: $scope.Sumproduct_score(),
                 sumsale_price: $scope.Sumsaleprice(),
-                // rate: $scope.rate,
-                // add new -------------------------------
-
-                // add new -------------------------------
                 money_from_customer: $scope.money_from_customer,
                 money_changeto_customer: $scope
                     .money_from_customer - ($scope
@@ -7954,6 +7947,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 shift_id: '<?php if(isset($_SESSION['shift_id'])){ echo $_SESSION['shift_id']; }?>'
             }).success(function(data) {
                 //toastr.success('<?=$lang_success?>');
+
+                console.lo('listsale quoattt', listsale);
 
                 $('#Opengetmoneymodal').modal('hide');
 
