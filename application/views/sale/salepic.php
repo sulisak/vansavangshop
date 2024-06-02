@@ -641,9 +641,17 @@ else {
                                             <!-- ທຽບ thb -->
                                             <?php {?>
 
-                                            <td align="left">
+                                            <!-- <td align="left">
                                                 {{x.product_price * x.product_sale_num}}
+                                            </td> -->
+                                            <td align="right" ng-switch="x.title_name">
+                                                <span ng-switch-when="KIP">{{ calculateTotalAmountTHB(x) }}</span>
+                                                <span ng-switch-when="THB">{{ calculateTotalAmountTHB(x) }}</span>
+                                                <span
+                                                    ng-switch-default>{{ x.product_sale_num * x.product_price }}</span>
                                             </td>
+
+
                                             <?php } ?>
                                             <!-- ທຽບ thb -->
 
@@ -651,8 +659,15 @@ else {
 
                                             <?php {?>
 
-                                            <td align="left">
+                                            <!-- <td align="left">
                                                 {{x.rate * x.product_price * x.product_sale_num}}
+                                            </td> -->
+
+                                            <td align="right" ng-switch="x.title_name">
+                                                <span ng-switch-when="KIP">{{ calculateTotalAmountKIP(x) }}</span>
+                                                <span ng-switch-when="THB">{{ calculateTotalAmountKIP(x) }}</span>
+                                                <span
+                                                    ng-switch-default>{{ x.product_sale_num * x.product_price * x.rate }}</span>
                                             </td>
                                             <?php } ?>
                                             <!-- ທຽບ kip  -->
@@ -690,8 +705,9 @@ else {
 
                                             <!-- <td style="font-weight: bold;">{{Sumsalenum() | number }}</td> -->
                                             <td colspan="5" align="right" style="font-family:Phetsarath OT;">
-                                                ລວມທັງໝົດກິບ:</td>
-                                            <td colspan="2" align="left" style="font-weight: bold;color:blue">
+                                                ລວມທັງໝົດ:</td>
+                                            <td colspan="3" align="left" style="font-weight: bold;color:blue">
+                                                <!-- {{Totalconvert_to_kip() | number }} -->
                                                 {{Totalconvert_to_kip() | number }}
                                             </td>
 
@@ -702,7 +718,17 @@ else {
                                             <td colspan="5" align="right" style="font-family:Phetsarath OT;">ລວມບາດ:
                                             </td>
                                             <td colspan="2" align="left" style="font-weight: bold;color:red">
+                                                <!-- {{Sumsalethb() | number }} -->
                                                 {{Sumsalethb() | number }}
+                                            </td>
+
+                                        </tr>
+                                        <tr style="font-size:20px;">
+
+                                            <td colspan="5" align="right" style="font-family:Phetsarath OT;">ລວມກີບ:
+                                            </td>
+                                            <td colspan="2" align="left" style="font-weight: bold;color:blue">
+                                                {{Sumsalekip() | number }}
                                             </td>
 
                                         </tr>
@@ -964,7 +990,7 @@ else {
                             </div>
 
 
-
+                            <!-- quotation view modal ------------------------------------------------------>
 
                             <div class="modal fade" id="Showquotationlistmodal">
                                 <div class="modal-dialog modal-lg">
@@ -1005,7 +1031,7 @@ else {
                                                         ?>
 
 
-                                                        <th><?=$lang_discountlast?></th>
+                                                        <!-- <th><?=$lang_discountlast?>diii</th> -->
                                                         <th><?=$lang_sumall?></th>
 
                                                         <th><?=$lang_day?></th>
@@ -1060,8 +1086,8 @@ else {
                                                             {{ParsefloatFunc(x.sumsale_price)  * (ParsefloatFunc(x.vat)/100) + ParsefloatFunc(x.sumsale_price) | number}}
                                                         </td>
                                                         <?php
-				}
-				?>
+                                                        }
+                                                        ?>
 
 
 
@@ -1094,7 +1120,7 @@ else {
                                 </div>
                             </div>
 
-
+                            <!-- end quotation view modal ------------------------------------------------------>
 
 
 
@@ -1216,7 +1242,9 @@ else {
                                                                 <?=$lang_saleprice?></th>
 
                                                             <th width="100px;" style="text-align: center;width: 100px;">
-                                                                <?=$lang_discountperunit?></th>
+                                                                <?=$lang_discountperunit?>
+
+                                                            </th>
                                                             <th style="text-align: center;width: 80px;"><?=$lang_qty?>
                                                             </th>
                                                             <th style="text-align: center;width: 80px;">
@@ -2278,8 +2306,8 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                     <tr>
 
                                         <?php
-if($_SESSION['logoonslip']=='0'){
-?>
+                                        if($_SESSION['logoonslip']=='0'){
+                                        ?>
                                         <td width="150px">
                                             <img src="<?=$base_url?>/<?=$_SESSION['owner_logo']?>" width="100px">
                                             <!-- <br />
@@ -2310,20 +2338,23 @@ if($_SESSION['logoonslip']=='0'){
                                         </td>
                                     </tr>
                                 </table>
-
+                                <!-- quotation -->
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr class="trheader" style="font-size:12px;">
                                             <th style="width:10px;"></th>
 
                                             <th><?=$lang_productname?></th>
-                                            <th style="width:300px;"><?=$lang_detail?></th>
-
-                                            <th><?=$lang_saleprice?></th>
-                                            <th><?=$lang_discountperunit?></th>
                                             <th><?=$lang_qty?></th>
-                                            <th><?=$lang_unit?></th>
-                                            <th><?=$lang_priceall?></th>
+                                            <th><?=$lang_saleprice?></th>
+                                            <th colspan="2" style="text-align:center">ຈຳນວນ</th>
+                                            <th colspan="10" style="text-align:center">ທຽບກີບ</th>
+
+                                            <!-- <th><?=$lang_priceall?></th> -->
+                                        </tr>
+                                        <tr>
+                                            <th colspan="5" style="text-align:right"> ກີບ</th>
+                                            <th colspan="1" style="text-align:left">ບາດ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -2333,36 +2364,93 @@ if($_SESSION['logoonslip']=='0'){
                                             <td style="width:400px;">
                                                 {{x.product_name}}({{x.product_code}})
                                             </td>
-                                            <td style="width:300px;">{{x.product_des}}</td>
-
-                                            <td align="right" style="width:50px;">
-                                                {{x.product_price | number:<?php echo $_SESSION['decimal_print'];?>}}
-                                            </td>
-                                            <!-- <td align="right" style="width:50px;">{{x.product_price_discount | number:<?php echo $_SESSION['decimal_print'];?>}}</td> -->
-                                            <td align="right" style="width:50px;">
-                                                {{x.product_price_discount | number}}
-                                            </td>
                                             <td align="right" style="width:5px;">{{x.product_sale_num | number}}
                                             </td>
-                                            <td align="right">{{x.product_unit_name}}</td>
+                                            <!-- <td style="width:300px;">{{x.product_des}}</td> -->
+
+                                            <td align="right" style="width:50px;">
+                                                {{x.product_price | number:<?php echo $_SESSION['decimal_print']; ?>}}
+                                            </td>
+                                            <!-- <td align="right" style="width:50px;">{{x.product_price_discount | number:<?php echo $_SESSION['decimal_print'];?>}}</td> -->
+                                            <!-- <td align="right" style="width:50px;">
+                                                {{x.product_price_discount | number}}
+                                            </td> -->
+                                            <!-- quocalculateTotalAmountKIP -->
+                                            <td align="right" ng-switch="x.title_name">
+                                                <span ng-switch-when="KIP">{{ calculateTotalAmountKIP(x) }}</span>
+                                                <span ng-switch-when="THB">{{ calculateTotalAmountKIP(x) }}</span>
+                                                <span
+                                                    ng-switch-default>{{ x.product_sale_num * x.product_price * x.rate }}</span>
+                                            </td>
+
+                                            <td align="right" ng-switch="x.title_name">
+                                                <span ng-switch-when="KIP">{{ calculateTotalAmountTHB(x) }}</span>
+                                                <span ng-switch-when="THB">{{ calculateTotalAmountTHB(x) }}</span>
+                                                <span
+                                                    ng-switch-default>{{ x.product_sale_num * x.product_price }}</span>
+                                            </td>
+
+                                            <!-- <td align="right">{{x.product_unit_name}}</td> -->
 
                                             <!-- <td align="right" style="width:50px;">{{(x.product_price - x.product_price_discount) * x.product_sale_num | number:<?php echo $_SESSION['decimal_print'];?>}}</td> -->
 
-                                            <td align="right" style="width:50px;">
-                                                {{(x.product_price - x.product_price_discount) * x.product_sale_num | number:_WWWWW}}
+                                            <td style="width:50px;text-align:center" colspan="9">
+                                                {{(x.product_price - x.product_price_discount) * x.product_sale_num * x.rate | number:<?php echo $_SESSION['decimal_print']; ?>}}
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <!-- <tr>
                                             <td colspan="6" align="right" style="font-weight: bold;">
                                                 <?=$lang_all?></td>
 
                                             <td align="right" style="font-weight: bold;">{{sumsale_num | number}}
                                             </td>
 
-                                            <!-- <td align="right" style="font-weight: bold;"><u>{{sumsale_price | number:<?php echo $_SESSION['decimal_print'];?>}}</u></td> -->
+                                        
                                             <td align="right" style="font-weight: bold;">
                                                 <u>{{sumsale_price | number}}</u>
                                             </td>
+                                        </tr> -->
+                                        <tr>
+
+                                            <div style="width:30px;text-align:center">
+                                                <td colspan="3" style="font-weight: bold; text-align: right;">
+                                                    {{ Sumqty_salelist() | number }}
+                                                </td>
+                                            </div>
+
+
+                                            <div style="text-align:left"
+                                                ng-if="Sumsale_price_kip !== undefined || null || 0">
+                                                <td colspan="2" style="font-weight: bold;  text-align: right;">
+                                                    {{ Totalkip() | number }}
+                                                </td>
+                                            </div>
+
+                                            <!-- ---------------- -->
+
+
+                                            <td style="font-weight: bold; text-align: left;" colspan="4">
+                                                <div>
+                                                    {{ Sumsale_price_thb() }}
+                                                </div>
+                                            </td>
+
+                                            <td style="font-weight: bold; text-align: center;" colspan="5">
+                                                <div>
+                                                    {{ Sumsale_price_kip() | number }}
+                                                </div>
+                                            </td>
+
+
+                                            <!-- 
+					<div style="text-align:center;font-weight: bold; color: blue;width: 100%;"
+						colspan="7">
+						<td colspan="5" style="font-weight: bold;  text-align: right;">
+
+							{{ Sumsale_price_kip() | number }}
+
+						</td>
+					</div> -->
                                         </tr>
 
 
@@ -2384,8 +2472,8 @@ if($_SESSION['logoonslip']=='0'){
 
 
                                         <?php
-if($_SESSION['owner_vat_status']=='1'){
-?>
+                                        if($_SESSION['owner_vat_status']=='1'){
+                                        ?>
                                         <tr ng-if="vat3=='0'">
                                             <td align="right" colspan="7"><?=$lang_vat?>
                                                 {{<?=$_SESSION['owner_vat']?>}}%</td>
@@ -2435,14 +2523,14 @@ if($_SESSION['owner_vat_status']=='1'){
 
 
                                         <?php
-}
-?>
+                                        }
+                                        ?>
 
 
 
                                         <?php
-if($_SESSION['owner_vat_status']=='2'){
-?>
+                                            if($_SESSION['owner_vat_status']=='2'){
+                                            ?>
                                         <tr ng-if="vat3!='0'">
                                             <td align="right" colspan="7"><?=$lang_vat?> {{vat3}}%</td>
                                             <td style="font-weight: bold;" align="right">
@@ -6297,7 +6385,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         $scope.customer_score = false;
         $scope.cus_address_all = '';
         $scope.customer_group_discountpercent = false;
-        //$scope.listsale = [];
+        $scope.listsale = [];
         //$scope.money_from_customer = '';
 
         $('#customer_name').prop('disabled', false);
@@ -6657,6 +6745,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                             //     .product_code);
 
                             $scope.listsale = data;
+                            console.log('$scope.listsale....', $scope.listsale);
 
                             $scope.Getnumtoprice($scope
                                 .getnumtoprice_product_code
@@ -6852,9 +6941,21 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
         if (x == 'all') {
             xproduct_name = '';
+            // addd new 
+            // $scope.Sumsale_price_kip = 0;
+            // $scope.Totalkip = 0;
+            // $scope.Sumsale_price_thb = 0;
+            // $scope.calculateTotalAmountTHB();
+            // $scope.calculateTotalAmountKIP();
+            // $scope.calculateTotal();
+
         } else {
             xproduct_name = x.product_name;
             $scope.Getnumtoprice_3(x.product_code);
+
+            // Call other functions
+            // Recalculate the totals
+            // recalculateTotals();
         }
 
         $http.post("Salepic/delshowcus", {
@@ -6864,12 +6965,21 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
             $scope.listsale = data;
 
-            console.log('i m deleting...', $scope.listsale);
-        });
+            console.log('i m deleting 1 item...', $scope.listsale);
 
+
+        });
 
     };
     // delete  ----------------------
+    // function recalculateTotals() {
+    //     $scope.Sumsale_price_kip();
+    //     $scope.Totalkip();
+    //     $scope.Sumsale_price_thb();
+    //     $scope.calculateTotalAmountTHB();
+    //     $scope.calculateTotalAmountKIP();
+    //     $scope.calculateTotal();
+    // }
 
 
     $scope.Selectpot = function(x) {
@@ -7124,6 +7234,21 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         // console.log('total thb...', totalthb);
 
         return totalthb;
+    };
+    $scope.Sumsalekip = function(x) {
+        var totalkip = 0;
+
+        angular.forEach($scope.listsale, function(item) {
+            if (item.title_name === "KIP") {
+                totalkip += parseFloat(item.product_price * item.product_sale_num * item
+                    .rate);
+                // alert(item.title_name); // Display the title_name of each item with title_name equal to "THB"
+            }
+        });
+
+        // console.log('total thb...', totalthb);
+
+        return totalkip;
     };
     // add new ===========
     $scope.Totalconvert_to_kip = function() {
@@ -8549,7 +8674,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         return total;
 
     };
-    // -----------------------------------------------------------
+    // ----------------- scope.listone when sale_list_detail was save ------------------------------------------
     $scope.Totalkip = function() {
         var total = 0;
         angular.forEach($scope.listone, function(item) {
@@ -8617,7 +8742,24 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     };
     // ------ for calculate amount in thb working --------------------
 
+    // start calculate in sale_list_cus2mer $scope.listsale---------------------------------------------------
+    $scope.Sum_product_price_thb_Saveshowcus = function() {
+        var total = 0;
+        angular.forEach($scope.listsale, function(item) {
+            total = parseFloat(item.sum_product_price_thb);
+        });
+        return total;
+    };
 
+    $scope.Totalkip_Saveshowcus = function() {
+        var total = 0;
+        angular.forEach($scope.listsale, function(item) {
+            total = parseFloat(item.totalkip);
+        });
+        return total;
+
+    };
+    // start calculate in sale_list_cus2mer ---------------------------------------------------
 
 
 
@@ -8635,6 +8777,8 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         return total;
 
     };
+
+
 
     // add new ---------------
 

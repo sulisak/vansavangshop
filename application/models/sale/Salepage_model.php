@@ -1441,12 +1441,84 @@ $querystock = $this->db->query('SELECT IFNULL((SELECT product_stock_num FROM sto
 WHERE product_id="'.$data['product_id'].'" LIMIT 1),"0") as product_stock_num');
 
 // update ==============================================================================================
-$querysalelistcus = $this->db->query('SELECT sc.sc_ID, sc.product_id, sc.product_name, sc.product_image, 
-sc.product_unit_name, sc.product_des, sc.product_code, sc.product_price,sc.product_price_kip, sc.product_pricebase, 
-sc.product_stock_num, sc.product_sale_num, sc.product_price_discount, sc.product_price_discount_percent, sc.product_score,
- sc.adddate, sc.owner_id, sc.user_id, sc.store_id, sc.sn_code, sc.product_sale_num, e.title_name, e.rate
+// $querysalelistcus = $this->db->query('SELECT sc.sc_ID, 
+// sc.product_id, 
+// sc.product_name,
+// sc.product_image, 
+// sc.product_unit_name, 
+// sc.product_des,
+// sc.product_code, 
+// sc.product_price,
+// sc.product_price_kip,
+// sc.product_pricebase, 
+// sc.product_stock_num, 
+// sc.product_sale_num, 
+// sc.product_price_discount,
+// sc.product_price_discount_percent, 
+// sc.product_score,
+// sc.adddate,
+// sc.owner_id, 
+// sc.user_id, 
+// sc.store_id, 
+// sc.sn_code, 
+// sc.product_sale_num,
+// e.title_name, 
+// e.rate
+// ,sum(sc.product_sale_num) 
+// as product_sale_num
+// FROM sale_list_cus2mer AS sc
+// LEFT JOIN wh_product_list as wh on wh.product_code=sc.product_code
+// LEFT JOIN exchangerate as e on e.e_id=wh.e_id
+// WHERE sc.product_code="'.$data['product_code'].'"');
+
+// test more update for sumsale_price_kip, sum sale price thb------------------------------
+$querysalelistcus = $this->db->query('SELECT sc.sc_ID, 
+sc.product_id, 
+sc.product_name,
+sc.product_image, 
+sc.product_unit_name, 
+sc.product_des,
+sc.product_code, 
+sc.product_price,
+sc.product_price_kip,
+sc.product_pricebase, 
+sc.product_stock_num, 
+sc.product_sale_num, 
+sc.product_price_discount,
+sc.product_price_discount_percent, 
+sc.product_score,
+sc.adddate,
+sc.owner_id, 
+sc.user_id, 
+sc.store_id, 
+sc.sn_code, 
+sc.product_sale_num,
+e.title_name, 
+e.rate
 ,sum(sc.product_sale_num) 
-as product_sale_num
+as product_sale_num,
+(
+    SELECT SUM(DISTINCT sc2.product_price * sc2.product_sale_num)
+    FROM sale_list_cus2mer AS sc2
+    JOIN wh_product_list AS wh2 ON sc2.product_id = wh2.product_id
+    JOIN exchangerate AS e2 ON e2.e_id = wh2.e_id
+    WHERE wh2.e_id = 2 AND  sc2.product_code="'.$data['product_code'].'"
+) AS sum_product_price_thb,
+(
+  SELECT SUM(DISTINCT sc3.product_price_kip * sc3.product_sale_num)
+  FROM sale_list_cus2mer AS sc3
+  JOIN wh_product_list AS wh3 ON sc3.product_id = wh3.product_id
+  JOIN exchangerate AS e3 ON e3.e_id = wh3.e_id
+  WHERE wh3.e_id = 1 AND  sc3.product_code="'.$data['product_code'].'"
+) AS totalkip,
+(
+  SELECT SUM(sc4.product_sale_num)
+  FROM sale_list_cus2mer AS sc4
+  JOIN wh_product_list AS wh4 ON sc4.product_id = wh4.product_id
+  JOIN exchangerate AS e4 ON e4.e_id = wh4.e_id
+  WHERE sc4.product_code="'.$data['product_code'].'"
+) AS sumqty
+
 FROM sale_list_cus2mer AS sc
 LEFT JOIN wh_product_list as wh on wh.product_code=sc.product_code
 LEFT JOIN exchangerate as e on e.e_id=wh.e_id
@@ -2055,12 +2127,7 @@ e.rate
             $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
             return $encode_data;
 
-
-
-            }
-
-
-
+}
 
 
             public function Showlistorder($data)
