@@ -234,29 +234,29 @@ return $encode_data;
         }
         // "'.$data['sale_runno'].'"
 // ----------- add for SumsalePriceKIP ------------------
-public function GetSumSumsalePriceKip($data)
-{
-    $query = $this->db->query('SELECT sum(sumsale_price_kip) AS sumsale_price_kip
-    FROM sale_list_detail 
-    WHERE sd.sale_runno ="'.$data['sale_runno'].'"');
+// public function GetSumSumsalePriceKip($data)
+// {
+//     $query = $this->db->query('SELECT sum(sumsale_price_kip) AS sumsale_price_kip
+//     FROM sale_list_detail 
+//     WHERE sd.sale_runno ="'.$data['sale_runno'].'"');
 
-$encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
-return $encode_data;
-}
+// $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
+// return $encode_data;
+// }
 
 // add for sumsaleprice_thb -------------
-public function GetSumSumsalePricethb($data)
-{
-    $query = $this->db->query('SELECT sum(sd.product_price*sd.product_sale_num)
-     AS sum_product_price_thb
-    FROM sale_list_detail as sd
-	join wh_product_list as wh on sd.product_id=wh.product_id
-    join exchangerate as e on e.e_id=wh.e_id
-    WHERE wh.e_id=2 AND sd.sale_runno ="'.$data['sale_runno'].'"');
+// public function GetSumSumsalePricethb($data)
+// {
+//     $query = $this->db->query('SELECT sum(sd.product_price*sd.product_sale_num)
+//      AS sum_product_price_thb
+//     FROM sale_list_detail as sd
+// 	join wh_product_list as wh on sd.product_id=wh.product_id
+//     join exchangerate as e on e.e_id=wh.e_id
+//     WHERE wh.e_id=2 AND sd.sale_runno ="'.$data['sale_runno'].'"');
 
-$encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
-return $encode_data;
-}
+// $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
+// return $encode_data;
+// }
 // ------------------------------
 public function Countitems_salelist($data)
 {
@@ -347,20 +347,74 @@ where owner_id = "'.$_SESSION['owner_id'].'" AND sale_runno="'.$data['sale_runno
     ');
 }
 
+// origin -------------------------------------------------------------
 
+//         $query = $this->db->query('SELECT sd.*, 
+// from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
+// IFNULL(wu.product_unit_name,"") as product_unit_name,
+// wl.product_weight*sd.product_sale_num as product_weight
+//             FROM quotation_list_datail as sd
+// LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
+// LEFT JOIN wh_product_unit as wu on wu.product_unit_id=wl.product_unit_id
 
-        $query = $this->db->query('SELECT sd.*, 
-from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
-IFNULL(wu.product_unit_name,"") as product_unit_name,
-wl.product_weight*sd.product_sale_num as product_weight
-            FROM quotation_list_datail as sd
-LEFT JOIN wh_product_list as wl on wl.product_id=sd.product_id
-LEFT JOIN wh_product_unit as wu on wu.product_unit_id=wl.product_unit_id
+//             WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.sale_runno="'.$data['sale_runno'].'"
+//             ORDER BY sd.ID ASC');
+//         $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
+// origin -------------------------------------------------------------
 
-            WHERE sd.owner_id="'.$_SESSION['owner_id'].'" AND sd.sale_runno="'.$data['sale_runno'].'"
-            ORDER BY sd.ID ASC');
+// update ---------------------------------------
+        $query = $this->db->query('SELECT
+        q.*,
+        FROM_UNIXTIME(q.adddate, "%d-%m-%Y %H:%i:%s") AS adddate,
+        wl.product_weight * q.product_sale_num AS product_weight,
+        e.title_name,
+        e.rate,
+        (q.product_price*q.product_sale_num) as convertthb,
+        (q.product_price_kip*q.product_sale_num) as convertkip,
+        (
+            SELECT SUM(DISTINCT q2.product_price * q2.product_sale_num)
+            FROM quotation_list_datail AS q2
+            JOIN wh_product_list AS wh2 ON q2.product_id = wh2.product_id
+            JOIN exchangerate AS e2 ON e2.e_id = wh2.e_id
+            WHERE wh2.e_id = 2 AND q2.sale_runno = "'.$data['sale_runno'].'"
+        ) AS sum_product_price_thb,
+        (
+            SELECT SUM(DISTINCT q3.product_price_kip * q3.product_sale_num)
+            FROM quotation_list_datail AS q3
+            JOIN wh_product_list AS wh3 ON q3.product_id = wh3.product_id
+            JOIN exchangerate AS e3 ON e3.e_id = wh3.e_id
+            WHERE wh3.e_id = 1 AND q3.sale_runno ="'.$data['sale_runno'].'"
+        ) AS totalkip,
+        (
+            SELECT SUM(q4.product_sale_num)
+            FROM quotation_list_datail AS q4
+            JOIN wh_product_list AS wh4 ON q4.product_id = wh4.product_id
+            JOIN exchangerate AS e4 ON e4.e_id = wh4.e_id
+            WHERE q4.sale_runno ="'.$data['sale_runno'].'"
+        ) AS sumqty,
+        count_table.count_sd_ID
+        FROM
+        quotation_list_datail AS q
+        LEFT JOIN wh_product_list AS wl ON wl.product_id = q.product_id
+        LEFT JOIN exchangerate AS e ON e.e_id = wl.e_id
+        JOIN
+        (
+            SELECT
+                q.ID,
+                COUNT(q.ID) AS count_sd_ID
+            FROM
+                quotation_list_datail AS q
+            WHERE
+                q.sale_runno ="'.$data['sale_runno'].'" AND q.owner_id =  "'.$_SESSION['owner_id'].'"
+            GROUP BY
+                q.ID
+        ) AS count_table ON q.ID = count_table.ID
+        WHERE
+        q.sale_runno ="'.$data['sale_runno'].'" AND q.owner_id =  "'.$_SESSION['owner_id'].'"
+        ORDER BY
+        q.ID ASC');
         $encode_data = json_encode($query->result(),JSON_UNESCAPED_UNICODE );
-
+// update ---------------------------------------
 
 
       if(!isset($data['show'])){

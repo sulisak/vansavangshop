@@ -545,7 +545,7 @@ else {
 
                             </center>
 
-
+                            <br />
 
                             <div id="salebox" style="height: 350px;overflow: auto;">
                                 <div ng-if="listsale==''" style="height:100px;text-align:center;"><br /><br />
@@ -778,7 +778,7 @@ else {
                                     <button ng-if="listsale == ''" ng-click="Showquotationlist()"
                                         class="btn btn-warning btn-sm">
                                         <?php 
-                                     echo $lang_sp_15;
+                                      echo $lang_sp_15;
                                         ?>
                                     </button>
 
@@ -807,36 +807,40 @@ else {
                                 </div>
 
                             </center>
-                            <!--  remove button save and show quotation as temperarity -->
+                            <!-- remove button save and show quotation as temperarity -->
                             <br />
 
                             <table class="table">
 
                                 <tbody>
-
-                                    <?php if(!isset($arr) || $arr[26]->status==true){?>
-                                    <tr>
-                                        <td>
+                                    <!-- remove saledate first -->
+                                    <?php
+                                    //  if(!isset($arr) || $arr[26]->status==true)
+                                     
+                                     {?>
+                                    <!-- <tr> -->
+                                    <!-- <td>
                                             <input type="text" id="saledate" ng-model="saledate" class="form-control"
-                                                placeholder="<?php echo $lang_sp_17;?>" autocomplete="off">
+                                                placeholder="ວັນທີຂາຍ" 
+                                                autocomplete="off">
                                         </td>
-                                    </tr>
+                                    </tr> -->
                                     <?php } ?>
 
-                                    <tr>
+                                    <!-- <tr> -->
 
 
 
-                                        <td align="right" style="width:100%;">
+                                    <td align="right" style="width:100%;">
 
-                                            <button ng-click="Opengetmoneymodal()" class="btn btn-lg btn-primary"
-                                                style="width:100%;font-size:40px;height: 90px;">
-                                                <?=$lang_getmoneyx?>(SpaceBar)
-                                            </button>
+                                        <button ng-click="Opengetmoneymodal()" class="btn btn-lg btn-primary"
+                                            style="width:100%;font-size:40px;height: 90px;">
+                                            <?=$lang_getmoneyx?>(SpaceBar)
+                                        </button>
 
 
 
-                                        </td>
+                                    </td>
                                     </tr>
 
                                 </tbody>
@@ -1871,7 +1875,7 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
 
                                                 <td style="font-weight: bold; text-align: left;" colspan="4">
                                                     <div>
-                                                        {{ Sumsale_price_thb() }}
+                                                        {{ Sumsale_price_thb() |number}}
                                                     </div>
                                                 </td>
 
@@ -2377,17 +2381,19 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                             </td> -->
                                             <!-- quocalculateTotalAmountKIP -->
                                             <td align="right" ng-switch="x.title_name">
-                                                <span ng-switch-when="KIP">{{ calculateTotalAmountKIP(x) }}</span>
-                                                <span ng-switch-when="THB">{{ calculateTotalAmountKIP(x) }}</span>
                                                 <span
-                                                    ng-switch-default>{{ x.product_sale_num * x.product_price * x.rate }}</span>
+                                                    ng-switch-when="KIP">{{ calculateTotalAmountKIP_quotation(x) }}</span>
+                                                <span
+                                                    ng-switch-when="THB">{{ calculateTotalAmountKIP_quotation(x) }}</span>
+                                                <span ng-switch-default>{{ x.convertkip }}</span>
                                             </td>
 
                                             <td align="right" ng-switch="x.title_name">
-                                                <span ng-switch-when="KIP">{{ calculateTotalAmountTHB(x) }}</span>
-                                                <span ng-switch-when="THB">{{ calculateTotalAmountTHB(x) }}</span>
                                                 <span
-                                                    ng-switch-default>{{ x.product_sale_num * x.product_price }}</span>
+                                                    ng-switch-when="KIP">{{ calculateTotalAmountTHB_quotation(x) }}</span>
+                                                <span
+                                                    ng-switch-when="THB">{{ calculateTotalAmountTHB_quotation(x) }}</span>
+                                                <span ng-switch-default>{{ x.convertthb }}</span>
                                             </td>
 
                                             <!-- <td align="right">{{x.product_unit_name}}</td> -->
@@ -2566,7 +2572,7 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td align="right" colspan="7"><?=$lang_sumall?> _derrerererere</td>
+                                            <td align="right" colspan="7"><?=$lang_sumall?></td>
                                             <td style="font-weight: bold;" align="right">
                                                 <u>{{sumsalevat-discount_last2 | number:<?php echo $_SESSION['decimal_print'];?>}}</u>
                                             </td>
@@ -6745,7 +6751,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                             //     .product_code);
 
                             $scope.listsale = data;
-                            console.log('$scope.listsale....', $scope.listsale);
+                            console.log('saveshowcus....', $scope.listsale);
 
                             $scope.Getnumtoprice($scope
                                 .getnumtoprice_product_code
@@ -6941,21 +6947,12 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
         if (x == 'all') {
             xproduct_name = '';
-            // addd new 
-            // $scope.Sumsale_price_kip = 0;
-            // $scope.Totalkip = 0;
-            // $scope.Sumsale_price_thb = 0;
-            // $scope.calculateTotalAmountTHB();
-            // $scope.calculateTotalAmountKIP();
-            // $scope.calculateTotal();
+
 
         } else {
             xproduct_name = x.product_name;
             $scope.Getnumtoprice_3(x.product_code);
 
-            // Call other functions
-            // Recalculate the totals
-            // recalculateTotals();
         }
 
         $http.post("Salepic/delshowcus", {
@@ -6972,14 +6969,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
     };
     // delete  ----------------------
-    // function recalculateTotals() {
-    //     $scope.Sumsale_price_kip();
-    //     $scope.Totalkip();
-    //     $scope.Sumsale_price_thb();
-    //     $scope.calculateTotalAmountTHB();
-    //     $scope.calculateTotalAmountKIP();
-    //     $scope.calculateTotal();
-    // }
+
 
 
     $scope.Selectpot = function(x) {
@@ -7375,21 +7365,6 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
 
     // ---------------------
-    // $scope.Sumsale_price_kip = function(item) {
-    //     var sumkip = 0;
-    //     console.log('$scope.listsale:', $scope.listsale);
-
-    //     angular.forEach($scope.listsale, function(item) {
-    //         sumkip += parseFloat(item.sum_sumsale_price_kip);
-    //     });
-    //     return sumkip;
-
-    // };
-    // ---------------------
-
-
-
-
 
     $scope.digits_count = function(n) {
         var count = 0;
@@ -7402,11 +7377,6 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
         return count;
     }
-
-
-
-
-
 
     $scope.Sumsaleprice = function() {
         var total = 0;
@@ -7622,12 +7592,18 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     //             //toastr.success('<?=$lang_success?>');
 
     //             //Line notify
-    //             <?php if($_SESSION['line_stocknoti']=='1'){ ?>
-    //             $http.post("Salepage/line_stocknoti", {
-    //                 listsale: $scope.listsale
-    //             }).success(function(data) {
+    <?php 
+    
+    // if($_SESSION['line_stocknoti']=='1')
+    
+    
+    { ?>
+    // $http.post("Salepage/line_stocknoti", {
+    //     listsale: $scope.listsale
+    // }).success(function(data) {
+    //     console.log('checking line....', listsale);
 
-    //             });
+    // });
     //             <?php } ?>
     //             //Line notify
     //             $scope.morepaykey = '0';
@@ -7797,12 +7773,16 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 // console.log('console log sumsale_price_kip..', sumsale_price_kip);
 
                 //Line notify
-                <?php if ($_SESSION['line_stocknoti'] == '1') { ?>
-                $http.post("Salepage/line_stocknoti", {
-                    listsale: $scope.listsale
-                }).success(function(data) {
+                <?php 
+                // if ($_SESSION['line_stocknoti'] == '1') 
+                {
+                    
+                    ?>
+                // $http.post("Salepage/line_stocknoti", {
+                //     listsale: $scope.listsale
+                // }).success(function(data) {
 
-                });
+                // });
                 <?php } ?>
                 //Line notify
 
@@ -7874,12 +7854,15 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                 // Handle the error here
                 // loop save sale details ===================================
                 //Line notify
-                <?php if ($_SESSION['line_stocknoti'] == '1') { ?>
-                $http.post("Salepage/line_stocknoti", {
-                    listsale: $scope.listsale
-                }).success(function(data) {
+                <?php 
+                // if ($_SESSION['line_stocknoti'] == '1') 
+                
+                { ?>
+                // $http.post("Salepage/line_stocknoti", {
+                //     listsale: $scope.listsale
+                // }).success(function(data) {
 
-                });
+                // });
                 <?php } ?>
                 //Line notify
 
@@ -8266,7 +8249,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         }).success(function(response) {
 
             $scope.listone = response;
-            // alert($scope.listone);
+            console.log('listone...salebox');
             $scope.cus_name = x.cus_name;
             $scope.cus_address_all = x.cus_address_all;
             $scope.sale_runno = x.sale_runno;
@@ -8671,8 +8654,20 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
             total += parseFloat(sumsale_price_kip);
         });
 
+        if (isNaN(total)) {
+            return 0; // Return zero if the total is NaN
+        }
         return total;
 
+    };
+    // ------ for sumsale_price_thb working --------------------
+    $scope.Sumsale_price_thb = function() {
+        var total = 0;
+        angular.forEach($scope.listone, function(item) {
+            total = parseFloat(item.sum_product_price_thb);
+        });
+        // return total;
+        return isNaN(total) ? 0 : total; // Return 0 if total is NaN
     };
     // ----------------- scope.listone when sale_list_detail was save ------------------------------------------
     $scope.Totalkip = function() {
@@ -8685,14 +8680,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     };
     // ------ for sumsale_price_kip --------------------
 
-    // ------ for sumsale_price_thb working --------------------
-    $scope.Sumsale_price_thb = function() {
-        var total = 0;
-        angular.forEach($scope.listone, function(item) {
-            total = parseFloat(item.sum_product_price_thb);
-        });
-        return total;
-    };
+
     // ------ for calculate amount in thb working --------------------
     $scope.calculateTotalAmountTHB = function(x) {
         var sumthb = 0;
@@ -8761,6 +8749,51 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     };
     // start calculate in sale_list_cus2mer ---------------------------------------------------
 
+
+
+    // for listone quotation -----------------------
+    $scope.calculateTotalAmountKIP_quotation = function() {
+        var calkipquotation = 0;
+        var calthbquotation = 0;
+        angular.forEach($scope.listone, function(x) {
+            if (x.item_name === 'KIP') {
+                calkipquotation = x.convertkip;
+
+                return calkipquotation;
+            } else if (x.item_name === 'THB') {
+                calthbquotation = 0;
+
+                return calthbquotation;
+            } else {
+                return 0;
+
+            }
+
+        });
+
+    };
+    $scope.calculateTotalAmountTHB_quotation = function() {
+        var calkipquotation = 0;
+        var calthbquotation = 0;
+        angular.forEach($scope.listone, function(x) {
+            if (x.item_name === 'KIP') {
+                calkipquotation = 0;
+
+                return calkipquotation;
+            } else if (x.item_name === 'THB') {
+                calthbquotation = x.convertthb;
+
+                return calthbquotation;
+            } else {
+                return 0;
+
+            }
+
+        });
+
+    };
+
+    // for listone quotation -----------------------
 
 
     $scope.Sum_product_weight_bill = function() {
