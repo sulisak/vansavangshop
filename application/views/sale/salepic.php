@@ -705,7 +705,7 @@ else {
 
                                             <!-- <td style="font-weight: bold;">{{Sumsalenum() | number }}</td> -->
                                             <td colspan="5" align="right" style="font-family:Phetsarath OT;">
-                                                ລວມທັງໝົ_tttt:</td>
+                                                ລວມທັງໝົດ_salebox:</td>
                                             <td colspan="3" align="left" style="font-weight: bold;color:blue">
                                                 <!-- {{Totalconvert_to_kip() | number }} -->
                                                 {{Totalconvert_to_kip() | number }}
@@ -1910,9 +1910,9 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
 
                                 </tr>
                                 <tr>
-                                    <div ng-if="Sumsale_price_kip !== undefined || null || 0">
+                                    <div>
                                         <td colspan="12" style="font-weight: bold;  text-align: right;">
-                                            <span>ລວມກິບ:</span>&nbsp;&nbsp;{{ Sumsale_price_kip() | number }}
+                                            <span>ລວມກິບ_A4:</span>&nbsp;&nbsp;{{ Totalkip() | number }}
                                         </td>
                                     </div>
                                 </tr>
@@ -1937,8 +1937,8 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                         <span>
                                             ລວມທັງໝົດ_A4</span>&nbsp;&nbsp;
 
-                                        <!-- {{ Sumsale_price_kip() | number }} -->
-                                        {{ TotalAmount() | number }}
+                                        {{ TotalAmount()| number }}
+
 
                                     </td>
                                 </tr>
@@ -3685,12 +3685,24 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                         </td>
                                                         <td style="font-weight: bold; color: blue;text-align: center;">
                                                             <!-- {{ Sumsale_price_kip() | number }} -->
-                                                            {{ Totalconvert_to_kip() | number }}
+                                                            {{TotalAmount() | number }}
 
 
                                                         </td>
                                                     </tr>
                                                 </div>
+
+
+                                                <!-- <td colspan="14"
+                                                    style="font-weight: bold; color: blue; text-align: right; width: 100%;">
+
+                                                    <span>
+                                                        ລວມທັງໝົດ_A4</span>&nbsp;&nbsp;
+
+                                                    
+                                                    {{ TotalAmount() | number }}
+
+                                                </td> -->
 
                                                 <br />
 
@@ -4824,10 +4836,10 @@ if($_SESSION['user_type']=='4'){
                             <div class="panel panel-default">
                                 <div class="panel-body">
 
-                                    <div style="float: right;">
+                                    <!-- <div style="float: right;">
                                         <input type="checkbox" ng-model="showdeletcbut">
                                         <?=$lang_showdel?>
-                                    </div>
+                                    </div> -->
 
 
                                     <?php
@@ -4903,7 +4915,7 @@ if($_SESSION['user_type']=='4'){
                                                             ?>
 
 
-                                                    <th><?=$lang_discountlast?></th>
+                                                    <!-- <th><?=$lang_discountlast?></th> -->
                                                     <th><?=$lang_sumall?></th>
                                                     <th><?=$lang_getmoney?></th>
                                                     <!-- <th>ເງິນທອນ</th> -->
@@ -4987,7 +4999,7 @@ if($_SESSION['user_type']=='4'){
 
 
 
-                                                    <td align="right">{{x.discount_last | number}}</td>
+                                                    <!-- <td align="right">{{x.discount_last | number}}</td> -->
                                                     <td align="right">
                                                         {{ParsefloatFunc(x.sumsale_price)  * (ParsefloatFunc(x.vat)/100) + ParsefloatFunc(x.sumsale_price) - x.discount_last | number}}
                                                     </td>
@@ -7252,7 +7264,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         var totalconvert_to_kip = 0;
 
         angular.forEach($scope.listsale, function(item) {
-            totalconvert_to_kip = $scope.Sumsalekip() + ($scope.Sumsalethb() * item.rate);
+            totalconvert_to_kip = $scope.Sumsalekip() + ($scope.Sumsalethb() * (item.rate));
         });
 
         return totalconvert_to_kip;
@@ -8682,15 +8694,28 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         var totalamount = 0;
 
         angular.forEach($scope.listone, function(item) {
-            totalamount = $scope.Sumsale_price_kip() + ($scope.Sumsale_price_thb() * item
-                .rate);
+
+            totalamount = item.totalamount;
         });
 
         // return totalamount;
         return isNaN(totalamount) ? 0 : totalamount;
     };
 
+    // test ------------------------------------------------------------
+    $scope.grandtotal = function() {
+        var grandtotal = 0;
 
+        angular.forEach($scope.listone, function(item) {
+
+            grandtotal = item.totalamount;
+        });
+
+        // return totalamount;
+        return isNaN(grandtotal) ? 0 : grandtotal;
+    };
+
+    // test ------------------------------------------------------------
 
 
 

@@ -146,38 +146,6 @@ return $encode_data;
 
 public function Getone($data)
         {
-
-
-//-------------- working just need to add count id and sum qty ------------------------------------------------------------------------------------------------------
-// $query = $this->db->query('SELECT
-// sd.*,
-// FROM_UNIXTIME(sd.adddate, "%d-%m-%Y %H:%i:%s") AS adddate,
-// wl.product_weight * sd.product_sale_num AS product_weight,
-// e.title_name,
-// e.rate,
-// (
-//     SELECT SUM(DISTINCT sd2.product_price * sd2.product_sale_num)
-//     FROM sale_list_detail AS sd2
-//     JOIN wh_product_list AS wh2 ON sd2.product_id = wh2.product_id
-//     JOIN exchangerate AS e2 ON e2.e_id = wh2.e_id
-//     WHERE wh2.e_id = 2 AND sd2.sale_runno = "'.$data['sale_runno'].'" 
-// ) AS sum_product_price_thb,
-// (
-//     SELECT SUM(DISTINCT sd3.product_price_kip * sd3.product_sale_num)
-//     FROM sale_list_detail AS sd3
-//     JOIN wh_product_list AS wh3 ON sd3.product_id = wh3.product_id
-//     JOIN exchangerate AS e3 ON e3.e_id = wh3.e_id
-//     WHERE wh3.e_id = 1 AND sd3.sale_runno ="'.$data['sale_runno'].'" 
-// ) AS totalkip
-// FROM
-// sale_list_detail AS sd
-// LEFT JOIN wh_product_list AS wl ON wl.product_id = sd.product_id
-// LEFT JOIN exchangerate AS e ON e.e_id = wl.e_id
-// WHERE
-// sd.sale_runno ="'.$data['sale_runno'].'"  AND sd.owner_id = wl.owner_id AND wl.owner_id = "'.$_SESSION['owner_id'].'"
-// ORDER BY
-// sd.ID ASC');
-
 // ------------------------- working -------------------------------------------------------------------------------
 // --------- working with add countitems and sum qty ----------------------------------
 $query = $this->db->query('SELECT
@@ -200,6 +168,13 @@ e.rate,
     JOIN exchangerate AS e3 ON e3.e_id = wh3.e_id
     WHERE wh3.e_id = 1 AND sd3.sale_runno ="'.$data['sale_runno'].'"
 ) AS totalkip,
+ (
+    SELECT SUM(DISTINCT sd5.sumsale_price_kip)
+    FROM sale_list_detail AS sd5
+    JOIN wh_product_list AS wh5 ON sd5.product_id = wh5.product_id
+    JOIN exchangerate e5 ON e5.e_id = wh5.e_id
+    WHERE sd5.sale_runno = "'.$data['sale_runno'].'"
+) AS totalamount,
 (
     SELECT SUM(sd4.product_sale_num)
     FROM sale_list_detail AS sd4
