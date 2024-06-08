@@ -6730,7 +6730,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                                 .product_score,
                             product_price: product_price,
                             e_id: data[0].e_id,
-                            // product_price_kip: product_price_kip,
+
                             product_pricebase: data[0]
                                 .product_pricebase,
                             product_stock_num: data[0]
@@ -6751,7 +6751,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                             //     .product_code);
 
                             $scope.listsale = data;
-                            console.log('saveshowcus....', $scope.listsale);
+                            console.log('saveshowcus....');
 
                             $scope.Getnumtoprice($scope
                                 .getnumtoprice_product_code
@@ -7240,17 +7240,17 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
 
         return totalkip;
     };
-    // add new ===========
+    // ------------
     $scope.Totalconvert_to_kip = function() {
-        var totalkip = 0;
+        var totalconvert_to_kip = 0;
 
         angular.forEach($scope.listsale, function(item) {
-            totalkip += parseFloat(item.product_price_kip * item.product_sale_num);
+            totalconvert_to_kip = $scope.Sumsalekip() + ($scope.Sumsalethb() * item.rate);
         });
 
-        return totalkip;
+        return totalconvert_to_kip;
     };
-    //------------------------------------
+    //------this is working  ------------------------------
 
     $scope.Countitems_salelist = function() {
         var countitem = 0;

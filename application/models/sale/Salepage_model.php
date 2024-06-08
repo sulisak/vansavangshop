@@ -1440,36 +1440,6 @@ $percent =	$data['customer_group_discountpercent']/100;
 $querystock = $this->db->query('SELECT IFNULL((SELECT product_stock_num FROM stock 
 WHERE product_id="'.$data['product_id'].'" LIMIT 1),"0") as product_stock_num');
 
-// update ==============================================================================================
-// $querysalelistcus = $this->db->query('SELECT sc.sc_ID, 
-// sc.product_id, 
-// sc.product_name,
-// sc.product_image, 
-// sc.product_unit_name, 
-// sc.product_des,
-// sc.product_code, 
-// sc.product_price,
-// sc.product_price_kip,
-// sc.product_pricebase, 
-// sc.product_stock_num, 
-// sc.product_sale_num, 
-// sc.product_price_discount,
-// sc.product_price_discount_percent, 
-// sc.product_score,
-// sc.adddate,
-// sc.owner_id, 
-// sc.user_id, 
-// sc.store_id, 
-// sc.sn_code, 
-// sc.product_sale_num,
-// e.title_name, 
-// e.rate
-// ,sum(sc.product_sale_num) 
-// as product_sale_num
-// FROM sale_list_cus2mer AS sc
-// LEFT JOIN wh_product_list as wh on wh.product_code=sc.product_code
-// LEFT JOIN exchangerate as e on e.e_id=wh.e_id
-// WHERE sc.product_code="'.$data['product_code'].'"');
 
 // test more update for sumsale_price_kip, sum sale price thb------------------------------
 $querysalelistcus = $this->db->query('SELECT sc.sc_ID, 
@@ -1607,6 +1577,7 @@ if ($cansale == '1') {
     sc.product_code,
     sc.product_price,
     sc.product_price * e.rate as product_price_kip,
+    sum(sc.product_price_kip * sc.product_sale_num) as totalamount,
     sc.product_pricebase,
     sc.product_stock_num,
     sc.product_price_discount,
