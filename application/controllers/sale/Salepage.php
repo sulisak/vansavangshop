@@ -220,15 +220,7 @@ $this->Line_notify($text);
 
 //Line notify stock add new -----------------------
  
- if($stock_less !=''){
-    
-    if($_SESSION['line_stocknoti']=='1'){
-        if($stock_less > 0){ $omgtext = 'ສະຕັອກເຫຼືອນ້ອຍ';}else{$omgtext = 'ສະຕັອກໝົດ';}
-    $text = $_SESSION['owner_name']."\n++".$omgtext."++\n".$data['listsale'][$i-1]['product_name']."\nເຫຼືອ: ".$stock_less."\nເວລາ " .date('H:i',time());
-    $this->Line_notify($text);
-    }
-    
-    }
+
   
 //Line notify stock add new -----------------------
 

@@ -853,8 +853,14 @@ public function Adddetail($data)
 
     // ----------- try add new ------------------------------
 
-    $data['sumsale_price_kip'] = $data['product_price_kip']*$data['product_sale_num']; // Assign the value to 'sumsale_price_kip'
+    // $data['sumsale_price_kip'] = $data['product_price_kip']*$data['product_sale_num']; // Assign the value to 'sumsale_price_kip'
     
+
+    $data['product_price_kip'] = $data['product_price_kip']; // Assigning a sample value of 1000, replace it with the appropriate value
+    $data['product_sale_num']=$data['product_sale_num'];
+$data['sumsale_price_kip'] = $data['product_price_kip'] * $data['product_sale_num'];
+
+
     $data['price_vat'] = $price_vat;
     $data['owner_id'] = $_SESSION['owner_id'];
     $data['user_id'] = $_SESSION['user_id'];
@@ -863,6 +869,7 @@ public function Adddetail($data)
     $data['branch_id'] = $_SESSION['branch_id'];
     unset($data['title_name']); // Remove the 'title_name' column from data
     unset($data['rate']); // Remove the 'title_name' column from data
+    unset($data['e_id']); // Remove the 'e_id' column from data
 
     // Additional query to retrieve data from 'sale_list_detail' table
     $query = $this->db->query('SELECT sd.*, from_unixtime(sd.adddate,"%d-%m-%Y %H:%i:%s") as adddate,
@@ -1577,7 +1584,6 @@ if ($cansale == '1') {
     sc.product_code,
     sc.product_price,
     sc.product_price * e.rate as product_price_kip,
-    sum(sc.product_price_kip * sc.product_sale_num) as totalamount,
     sc.product_pricebase,
     sc.product_stock_num,
     sc.product_price_discount,

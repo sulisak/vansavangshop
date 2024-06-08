@@ -705,7 +705,7 @@ else {
 
                                             <!-- <td style="font-weight: bold;">{{Sumsalenum() | number }}</td> -->
                                             <td colspan="5" align="right" style="font-family:Phetsarath OT;">
-                                                ລວມທັງໝົດ:</td>
+                                                ລວມທັງໝົ_tttt:</td>
                                             <td colspan="3" align="left" style="font-weight: bold;color:blue">
                                                 <!-- {{Totalconvert_to_kip() | number }} -->
                                                 {{Totalconvert_to_kip() | number }}
@@ -1385,7 +1385,7 @@ else {
 
 
                                                         </td>
-                                                        <td width="35%"> <?=$lang_moneychange?>:
+                                                        <td width="35%"> ເງິນທອນ:
                                                             <b>{{money_from_customer - Sumsalepricevat() | number}}
                                                                 <?=$lang_currency?></b>
                                                         </td>
@@ -1417,7 +1417,7 @@ else {
                                     <div class="modal-content">
                                         <div class="modal-header">
 
-                                            <h4 class="modal-title"><?=$lang_moneychange?></h4>
+                                            <h4 class="modal-title">ເງິນທອນ</h4>
                                         </div>
                                         <div class="modal-body text-center">
                                             <h1 style="color: red;font-weight: bold;font-size: 100px;">
@@ -1912,7 +1912,7 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                 <tr>
                                     <div ng-if="Sumsale_price_kip !== undefined || null || 0">
                                         <td colspan="12" style="font-weight: bold;  text-align: right;">
-                                            <span>ລວມກິບ:</span>&nbsp;&nbsp;{{ Totalkip() | number }}
+                                            <span>ລວມກິບ:</span>&nbsp;&nbsp;{{ Sumsale_price_kip() | number }}
                                         </td>
                                     </div>
                                 </tr>
@@ -1935,7 +1935,10 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                         style="font-weight: bold; color: blue; text-align: right; width: 100%;">
 
                                         <span>
-                                            ລວມທັງໝົດ</span>&nbsp;&nbsp;{{ Sumsale_price_kip() | number }}
+                                            ລວມທັງໝົດ_A4</span>&nbsp;&nbsp;
+
+                                        <!-- {{ Sumsale_price_kip() | number }} -->
+                                        {{ TotalAmount() | number }}
 
                                     </td>
                                 </tr>
@@ -2017,7 +2020,7 @@ pregetlistcus()" class="form-control" placeholder="<?php echo $lang_sp_42;?>"
                                     <td align="right" colspan="7">
                                         <span ng-if="pay_type=='4'"><?php echo $lang_sp_62;?></span>
 
-                                        <span ng-if="pay_type!='4'"><?=$lang_moneychange?></span>
+                                        <span ng-if="pay_type!='4'">ເງິນທອນ</span>
 
                                     </td>
 
@@ -3629,6 +3632,7 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
                                                     <td style="font-weight: bold; color: blue">
 
                                                         {{sumsale_price_kip  |number:2}}
+                                                        <!-- {{Totalconvert_to_kip  |number}} -->
 
                                                     </td>
 
@@ -3654,7 +3658,7 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
 
                                                 <div>
-                                                    <tr ng-if="Sumsale_price_thb !== undefined || null || 0"
+                                                    <tr ng-if="Sumsale_price_kip !== undefined || null || 0"
                                                         style="text-align: center;">
                                                         <td style="font-weight: bold;">ລວມທັງໝົດ (KIP)
                                                         </td>
@@ -3676,12 +3680,15 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
                                                 <!-- ------------------------------ -->
                                                 <div>
-                                                    <tr ng-if="Sumsale_price_thb !== undefined || null || 0"
-                                                        style="text-align: center;">
-                                                        <td style="font-weight: bold;">ລວມທັງໝົດ
+                                                    <tr style="text-align: center;">
+                                                        <td style="font-weight: bold;">ລວມທັງໝົດ_in_bill_small
                                                         </td>
                                                         <td style="font-weight: bold; color: blue;text-align: center;">
-                                                            {{ Sumsale_price_kip() | number }}</td>
+                                                            <!-- {{ Sumsale_price_kip() | number }} -->
+                                                            {{ Totalconvert_to_kip() | number }}
+
+
+                                                        </td>
                                                     </tr>
                                                 </div>
 
@@ -4729,7 +4736,7 @@ if($_SESSION['owner_vat_status']!='0'){
 
                                             <tr>
 
-                                                <td style="text-align: left;"><?=$lang_moneychange?></td>
+                                                <td style="text-align: left;">ເງິນທອນ</td>
                                                 <td></td>
                                                 <td align="right">
                                                     {{money_from_customer3 -(sumsalevat-discount_last2) | number}}
@@ -4829,7 +4836,7 @@ if($_SESSION['user_type']=='4'){
 
                                     <div class="panel-body">
 
-                                        <?=$lang_lastsale?>
+                                        ລາຍການຂາຍລ່າສຸດ
                                         <?php
                                              {
                                             ?>
@@ -4899,7 +4906,7 @@ if($_SESSION['user_type']=='4'){
                                                     <th><?=$lang_discountlast?></th>
                                                     <th><?=$lang_sumall?></th>
                                                     <th><?=$lang_getmoney?></th>
-                                                    <th><?=$lang_moneychange?></th>
+                                                    <!-- <th>ເງິນທອນ</th> -->
                                                     <th><?=$lang_payby?></th>
                                                     <th><?php echo $lang_sp_118;?></th>
                                                     <th><?php echo $lang_sp_120;?></th>
@@ -4985,9 +4992,9 @@ if($_SESSION['user_type']=='4'){
                                                         {{ParsefloatFunc(x.sumsale_price)  * (ParsefloatFunc(x.vat)/100) + ParsefloatFunc(x.sumsale_price) - x.discount_last | number}}
                                                     </td>
                                                     <td align="right">{{x.money_from_customer | number}}</td>
-                                                    <td align="right">
+                                                    <!-- <td align="right">
                                                         {{x.money_from_customer - ((ParsefloatFunc(x.sumsale_price)  * (ParsefloatFunc(x.vat)/100) + ParsefloatFunc(x.sumsale_price)) - x.discount_last) | number}}
-                                                    </td>
+                                                    </td> -->
 
                                                     <!-- <td>
 
@@ -8669,6 +8676,24 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         // return total;
         return isNaN(total) ? 0 : total; // Return 0 if total is NaN
     };
+    // --------------------------
+
+    $scope.TotalAmount = function() {
+        var totalamount = 0;
+
+        angular.forEach($scope.listone, function(item) {
+            totalamount = $scope.Sumsale_price_kip() + ($scope.Sumsale_price_thb() * item
+                .rate);
+        });
+
+        // return totalamount;
+        return isNaN(totalamount) ? 0 : totalamount;
+    };
+
+
+
+
+
     // ----------------- scope.listone when sale_list_detail was save ------------------------------------------
     $scope.Totalkip = function() {
         var total = 0;
