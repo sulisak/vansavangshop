@@ -10,6 +10,11 @@ foreach ($Getpermission_rule as $value) {
 
 }
 
+.bordered-table td {
+    border: 0.2px solid black;
+    padding: 5px;
+}
+
 .div td,
 .div tr,
 .div table,
@@ -550,7 +555,7 @@ else {
                             <div id="salebox" style="height: 350px;overflow: auto;">
                                 <div ng-if="listsale==''" style="height:100px;text-align:center;"><br /><br />
                                     ຍັງບໍ່ມີລາຍການ</div>
-                                <table class="table table-hover">
+                                <table class="table table-hover bordered-table">
                                     <thead style="font-family:Phetsarath OT;">
                                         <tr>
                                             <th style="text-align:center;font-family:Phetsarath OT;"><?=$lang_num?></th>
@@ -3628,7 +3633,7 @@ echo ''.$lang_endmoney.' ( '.number_format($_SESSION['shift_money_end_old']).' )
 
                                                     <!-- ---------------------------- -->
 
-
+                                                    <!-- ລວມທຽບກິບ data -->
                                                     <td style="font-weight: bold; color: blue">
 
                                                         {{sumsale_price_kip  |number:2}}
@@ -5010,16 +5015,16 @@ if($_SESSION['user_type']=='4'){
 
                                                     <!-- <td>
 
-                                                            <span ng-if="x.cmp=='1'">
-                                                                <span ng-repeat="y in pay_type_list"
-                                                                    ng-if="x.pay_type==y.pay_type_id">{{y.pay_type_name}}</span>
-                                                            </span>
-                                                            <span ng-if="x.cmp>'1'">
-                                                                <button class="btn btn-info btn-xs"
-                                                                    ng-click="Seemorepay(x)">{{x.cmp}}
-                                                                    <?php echo $lang_sp_122;?></button>
-                                                            </span>
-                                                        </td> -->
+                                                        <span ng-if="x.cmp=='1'">
+                                                            <span ng-repeat="y in pay_type_list"
+                                                                ng-if="x.pay_type==y.pay_type_id">{{y.pay_type_name}}</span>
+                                                        </span>
+                                                        <span ng-if="x.cmp>'1'">
+                                                            <button class="btn btn-info btn-xs"
+                                                                ng-click="Seemorepay(x)">{{x.cmp}}
+                                                                <?php echo $lang_sp_122;?></button>
+                                                        </span>
+                                                    </td> -->
 
 
                                                     <td><b><?php echo $_SESSION['name'];?></b></td>
@@ -6770,7 +6775,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
                             //     .product_code);
 
                             $scope.listsale = data;
-                            console.log('saveshowcus....');
+                            console.log('saveshowcus....', $scope.listsale);
 
                             $scope.Getnumtoprice($scope
                                 .getnumtoprice_product_code
@@ -7152,15 +7157,7 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
         });
         return total;
     };
-    // add new ------------------
-    $scope.Sumsalepricekip = function() {
-        var total = 0;
 
-        angular.forEach($scope.listsale, function(item) {
-            total += parseFloat(item.product_price_kip * item.product_sale_num);
-        });
-        return total;
-    };
     // add new ------------------
 
     //     $scope.Grand_totalkip = function() {
@@ -7262,13 +7259,69 @@ if($_SESSION['owner_vat_status']=='0' || $_SESSION['owner_vat_status']=='1'){
     // ------------
     $scope.Totalconvert_to_kip = function() {
         var totalconvert_to_kip = 0;
-
+        var rate; // Declare the 'rate' variable outside the forEach loop
         angular.forEach($scope.listsale, function(item) {
-            totalconvert_to_kip = $scope.Sumsalekip() + ($scope.Sumsalethb() * (item.rate));
+            rate = item.rate; // Assign the 'rate' value from the current item
+            console.log('item.rate...', rate); // Access the 'rate' value here
+            totalconvert_to_kip = ($scope.Sumsalekip() * 1) + ($scope.Sumsalethb() * (rate));
         });
-
+        console.log('$scope.Sumsalekip...', $scope.Sumsalekip());
+        console.log('$scope.Sumsalethb...', $scope.Sumsalethb());
+        // console.log('item.rate...', rate); // Access the 'rate' value here
+        console.log('calculate total amount...', 'sumkip:', $scope.Sumsalekip(), 'sumthb:', $scope
+            .Sumsalethb(),
+            'rate:', rate); // Access the 'rate' value here
+        console.log('totalconvert_to_kip..', totalconvert_to_kip);
         return totalconvert_to_kip;
     };
+
+
+    // add new ------------------
+    $scope.Sumsalepricekip = function() {
+        var total = 0;
+
+        angular.forEach($scope.listsale, function(item) {
+            total += parseFloat(item.product_price_kip * item.product_sale_num);
+        });
+
+        return total;
+    };
+
+
+
+
+
+    // $scope.Totalconvert_to_kip = function() {
+    //     var totalconvert_to_kip = $scope.Sumsalekip() + $scope.Sumsalethb();
+    //     var rate; // Declare the 'rate' variable outside the forEach loop
+    //     angular.forEach($scope.listsale, function(item) {
+    //         rate = item.rate; // Assign the 'rate' value from the current item
+    //         if (item.title_name === "THB") {
+
+    //             console.log('$scope.Sumsalekip...', $scope.Sumsalekip());
+    //             console.log('$scope.Sumsalethb...', $scope.Sumsalethb());
+    //             console.log('item.rate...', rate); // Access the 'rate' value here
+    //             console.log('totalconvert_to_kip..',
+    //                 totalconvert_to_kip); // Access the 'rate' value here
+    //             totalconvert_to_kip += $scope.Sumsalekip() + $scope.Sumsalethb() * item.rate;
+    //         } else if (item.title_name === "KIP") {
+    //             console.log('$scope.Sumsalekip...', $scope.Sumsalekip());
+    //             console.log('$scope.Sumsalethb...', $scope.Sumsalethb());
+    //             console.log('item.rate...', rate); // Access the 'rate' value here
+    //             console.log('totalconvert_to_kip..',
+    //                 totalconvert_to_kip); // Access the 'rate' value here
+    //             totalconvert_to_kip += $scope.Sumsalekip() * item.rate + $scope.Sumsalethb() * item
+    //                 .rate;
+    //         }
+    //     });
+
+    //     // console.log('$scope.Sumsalekip...', $scope.Sumsalekip());
+    //     // console.log('$scope.Sumsalethb...', $scope.Sumsalethb());
+    //     // console.log('calculate total amount...', 'sumkip:', $scope.Sumsalekip(), 'sumthb:', $scope
+    //     //     .Sumsalethb());
+    //     // console.log('totalconvert_to_kip..', totalconvert_to_kip);
+    //     return totalconvert_to_kip;
+    // };
     //------this is working  ------------------------------
 
     $scope.Countitems_salelist = function() {

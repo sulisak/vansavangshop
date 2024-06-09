@@ -1458,6 +1458,7 @@ sc.product_des,
 sc.product_code, 
 sc.product_price,
 sc.product_price_kip,
+sc.sumsale_price_kip,
 sc.product_pricebase, 
 sc.product_stock_num, 
 sc.product_sale_num, 
@@ -1948,39 +1949,19 @@ return $encode_data2;
 // orgin ------------------------------------------------------------------------------------------------------
 
 // update ------------------------------------------------------------------------------------------
-          public function Delshowcus($data)
+          public function Delshowcus($data){
                   {
 
-                    if ($data['product_name'] == '') {
-                      $this->db->query('INSERT INTO log_delete_order(sc_ID, product_id, product_name, product_image, 
-                      product_unit_name, product_des, product_code, product_price, product_pricebase, product_stock_num, 
-                      product_sale_num, product_price_discount, product_price_discount_percent, product_score, adddate,
-                       owner_id, user_id, store_id, sn_code, delname, deltime, name, shift_id)
-                      SELECT sc.sc_ID, sc.product_id, sc.product_name, sc.product_image, sc.product_unit_name,
-                       sc.product_des, sc.product_code, sc.product_price, sc.product_pricebase, sc.product_stock_num,
-                        sc.product_sale_num, sc.product_price_discount, sc.product_price_discount_percent, sc.product_score, "'.time().'", "'.$_SESSION['name'].'", "'.$_SESSION['user_id'].'", "'.$_SESSION['store_id'].'", sc.sn_code, "'.$_SESSION['name'].'", "'.time().'", "'.$_SESSION['name'].'", "'.$_SESSION['shift_id'].'"
-                      FROM sale_list_cus2mer AS sc
-                      WHERE sc.user_id = "'.$_SESSION['user_id'].'"');
-              
-                      $this->db->query('DELETE FROM sale_list_cus2mer WHERE user_id="'.$_SESSION['user_id'].'"');
-                  } else {
-                      $this->db->query('INSERT INTO log_delete_order(sc_ID, product_id, product_name, product_image,
-                       product_unit_name, product_des, product_code, product_price, product_pricebase, product_stock_num,
-                        product_sale_num, product_price_discount, product_price_discount_percent, product_score, 
-                        adddate, owner_id, user_id, store_id, sn_code, delname, deltime, name, shift_id)
-                      SELECT sc.sc_ID, sc.product_id, sc.product_name, sc.product_image, sc.product_unit_name, 
-                      sc.product_des, sc.product_code, sc.product_price, sc.product_pricebase, sc.product_stock_num, 
-                      sc.product_sale_num, sc.product_price_discount, sc.product_price_discount_percent, sc.product_score, 
-                      "'.time().'", "'.$_SESSION['name'].'", "'.$_SESSION['user_id'].'", "'.$_SESSION['store_id'].'", sc.sn_code,
-                       "'.$_SESSION['name'].'", "'.time().'", "'.$_SESSION['name'].'", "'.$_SESSION['shift_id'].'"
-                      FROM sale_list_cus2mer AS sc
-                      WHERE sc.product_name = "'.$data['product_name'].'" AND sc.user_id = "'.$_SESSION['user_id'].'"');
-              
+                  
                       $this->db->query('DELETE FROM sale_list_cus2mer WHERE product_name="'.$data['product_name'].'" 
                       AND user_id="'.$_SESSION['user_id'].'" and sc_ID="'.$data['sc_ID'].'"');
+
+
                   }
               
-                  $query = $this->db->query('SELECT  sum(sc.product_sale_num) as product_sale_num,
+                  $query = $this->db->query('SELECT  
+                  sum(sc.product_sale_num) as product_sale_num,
+                  sc.sumsale_price_kip as sumsale_price_kip,
                   sc.sc_ID,
                   sc.product_id,
                   sc.product_name,
